@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="#9498A5"
+    android:textColor="@color/white">
+    <EditText
+        android:id="@+id/etAlarmTitle"
+        android:inputType="text"
+        android:hint="Alarm Title"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:background="#9498A5"
+        android:headerBackground="#303141"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:numbersSelectorColor="#303141"/>
+</LinearLayout>

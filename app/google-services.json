@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "5568050068",
+    "project_id": "groupalarm-c2cd6",
+    "storage_bucket": "groupalarm-c2cd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5568050068:android:f800aef838aca86c46d581",
+        "android_client_info": {
+          "package_name": "com.example.groupalarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5568050068-q1rtsbq33719vo0qn0p601fqbuv2d0r3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_4FiC5vRWOzRC6D531UU9CXkFiuazVdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5568050068-q1rtsbq33719vo0qn0p601fqbuv2d0r3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

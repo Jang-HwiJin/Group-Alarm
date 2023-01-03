@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#9498A5">
+
+
+    <TextView
+        android:id="@+id/alarmTime"
+        android:textStyle="bold"
+        android:layout_width="375dp"
+        android:layout_height="136dp"
+        android:text="time"
+        android:layout_marginTop="50dp"
+        android:textAlignment="center"
+        android:textColor="#404258"
+        android:textSize="100sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/alarmTitle"
+        android:layout_width="317dp"
+        android:layout_height="41dp"
+        android:text="title"
+        android:textAlignment="center"
+        android:textColor="#404258"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarmTime" />
+
+    <TextView
+        android:id="@+id/alarmOwner"
+        android:layout_width="232dp"
+        android:layout_height="33dp"
+
+        android:text="owner"
+        android:textAlignment="center"
+        android:textColor="#404258"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarmTitle" />
+
+    <TextView
+        android:id="@+id/alarmUserList"
+        android:layout_width="303dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="4dp"
+        android:textSize="15sp"
+        android:text="list"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="-5dp"
+        android:textColor="#404258"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="308dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="15dp"
+        android:text="The users that have the alarm added:"
+        android:textColor="#404258"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarmOwner" />
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="124dp"
+        android:layout_height="65dp"
+        android:backgroundTint="#50577A"
+        android:text="Go Back"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alarmUserList"
+        app:layout_constraintVertical_bias="0.145" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
