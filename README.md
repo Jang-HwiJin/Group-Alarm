@@ -31,4 +31,3 @@ As college students, we have so many things to do, a lot of which are actually s
 + Group Messaging: Users in the same group can chat and send media/files
 =======
 # Group-Alarm
->>>>>>> origin/main
