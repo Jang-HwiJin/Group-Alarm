@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "5568050068",
-    "project_id": "groupalarm-c2cd6",
-    "storage_bucket": "groupalarm-c2cd6.appspot.com"
+    "project_number": "18196823918",
+    "project_id": "group-alarm-573ec",
+    "storage_bucket": "group-alarm-573ec.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:5568050068:android:f800aef838aca86c46d581",
+        "mobilesdk_app_id": "1:18196823918:android:0fe6e171d7d02c22688b7f",
         "android_client_info": {
           "package_name": "com.example.groupalarm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "5568050068-q1rtsbq33719vo0qn0p601fqbuv2d0r3.apps.googleusercontent.com",
+          "client_id": "18196823918-sss32groph08no2tbk40qp87sq9ecuve.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD_4FiC5vRWOzRC6D531UU9CXkFiuazVdA"
+          "current_key": "AIzaSyDkPJmoVOczSpT6q6fOdV3GXjJRIfsdUj4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "5568050068-q1rtsbq33719vo0qn0p601fqbuv2d0r3.apps.googleusercontent.com",
+              "client_id": "18196823918-sss32groph08no2tbk40qp87sq9ecuve.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

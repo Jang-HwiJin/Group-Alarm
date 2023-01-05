@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:text="user4@gmail.com"
+                android:text="david@gmail.com"
                 android:hint="email" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:text="24032001"
+                android:text="123456"
                 android:hint="Password"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button

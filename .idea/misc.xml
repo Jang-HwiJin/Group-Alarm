@@ -3,6 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.124" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/home_background.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/home_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/profile_background.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/profile_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/selector.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/setting_background.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/setting_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/user_account_background.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/drawable/user_account_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_details.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_profile.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_scrolling.xml" value="0.264" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_setting.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_stop_alarm.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_dialog.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_permission_dialog.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_blank.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_login.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_profile.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_register.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_setting.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/post_row.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/bottom_nav_menu.xml" value="0.253125" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/menu_scrolling.xml" value="0.264" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.2604278564453125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1125" />
         <entry key="app/src/main/res/layout/activity_scrolling.xml" value="0.26458333333333334" />

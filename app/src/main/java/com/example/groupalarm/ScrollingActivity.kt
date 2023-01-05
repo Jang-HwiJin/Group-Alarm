@@ -4,16 +4,13 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.PendingIntent.*
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.groupalarm.adapter.AlarmAdapter
 import com.example.groupalarm.data.Alarm
-import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityScrollingBinding
 import com.example.groupalarm.dialog.AlarmDialog
 import com.example.groupalarm.dialog.AlarmPermissionDialog
@@ -21,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import java.util.*
+
 
 class ScrollingActivity : AppCompatActivity() {
 
@@ -48,6 +46,8 @@ class ScrollingActivity : AppCompatActivity() {
         binding = ActivityScrollingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         adapter = AlarmAdapter(this,
             FirebaseAuth.getInstance().currentUser!!.uid
         )
@@ -65,6 +65,50 @@ class ScrollingActivity : AppCompatActivity() {
         alarmManager = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
 
         getAllAlarms()
+
+        binding.bottomMenuNavigation.setSelectedItemId(R.id.home)
+
+        binding.bottomMenuNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    false
+                }
+                R.id.profile -> {
+                    val intent = Intent(this@ScrollingActivity, ProfileActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.settings -> {
+                    val intent = Intent(this@ScrollingActivity, SettingActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+            }
+//            if (item.equals("profile")) {
+//                println("You hit profile")
+//                println(item.itemId.toString())
+//                val intentDetails = Intent()
+//                intentDetails.setClass(
+//                    this, ProfileActivity::class.java
+//                )
+////                startActivity(intentDetails)
+//                startActivity(Intent(applicationContext, DetailsActivity::class.java))
+//
+////                startActivity(Intent(applicationContext, ProfileActivity::class.java))
+//            }
+//            else if(item.equals("settings")) {
+//                println(item.itemId.toString())
+//
+//                val intentDetails = Intent()
+//                intentDetails.setClass(
+//                    this, SettingActivity::class.java
+//                )
+//                startActivity(intentDetails)
+////                startActivity(Intent(applicationContext, SettingActivity::class.java))
+//            }
+            false
+        }
+
 
     }
 
