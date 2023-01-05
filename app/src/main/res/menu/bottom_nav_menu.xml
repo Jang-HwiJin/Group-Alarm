@@ -12,4 +12,8 @@
         android:id="@+id/settings"
         android:title="Settings"
         android:icon="@drawable/setting_foreground"/>
+    <item
+        android:id="@+id/addFriends"
+        android:title="Friends"
+        android:icon="@drawable/adduser_foreground"/>
 </menu>

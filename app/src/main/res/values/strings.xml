@@ -111,4 +111,5 @@
     <string name="createAlarm">Create an Alarm</string>
     <string name="alarmOwner">By: %1$s</string>
     <string name="inviteForAlarm">Would you like to accept the alarm for alarm %1$s?</string>
+    <string name="action_profile">Profile</string>
 </resources>

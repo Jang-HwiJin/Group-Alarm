@@ -67,7 +67,6 @@ class ScrollingActivity : AppCompatActivity() {
         getAllAlarms()
 
         binding.bottomMenuNavigation.setSelectedItemId(R.id.home)
-
         binding.bottomMenuNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
@@ -83,29 +82,12 @@ class ScrollingActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.addFriends -> {
+                    val intent = Intent(this@ScrollingActivity, AddFriendActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
             }
-//            if (item.equals("profile")) {
-//                println("You hit profile")
-//                println(item.itemId.toString())
-//                val intentDetails = Intent()
-//                intentDetails.setClass(
-//                    this, ProfileActivity::class.java
-//                )
-////                startActivity(intentDetails)
-//                startActivity(Intent(applicationContext, DetailsActivity::class.java))
-//
-////                startActivity(Intent(applicationContext, ProfileActivity::class.java))
-//            }
-//            else if(item.equals("settings")) {
-//                println(item.itemId.toString())
-//
-//                val intentDetails = Intent()
-//                intentDetails.setClass(
-//                    this, SettingActivity::class.java
-//                )
-//                startActivity(intentDetails)
-////                startActivity(Intent(applicationContext, SettingActivity::class.java))
-//            }
             false
         }
 
@@ -228,7 +210,17 @@ class ScrollingActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
 
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings ->{
+                val intent = Intent(this@ScrollingActivity, SettingActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.action_profile -> {
+                val intent = Intent(this@ScrollingActivity, ProfileActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

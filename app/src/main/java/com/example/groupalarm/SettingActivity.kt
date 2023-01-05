@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.groupalarm.databinding.ActivityProfileBinding
 import com.example.groupalarm.databinding.ActivityScrollingBinding
 import com.example.groupalarm.databinding.ActivitySettingBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class SettingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySettingBinding
@@ -20,8 +21,6 @@ class SettingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.bottomMenuNavigation.setSelectedItemId(R.id.settings)
-
-
         binding.bottomMenuNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.settings -> {
@@ -37,8 +36,21 @@ class SettingActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.addFriends -> {
+                    val intent = Intent(this@SettingActivity, AddFriendActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
             }
             false
+        }
+
+        binding.signoutBtn.setOnClickListener{
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this@SettingActivity, MainActivity::class.java)
+            startActivity(intent)
+
+
         }
     }
 }
