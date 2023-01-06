@@ -100,7 +100,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alarmTurnedOff">Alarm turned off</string>
     <string name="alarmDecision">Accept or Decline the Alarm</string>
-    <string name="registrationSuccess">Registration OK</string>
+    <string name="registrationSuccess">Registration was successful</string>
     <string name="fieldCannotBeEmpty">This field can not be empty</string>
     <string name="passwordCannotBeEmpty">The password can not be empty</string>
     <string name="loginSuccess">Login OK</string>
@@ -112,4 +112,7 @@
     <string name="alarmOwner">By: %1$s</string>
     <string name="inviteForAlarm">Would you like to accept the alarm for alarm %1$s?</string>
     <string name="action_profile">Profile</string>
+    <string name="errorNewUsername">This username already exists, please try a new username.</string>
+    <string name="errorUsernameLength">The username must be between 3 and 15 characters.</string>
+    <string name="errorDisplayNameLength">The display name must be between 2 and 15 characters.</string>
 </resources>

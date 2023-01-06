@@ -48,17 +48,45 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         // Displaying the user's profile
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+
+        //Displaying user's email
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
         binding.userEmail.text = userEmail
 
+        // Displaying user's username
         FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-            .document(userEmail).get().
+            .document(userId).get().
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 if (user != null) {
                     binding.username.text = user.username
                 }
             }
+
+        // Displaying user's display Name
+        FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+            .document(userId).get().
+            addOnSuccessListener { documentSnapshot ->
+                val user = documentSnapshot.toObject(User::class.java)
+                if (user != null) {
+                    binding.displayName.text = user.displayName
+                }
+            }
+
+
+        binding.editProfileBtn.setOnClickListener {
+            val intentDetails = Intent()
+            intentDetails.setClass(
+                this, EditProfileActivity::class.java
+            )
+            startActivity(Intent(intentDetails))
+
+            // Send extra data later
+//            intentDetails.putExtra(
+//                "AlarmTitle", alarm.title
+//            )
+        }
 
 
     }

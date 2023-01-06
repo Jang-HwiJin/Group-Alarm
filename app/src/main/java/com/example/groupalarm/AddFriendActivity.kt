@@ -38,6 +38,15 @@ class AddFriendActivity : AppCompatActivity() {
             }
             false
         }
+
+
+        //IDEA
+        /*
+        Implement a recyclerview here for friends list, it'll basically be their username with their picture
+        and on the top right, there'll be a fab where you can add friends and also another button on top with all the friend requests
+
+         */
+
     }
 
 

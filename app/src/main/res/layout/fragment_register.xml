@@ -16,9 +16,22 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
+            android:layout_width="1234dp"
             android:layout_height="150dp"
             app:srcCompat="@drawable/logonoback" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/displayName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text=""
+                android:hint="Name" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -28,9 +41,10 @@
             <EditText android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:text="hungnguyen243"
-                android:hint="User name to be displayed in the application" />
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890._"
+                android:inputType="textFilter"
+                android:text=""
+                android:hint="Username, only accepts alphabet, '.', and '_'" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:text="ngphanhung2403@gmail.com"
+                android:text="david@gmail.com"
                 android:hint="email" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:text="24032001"
+                android:text="123456"
                 android:hint="Password"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
