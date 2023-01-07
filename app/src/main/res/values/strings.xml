@@ -115,4 +115,6 @@
     <string name="errorNewUsername">This username already exists, please try a new username.</string>
     <string name="errorUsernameLength">The username must be between 3 and 15 characters.</string>
     <string name="errorDisplayNameLength">The display name must be between 2 and 15 characters.</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

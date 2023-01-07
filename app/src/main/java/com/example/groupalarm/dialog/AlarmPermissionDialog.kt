@@ -44,7 +44,6 @@ class AlarmPermissionDialog(docChange: String) : DialogFragment() {
                 dialog, which ->
         }
 
-
         return dialogBuilder.create()
     }
 
@@ -54,9 +53,11 @@ class AlarmPermissionDialog(docChange: String) : DialogFragment() {
         val positiveButton = dialog.getButton(Dialog.BUTTON_POSITIVE)
 
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
         positiveButton.setOnClickListener {
             FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-                .document(userEmail).get().
+                .document(userId).get().
                 addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject(User::class.java)
                     editUserList(thisDocChange, user!!, true)
@@ -71,10 +72,8 @@ class AlarmPermissionDialog(docChange: String) : DialogFragment() {
             ScrollingActivity.COLLECTION_ALARMS)
             .document(key)
         if (addingUser) {
-            docToUpdate
-                .update(
-                    "users", FieldValue.arrayUnion(user)
-                )
+            docToUpdate.update(
+                    "users", FieldValue.arrayUnion(user))
         }
         else {
             docToUpdate.update("users", FieldValue.arrayRemove(user))

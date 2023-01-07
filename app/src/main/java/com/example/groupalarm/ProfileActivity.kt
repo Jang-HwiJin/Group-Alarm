@@ -4,6 +4,7 @@ package com.example.groupalarm
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityProfileBinding
@@ -54,23 +55,19 @@ class ProfileActivity : AppCompatActivity() {
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
         binding.userEmail.text = userEmail
 
-        // Displaying user's username
+        // Displaying user's information
         FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
             .document(userId).get().
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 if (user != null) {
                     binding.username.text = user.username
-                }
-            }
-
-        // Displaying user's display Name
-        FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-            .document(userId).get().
-            addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject(User::class.java)
-                if (user != null) {
                     binding.displayName.text = user.displayName
+                    if(user.profileImg != "") {
+                        Glide.with(this).load(user.profileImg).into(
+                            binding.profilePicture
+                        )
+                    }
                 }
             }
 

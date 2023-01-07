@@ -7,10 +7,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.groupalarm.adapter.AlarmAdapter
 import com.example.groupalarm.data.Alarm
+import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityScrollingBinding
 import com.example.groupalarm.dialog.AlarmDialog
 import com.example.groupalarm.dialog.AlarmPermissionDialog
@@ -97,6 +99,8 @@ class ScrollingActivity : AppCompatActivity() {
     private fun getAllAlarms() {
         alarmDb = FirebaseFirestore.getInstance().collection(COLLECTION_ALARMS)
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
         val eventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(querySnapshot: QuerySnapshot?,
                                  e: FirebaseFirestoreException?) {
@@ -109,84 +113,94 @@ class ScrollingActivity : AppCompatActivity() {
                 }
 
                 for (docChange in querySnapshot?.getDocumentChanges()!!) {
+
                     // If new alarm is added
+                    FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+                        .document(userId).get()
+                        .addOnSuccessListener { documentSnapshot ->
+                            val user = documentSnapshot.toObject(User::class.java)
+                            if (user != null) {
+                                if (docChange.type == DocumentChange.Type.ADDED) {
+                                    val alarm = docChange.document.toObject(Alarm::class.java)
+                                    alarmIds[alarm] = docChange.document.id
+                                    alarmTitles[docChange.document.id] = alarm.title
 
-                    if (docChange.type == DocumentChange.Type.ADDED) {
+                                    // Shows a dialog asking if user wants to accept or decline a newly created alarm
+                                    if(user.username != alarm.owner && !alarm.users.map { o -> o.username }.contains(user.username)) {
 
+                                        // Currently only fire off alarms that are set after current system time
+                                        if (Date(alarm.time) >= Calendar.getInstance().time) {
+                                            val alarmPermissionDialog =
+                                                AlarmPermissionDialog(docChange.document.id)
+                                            alarmPermissionDialog.show(
+                                                supportFragmentManager,
+                                                getString(R.string.alarmDecision)
+                                            )
+                                        }
+                                        else {
+                                            adapter.addAlarm(alarm, docChange.document.id)
+                                        }
+                                    }
+                                    // either the current user is the owner, or he/she's already in user list =>
+                                    // just add alarm row and set alarm
+                                    else {
+                                        adapter.addAlarm(alarm, docChange.document.id)
+                                        // set alarm
+                                        if (Date(alarm.time) >= Calendar.getInstance().time) {
+                                            val intent =
+                                                Intent(this@ScrollingActivity, AlarmReceiver::class.java)
 
-                        // Currently only fire off alarms that are set after current system time
-
-                        val alarm = docChange.document.toObject(Alarm::class.java)
-                        alarmIds[alarm] = docChange.document.id
-                        alarmTitles[docChange.document.id] = alarm.title
-                        if(userEmail != alarm.owner && !alarm.users.map { o -> o.email }.contains(userEmail)) {
-                            // Shows a dialog asking if user wants to accept or decline
-                            // a newly created alarm
-                            if (Date(alarm.time) >= Calendar.getInstance().time) {
-                                val alarmPermissionDialog =
-                                    AlarmPermissionDialog(docChange.document.id)
-                                alarmPermissionDialog.show(
-                                    supportFragmentManager,
-                                    getString(R.string.alarmDecision)
-                                )
-                            }
-                            else {
-                                adapter.addAlarm(alarm, docChange.document.id)
+                                            intent.putExtra(ALARM_REQUEST_CODE, docChange.document.id)
+                                            var pendingIntent = PendingIntent.getBroadcast(
+                                                applicationContext,
+                                                alarm.time.toInt(),
+                                                intent,
+                                                FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
+                                            )
+                                            alarmIntents.put(docChange.document.id, pendingIntent)
+                                            alarmManager.setExact(
+                                                AlarmManager.RTC_WAKEUP,
+                                                alarm.time,
+                                                pendingIntent
+                                            )
+                                        }
+                                    }
+                                } else if (docChange.type == DocumentChange.Type.REMOVED) {
+                                    adapter.removePostByKey(docChange.document.id)
+                                    var pendingIntentToBeRemoved = alarmIntents.get(docChange.document.id)
+                                    if (pendingIntentToBeRemoved != null) {
+                                        alarmManager.cancel(pendingIntentToBeRemoved)
+                                    }
+                                } else if (docChange.type == DocumentChange.Type.MODIFIED) {
+                                    val alarm = docChange.document.toObject(Alarm::class.java)
+                                    var pendingIntent = alarmIntents.getOrPut(docChange.document.id) {
+                                        val intent = Intent(this@ScrollingActivity, AlarmReceiver::class.java)
+                                        intent.putExtra(ALARM_REQUEST_CODE, docChange.document.id)
+                                        PendingIntent.getBroadcast(
+                                            applicationContext,
+                                            alarm.time.toInt(),
+                                            intent,
+                                            FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
+                                        )
+                                    }
+                                    if (!adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
+                                        alarmIds[alarm] = docChange.document.id
+                                        adapter.addAlarm(alarm, docChange.document.id)
+                                    }
+                                    if (alarm.users.map{o -> o.email}.contains(userEmail)) {
+                                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.time, pendingIntent);
+                                    }
+                                    else {
+                                        alarmManager.cancel(pendingIntent)
+                                    }
+                                }
                             }
                         }
-                        // either the current user is the owner, or he/she's already in user list =>
-                        // just add alarm row and set alarm
-                        else {
-                            adapter.addAlarm(alarm, docChange.document.id)
-                            // set alarm
-                            if (Date(alarm.time) >= Calendar.getInstance().time) {
-                                val intent =
-                                    Intent(this@ScrollingActivity, AlarmReceiver::class.java)
+                        .addOnFailureListener {
+                            Toast.makeText(this@ScrollingActivity, "Failed to check to see if user is the alarm owner", Toast.LENGTH_LONG).show()
+                        }
 
-                                intent.putExtra(ALARM_REQUEST_CODE, docChange.document.id)
-                                var pendingIntent = PendingIntent.getBroadcast(
-                                    applicationContext,
-                                    alarm.time.toInt(),
-                                    intent,
-                                    FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
-                                )
-                                alarmIntents.put(docChange.document.id, pendingIntent)
-                                alarmManager.setExact(
-                                    AlarmManager.RTC_WAKEUP,
-                                    alarm.time,
-                                    pendingIntent
-                                )
-                            }
-                        }
-                    } else if (docChange.type == DocumentChange.Type.REMOVED) {
-                        adapter.removePostByKey(docChange.document.id)
-                        var pendingIntentToBeRemoved = alarmIntents.get(docChange.document.id)
-                        if (pendingIntentToBeRemoved != null) {
-                            alarmManager.cancel(pendingIntentToBeRemoved)
-                        }
-                    } else if (docChange.type == DocumentChange.Type.MODIFIED) {
-                        val alarm = docChange.document.toObject(Alarm::class.java)
-                        var pendingIntent = alarmIntents.getOrPut(docChange.document.id) {
-                            val intent = Intent(this@ScrollingActivity, AlarmReceiver::class.java)
-                            intent.putExtra(ALARM_REQUEST_CODE, docChange.document.id)
-                            PendingIntent.getBroadcast(
-                                applicationContext,
-                                alarm.time.toInt(),
-                                intent,
-                                FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
-                            )
-                        }
-                        if (!adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
-                            alarmIds[alarm] = docChange.document.id
-                            adapter.addAlarm(alarm, docChange.document.id)
-                        }
-                        if (alarm.users.map{o -> o.email}.contains(userEmail)) {
-                                alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.time, pendingIntent);
-                            }
-                            else {
-                                alarmManager.cancel(pendingIntent)
-                            }
-                    }
+
                 }
             }
         }

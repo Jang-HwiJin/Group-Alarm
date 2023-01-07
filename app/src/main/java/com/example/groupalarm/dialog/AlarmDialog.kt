@@ -65,10 +65,14 @@ class AlarmDialog: DialogFragment() {
             }
 
             val currUserEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+
+            val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
             val alarmCollections = FirebaseFirestore.getInstance().collection(COLLECTION_ALARMS)
-            //get User object by email, then add new Alarm to db
+
+            //get User object by user id, then add new Alarm to db
             FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-            .document(currUserEmail).get().
+            .document(currUserId).get().
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 val newAlarm = Alarm(
@@ -76,7 +80,7 @@ class AlarmDialog: DialogFragment() {
                     time,
                     true,
                     arrayListOf(user!!),
-                    FirebaseAuth.getInstance().currentUser!!.email!!,
+                    user.username,
                 )
                 alarmCollections.add(newAlarm)
             }

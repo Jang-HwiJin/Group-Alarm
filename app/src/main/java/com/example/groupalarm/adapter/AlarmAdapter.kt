@@ -123,56 +123,92 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
     inner class ViewHolder(val binding: PostRowBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(alarm: Alarm) {
             val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
             val currUser =  FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-                .document(userEmail).get()
+                .document(userId).get()
             val alarmManager = context.getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
 
             binding.alarmTitle.text = alarm.title
             binding.alarmTime.text = convertTimeForDisplay(alarm.time)
             binding.alarmOwner.text = context.getString(R.string.alarmOwner, alarm.owner)
+
+            // Only allow alarm owner to delete the alarm
+            FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+                .document(userId).get()
+                .addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject(User::class.java)
+                    if (user != null) {
+                        if (alarm.owner != user.username) {
+                            binding.btnDelete.visibility = INVISIBLE
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Failed to check to see if user is the alarm owner", Toast.LENGTH_LONG).show()
+                }
+
             // Only allow toggling if alarm's time is >= current time
-            if (alarm.owner != userEmail) {
-                binding.btnDelete.visibility = INVISIBLE
-            }
             if (Date(alarm.time) < Calendar.getInstance().time) {
-                binding.btnToggleAlarm.isChecked = false
                 binding.btnToggleAlarm.isEnabled = false
+                binding.btnToggleAlarm.isChecked = false
+                binding.btnToggleAlarm.text = "Alarm has passed"
             }
+            // Else, if the time hasn't passed yet, check to see if the user is in the alarm
             else {
-                binding.btnToggleAlarm.isChecked = alarm.users.map { a -> a.email }
-                    .contains(FirebaseAuth.getInstance().currentUser!!.email!!)
+                FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+                    .document(userId).get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        val user = documentSnapshot.toObject(User::class.java)
+                        if (user != null) {
+                            binding.btnToggleAlarm.isChecked = alarm.users.map { a -> a.username }
+                                .contains(
+                                    user.username
+                                )
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(context, "Failed to check to see if the user is in the alarm", Toast.LENGTH_LONG).show()
+                    }
             }
 
             var alarmUsers = alarm.users.toMutableList()
 
-            binding.btnToggleAlarm.setOnClickListener {
-                val pendingIntent = PendingIntent.getBroadcast(context, alarm.time.toInt(), Intent(context, AlarmReceiver::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-                if (binding.btnToggleAlarm.isChecked) {
-                    // Add myself back to user list
-                    currUser.addOnSuccessListener { documentSnapshot ->
-                            val user = documentSnapshot.toObject(User::class.java)
-                            editUserList(alarmIds.get(alarm)!!, user!!, true)
-                            alarmUsers.add(user)
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(context, "Failed to add myself to user list of this alarm", Toast.LENGTH_LONG).show()
-                        }
 
-                }
-                else {
-                    // remove myself from user list
-                    FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-                        .document(userEmail).get()
-                        .addOnSuccessListener { documentSnapshot ->
-                            val user = documentSnapshot.toObject(User::class.java)
-                            editUserList(alarmIds.get(alarm)!!, user!!, false)
-                            alarmUsers.remove(user)
-                        }
-                        .addOnFailureListener {
-                            Toast.makeText(context, "Failed to remove myself from this alarm", Toast.LENGTH_LONG).show()
-                        }
-                }
-            }
+            // Toggling the alarms on and off for each user
+            // TODO----------------------
+            // Currently this code is for toggling, however, it is removing the user from the array list which removes the entire alarm
+            // which is something I need to fix
+
+
+//            binding.btnToggleAlarm.setOnClickListener {
+//                val pendingIntent = PendingIntent.getBroadcast(context, alarm.time.toInt(), Intent(context, AlarmReceiver::class.java), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+//                if (binding.btnToggleAlarm.isChecked) {
+//                    // Add myself back to user list
+//                    currUser.addOnSuccessListener { documentSnapshot ->
+//                            val user = documentSnapshot.toObject(User::class.java)
+//                            editUserList(alarmIds.get(alarm)!!, user!!, true)
+//                            alarmUsers.add(user)
+//                        }
+//                        .addOnFailureListener {
+//                            Toast.makeText(context, "Failed to add myself to user list of this alarm", Toast.LENGTH_LONG).show()
+//                        }
+//
+//                }
+//                else {
+//                    // remove myself from user list
+//                    FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+//                        .document(userId).get()
+//                        .addOnSuccessListener { documentSnapshot ->
+//                            val user = documentSnapshot.toObject(User::class.java)
+//                            editUserList(alarmIds.get(alarm)!!, user!!, false)
+//                            alarmUsers.remove(user)
+//                        }
+//                        .addOnFailureListener {
+//                            Toast.makeText(context, "Failed to remove myself from this alarm", Toast.LENGTH_LONG).show()
+//                        }
+//                }
+//            }
 
             binding.btnDelete.setOnClickListener {
                removePost(adapterPosition)
