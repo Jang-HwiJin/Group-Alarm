@@ -13,11 +13,16 @@ As college students, we have so many things to do, a lot of which are actually s
 + Toggle on/off an alarm (=register/unregister oneself from the group)
 3. Alarm Page: View more details of a specific alarm (time, name, description, list of users registered for the alarm)
 4. Stop Alarm Page: Stop an alarm when it's firing
+6. Profile Page: View account
+7. Profile Edit Page: Edit profile settings such as username and profile picture
+9. Friends Page: Manage friends and friend requests
+8. Settings Page: Edit settings such as notifications, signing out, and etc
 
 ## Technologies:
 + Frontend: RecyclerView, Fragments, DialogueFragment, ConstraintLayout, LinearLayout
 + Backend:
-	+ Firebase Cloud Storage: persistent data storage & real-time updates
+	+ Firebase Firestore: persistent data storage & real-time updates
+	+ Firebase Cloud Storage: file storage
 	+ Firebase Authentication: authentication & authorization
 	+ Pending Intent, BroadcastReceiver, AlarmManager: alarm scheduling & firing
 
