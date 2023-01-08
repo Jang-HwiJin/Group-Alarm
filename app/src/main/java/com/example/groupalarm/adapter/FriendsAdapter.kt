@@ -9,7 +9,6 @@ import com.example.groupalarm.ScrollingActivity
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.FriendsRowBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
 
 class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
@@ -39,7 +38,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
         holder.bind(friend)
     }
 
-    fun addFriendsToList(friends: User?, key: String) {
+    fun addFriendsToList(friends: User, key: String) {
         if (friends != null) {
             friendsList.add(friends)
         }
@@ -47,7 +46,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
         notifyItemInserted(friendsList.lastIndex)
     }
 
-    fun alreadyHasAlarmDisplayed(key: String): Boolean {
+    fun alreadyHasFriendDisplayed(key: String): Boolean {
         return friendshipIdList.contains(key)
     }
 
@@ -83,18 +82,6 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
             Glide.with(context)
                 .load(friend.profileImg)
                 .into(binding.profilePicture)
-
-//            FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS).
-//            document(friendId).get().addOnSuccessListener { documentSnapshot ->
-//                val friend = documentSnapshot.toObject(User::class.java)
-//                if (friend != null) {
-//                    binding.username.text = friend.username
-//                    binding.displayName.text = friend.displayName
-//                    Glide.with(context)
-//                        .load(friend.profileImg)
-//                        .into(binding.profilePicture)
-//                }
-//                }
 
             }
 

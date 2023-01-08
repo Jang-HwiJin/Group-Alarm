@@ -51,6 +51,9 @@ class FriendsViewActivity : AppCompatActivity() {
                                         adapter.addFriendsToList(friend, document.id)
                                     }
                                     adapter.notifyDataSetChanged()
+                                }.addOnFailureListener {
+                                    Toast.makeText(this,
+                                        "Error while retrieving friend's documents", Toast.LENGTH_SHORT).show()
                                 }
                         }
                     } else {

@@ -20,6 +20,9 @@
         android:theme="@style/Theme.GroupAlarm"
         tools:targetApi="31">
         <activity
+            android:name=".FriendRequestActivity"
+            android:exported="false" />
+        <activity
             android:name=".FriendsViewActivity"
             android:exported="true" />
         <activity

@@ -117,4 +117,6 @@
     <string name="errorDisplayNameLength">The display name must be between 2 and 15 characters.</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="view_profile">View Profile</string>
+    <string name="remove">Remove</string>
 </resources>

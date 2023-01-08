@@ -39,25 +39,33 @@ class FriendActivity : AppCompatActivity() {
             }
 
         // Check for pending friend requests
-        firestore.collection("friends")
-            .whereEqualTo("userId2", currUserId)
-            .whereEqualTo("status", "pending")
-            .get()
-            .addOnSuccessListener { documents ->
-                if (documents.size() > 0) {
-                    // There are pending friend requests
-                    for (document in documents) {
-                        val userId = document["userId1"] as String
-                        // Show an alert dialog asking if they want to accept or decline the request
-                        showAcceptDeclineDialog(document.id, userId)
-                    }
-                }
-            }
+//        firestore.collection("friends")
+//            .whereEqualTo("userId2", currUserId)
+//            .whereEqualTo("status", "pending")
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                if (documents.size() > 0) {
+//                    // There are pending friend requests
+//                    for (document in documents) {
+//                        val userId = document["userId1"] as String
+//                        // Show an alert dialog asking if they want to accept or decline the request
+//                        showAcceptDeclineDialog(document.id, userId)
+//                    }
+//                }
+//            }
 
         binding.btnFriendsView.setOnClickListener {
             val intentDetails = Intent()
             intentDetails.setClass(
                 this@FriendActivity, FriendsViewActivity::class.java
+            )
+            startActivity(Intent(intentDetails))
+        }
+
+        binding.btnFriendsRequest.setOnClickListener {
+            val intentDetails = Intent()
+            intentDetails.setClass(
+                this@FriendActivity, FriendRequestActivity::class.java
             )
             startActivity(Intent(intentDetails))
         }
