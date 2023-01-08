@@ -3,8 +3,6 @@ package com.example.groupalarm
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.groupalarm.databinding.ActivityProfileBinding
-import com.example.groupalarm.databinding.ActivityScrollingBinding
 import com.example.groupalarm.databinding.ActivitySettingBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,8 +34,8 @@ class SettingActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.addFriends -> {
-                    val intent = Intent(this@SettingActivity, AddFriendActivity::class.java)
+                R.id.friends -> {
+                    val intent = Intent(this@SettingActivity, FriendActivity::class.java)
                     startActivity(intent)
                     true
                 }

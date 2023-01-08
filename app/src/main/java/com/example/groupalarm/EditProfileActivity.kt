@@ -5,12 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -19,12 +19,13 @@ import com.example.groupalarm.databinding.ActivityEditProfileBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
 import java.net.URLEncoder
 import java.util.*
+
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -34,6 +35,8 @@ class EditProfileActivity : AppCompatActivity() {
         const val REQUEST_CAMERA_PERMISSION = 1001
     }
 
+    val userId = FirebaseAuth.getInstance().currentUser!!.uid
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +45,6 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
             .document(userId).get().
@@ -189,6 +191,28 @@ class EditProfileActivity : AppCompatActivity() {
             // Create an empty images folder and create the new image file
             val newImagesRef = storageRef.child("images/$newImage")
 
+            // Delete the old image from user profile img url
+            FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+                .document(userId).get().
+                addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject(User::class.java)
+                    if (user != null && user.profileImg != "") {
+                        val userProfileImgUrl = user.profileImg
+                        // Retrieving a reference from url
+                        val storageReference: StorageReference = FirebaseStorage.getInstance().getReferenceFromUrl(userProfileImgUrl)
+                        storageReference.delete().addOnSuccessListener {
+                            //File deleted successfully - used for tests
+//                            Toast.makeText(this,
+//                                "Image was successfully deleted in the backend",
+//                                Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener {
+                            //Failed to delete - used for test
+//                            Toast.makeText(this,
+//                                "You failed in deleting the image in the database",
+//                                Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             newImagesRef.putBytes(imageInBytes)
                 .addOnFailureListener { exception ->
                     Toast.makeText(this@EditProfileActivity, exception.message, Toast.LENGTH_SHORT).show()

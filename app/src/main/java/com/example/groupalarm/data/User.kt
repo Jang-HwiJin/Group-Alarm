@@ -5,5 +5,5 @@ data class User(
     var email: String = "",
     var displayName: String ="",
     var profileImg: String = "",
-    var friends: ArrayList<User> = ArrayList(),
-): java.io.Serializable
+    var isVerified: Boolean = false,
+)

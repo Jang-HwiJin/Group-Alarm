@@ -5,10 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityProfileBinding
-import com.example.groupalarm.databinding.ActivityScrollingBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -39,8 +37,8 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.addFriends -> {
-                    val intent = Intent(this@ProfileActivity, AddFriendActivity::class.java)
+                R.id.friends -> {
+                    val intent = Intent(this@ProfileActivity, FriendActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -61,7 +59,7 @@ class ProfileActivity : AppCompatActivity() {
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 if (user != null) {
-                    binding.username.text = user.username
+                    binding.username.text = user.username.toString()
                     binding.displayName.text = user.displayName
                     if(user.profileImg != "") {
                         Glide.with(this).load(user.profileImg).into(

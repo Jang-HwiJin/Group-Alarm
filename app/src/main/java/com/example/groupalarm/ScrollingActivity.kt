@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.groupalarm.adapter.AlarmAdapter
@@ -84,8 +83,8 @@ class ScrollingActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.addFriends -> {
-                    val intent = Intent(this@ScrollingActivity, AddFriendActivity::class.java)
+                R.id.friends -> {
+                    val intent = Intent(this@ScrollingActivity, FriendActivity::class.java)
                     startActivity(intent)
                     true
                 }

@@ -19,6 +19,10 @@
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_add_friend.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_details.xml" value="0.152" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_edit_profile.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_friend.xml" value="0.4" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_friends.xml" value="0.1" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_friends_view.xml" value="0.17144078666096624" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_friends_view2.xml" value="0.15989739204788372" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_profile.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_scrolling.xml" value="0.20863616930312098" />
@@ -32,6 +36,9 @@
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_profile.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_register.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_setting.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/friend_requests_row.xml" value="0.6" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/friend_search_row.xml" value="0.176" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/friends_row.xml" value="0.536" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/post_row.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/bottom_nav_menu.xml" value="0.253125" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/menu_scrolling.xml" value="0.264" />

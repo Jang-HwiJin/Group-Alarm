@@ -3,8 +3,6 @@ package com.example.groupalarm
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +13,7 @@ import com.example.groupalarm.data.User
 import com.example.groupalarm.data.Username
 import com.example.groupalarm.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import javax.annotation.Nonnull
 
 
 // TODO: Rename parameter arguments, choose names that match
