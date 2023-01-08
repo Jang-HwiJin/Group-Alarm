@@ -3,14 +3,16 @@ package com.example.groupalarm
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.groupalarm.adapter.FriendSearchAdapter
+import com.example.groupalarm.data.Friends
 import com.example.groupalarm.data.User
 import com.example.groupalarm.data.Username
 import com.example.groupalarm.databinding.ActivityFriendBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 
 class FriendActivity : AppCompatActivity() {
     lateinit var binding: ActivityFriendBinding
@@ -38,21 +40,37 @@ class FriendActivity : AppCompatActivity() {
                 }
             }
 
-        // Check for pending friend requests
-//        firestore.collection("friends")
-//            .whereEqualTo("userId2", currUserId)
-//            .whereEqualTo("status", "pending")
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                if (documents.size() > 0) {
-//                    // There are pending friend requests
-//                    for (document in documents) {
-//                        val userId = document["userId1"] as String
-//                        // Show an alert dialog asking if they want to accept or decline the request
-//                        showAcceptDeclineDialog(document.id, userId)
-//                    }
-//                }
-//            }
+        var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+        val friendsRef = firestore.collection("friends")
+        var counter = 0
+        // Find friend documents where current user is the requested, userId2, and status is "pending"
+        val query = friendsRef
+            .whereEqualTo("userId2", currUserId)
+            .whereEqualTo("status", "pending")
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val senderId = document["userId1"] as String
+                firestore.collection("users").document(senderId).get()
+                    .addOnSuccessListener { snapshot ->
+                        val requester = snapshot.toObject(User::class.java)
+                        if (requester != null) {
+                            counter += 1
+                            if (counter > 0) {
+                                binding.fakeButtonForFriendRequestNumber.show()
+                                binding.numPendingRequestsNotif.visibility = View.VISIBLE
+                                binding.numPendingRequestsNotif.text = counter.toString()
+                            }
+                            else {
+                                binding.fakeButtonForFriendRequestNumber.hide()
+                                binding.numPendingRequestsNotif.visibility = View.GONE
+                            }
+                        }
+                    }.addOnFailureListener {
+                    }
+            }
+        }.addOnFailureListener {
+        }
+
 
         binding.btnFriendsView.setOnClickListener {
             val intentDetails = Intent()
@@ -364,6 +382,33 @@ class FriendActivity : AppCompatActivity() {
         return status
     }
 
-
-
+    // Using this to get the number of pending friend requests
+    private fun getPendingFriendRequests() : Int {
+        var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+        val friendsRef = firestore.collection("friends")
+        var counter = 0
+                // Find friend documents where current user is the requested, userId2, and status is "pending"
+                val query = friendsRef
+                    .whereEqualTo("userId2", currUserId)
+                    .whereEqualTo("status", "pending")
+                query.get().addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val senderId = document["userId1"] as String
+                        firestore.collection("users").document(senderId).get()
+                            .addOnSuccessListener { snapshot ->
+                                val requester = snapshot.toObject(User::class.java)
+                                if (requester != null) {
+                                    counter += 1
+                                }
+                            }.addOnFailureListener {
+//                                Toast.makeText(context,
+//                                    "Error while retrieving pending requesters' documents", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                }.addOnFailureListener {
+//                    Toast.makeText(this,
+//                        "Error while retrieving pending invites", Toast.LENGTH_SHORT).show()
+                }
+        return counter
+    }
 }

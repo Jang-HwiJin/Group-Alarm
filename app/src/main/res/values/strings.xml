@@ -119,4 +119,6 @@
     <string name="cancel">Cancel</string>
     <string name="view_profile">View Profile</string>
     <string name="remove">Remove</string>
+    <string name="submit">Submit</string>
+    <string name="search_for_users">Search for users</string>
 </resources>

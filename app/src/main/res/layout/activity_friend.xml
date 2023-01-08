@@ -22,7 +22,7 @@
         android:id="@+id/search_user_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search for users"
+        android:hint="@string/search_for_users"
         android:inputType="text"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -30,10 +30,33 @@
         android:id="@+id/btn_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fakeButtonForFriendRequestNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF597B"
+        android:clickable="false"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/search_user_bar"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHor.80" />
+
+    <TextView
+        android:id="@+id/numPendingRequestsNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:elevation="7dp"
+        android:textSize="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fakeButtonForFriendRequestNumber"
+        app:layout_constraintEnd_toEndOf="@+id/fakeButtonForFriendRequestNumber"
+        app:layout_constraintStart_toStartOf="@+id/fakeButtonForFriendRequestNumber"
+        app:layout_constraintTop_toTopOf="@+id/fakeButtonForFriendRequestNumber" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerFriends"
