@@ -13,10 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FriendRequestAdapter : RecyclerView.Adapter<FriendRequestAdapter.ViewHolder> {
-    lateinit var context: Context
-    lateinit var currentUid: String
-    var requestList = mutableListOf<User>()
-    var requestIdList = mutableListOf<String>()
+
+    var context: Context
+    var currentUid: String
+    private var requestList = mutableListOf<User>()
+    private var requestIdList = mutableListOf<String>()
     
     val firestore = FirebaseFirestore.getInstance()
     

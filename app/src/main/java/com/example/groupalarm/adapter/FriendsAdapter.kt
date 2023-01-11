@@ -1,21 +1,27 @@
 package com.example.groupalarm.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.groupalarm.EditProfileActivity
+import com.example.groupalarm.FriendsViewActivity
+import com.example.groupalarm.ProfileDetailsActivity
 import com.example.groupalarm.ScrollingActivity
 import com.example.groupalarm.data.User
+import com.example.groupalarm.databinding.FriendSearchRowBinding
 import com.example.groupalarm.databinding.FriendsRowBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
-    lateinit var context: Context
-    lateinit var currentUid: String
-    var friendsList = mutableListOf<User>()
-    var friendshipIdList = mutableListOf<String>()
+    var context: Context
+    var currentUid: String
+    private var friendsList = mutableListOf<User>()
+    private var friendshipIdList = mutableListOf<String>()
 
 
     constructor(context: Context, uid: String) : super() {
@@ -50,12 +56,10 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
         return friendshipIdList.contains(key)
     }
 
-    private fun removeFriend(index: Int) {
-        FirebaseFirestore.getInstance().collection(
-            ScrollingActivity.COLLECTION_ALARMS).document(
+    fun removeFriend(index: Int) {
+        FirebaseFirestore.getInstance().collection("friends").document(
             friendshipIdList[index]
         ).delete()
-
         friendsList.removeAt(index)
         friendshipIdList.removeAt(index)
         notifyItemRemoved(index)
@@ -72,9 +76,6 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     }
 
 
-
-
-
     inner class ViewHolder(val binding: FriendsRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(friend: User) {
             binding.username.text = friend.username
@@ -83,9 +84,25 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
                 .load(friend.profileImg)
                 .into(binding.profilePicture)
 
+
+
+            binding.btnViewProfile.setOnClickListener {
+                val intentDetails = Intent()
+                intentDetails.putExtra("Username", friend.username)
+                intentDetails.putExtra("DisplayName", friend.displayName)
+                intentDetails.putExtra("ProfileImgUrl", friend.profileImg)
+
+                intentDetails.setClass(
+                    context, ProfileDetailsActivity::class.java
+                )
+                (context as FriendsViewActivity).startActivity(Intent(intentDetails))
             }
 
+            binding.btnRemoveFriend.setOnClickListener {
 
+            }
+
+            }
     }
 }
 

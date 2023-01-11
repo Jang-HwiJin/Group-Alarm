@@ -25,7 +25,6 @@ class FriendRequestActivity : AppCompatActivity() {
     }
 
     private lateinit var adapter: FriendRequestAdapter
-
     lateinit var friendsDb: CollectionReference
     lateinit var listener: ListenerRegistration
 

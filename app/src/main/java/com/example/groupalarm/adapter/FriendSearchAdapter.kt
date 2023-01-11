@@ -1,41 +1,36 @@
 package com.example.groupalarm.adapter
 
+import android.R.attr.data
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.groupalarm.data.Alarm
-import com.example.groupalarm.data.Friends
+import com.example.groupalarm.RegisterFragment
+import com.example.groupalarm.ScrollingActivity
 import com.example.groupalarm.data.User
+import com.example.groupalarm.data.Username
 import com.example.groupalarm.databinding.FriendSearchRowBinding
-import com.example.groupalarm.databinding.FriendsRowBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+
 class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder> {
-    lateinit var context: Context
-    lateinit var searchuserList: List<User>
+
+    var context: Context
+    var currentUid: String
+    var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+    private var userList = mutableListOf<User>()
+    private var userIdList = mutableListOf<String>()
+    private var usernameList = mutableListOf<String>()
 
     val firestore = FirebaseFirestore.getInstance()
-    val currUserId = FirebaseAuth.getInstance().currentUser!!.uid
 
-    data class SearchResult(
-        val userId: String,
-        val username: String,
-        val displayName: String,
-        val profileImageUrl: String
-    )
-    var  searchResults = mutableListOf<SearchResult>()
-    var  friendsList = mutableListOf<Friends>()
-
-    constructor(context: Context, searchuserList: List<User>) : super() {
+    constructor(context: Context, uid: String) : super() {
         this.context = context
-        this.searchuserList = searchuserList
+        this.currentUid = uid
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendSearchAdapter.ViewHolder {
         val binding = FriendSearchRowBinding
@@ -43,335 +38,202 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FriendSearchAdapter.ViewHolder, position: Int) {
-        var post = searchResults.get(holder.adapterPosition)
-        holder.bind(post)
+    override fun getItemCount(): Int {
+        return userList.size
     }
 
-    override fun getItemCount(): Int {
-        return friendsList.size
+    override fun onBindViewHolder(holder: FriendSearchAdapter.ViewHolder, position: Int) {
+        var user = userList.get(holder.adapterPosition)
+        var userDocId = userIdList.get(holder.adapterPosition)
 
+        holder.bind(user, userDocId)
+    }
+
+    fun addUserToList(users: User, key: String) {
+        if (users != null) {
+            userList.add(users)
+        }
+        userIdList.add(key)
+        notifyItemInserted(userList.lastIndex)
+    }
+
+    fun alreadyHasUserDisplayed(key: String): Boolean {
+        return userIdList.contains(key)
+    }
+
+    fun clearUserList() {
+        val userListSize = getItemCount()
+        userList.clear()
+        userIdList.clear()
+        notifyItemRangeRemoved(0, userListSize);
+    }
+
+    fun removeUser(index: Int) {
+        FirebaseFirestore.getInstance().collection(
+            ScrollingActivity.COLLECTION_ALARMS).document(
+            userIdList[index]
+        ).delete()
+
+        userList.removeAt(index)
+        userIdList.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
+    // when somebody else removes an object
+    fun removeUserByKey(key: String) {
+        val index = userIdList.indexOf(key)
+        if (index != -1) {
+            userList.removeAt(index)
+            userIdList.removeAt(index)
+            notifyItemRemoved(index)
+        }
     }
 
     inner class ViewHolder(val binding: FriendSearchRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(searchResult: SearchResult) {
-            binding.username.text = searchResult.username
-            binding.displayName.text = searchResult.displayName
-            Glide.with(itemView)
-                .load(searchResult.profileImageUrl)
+        fun bind(user: User, userDocId: String) {
+            val userUsername = user.username
+
+            binding.username.text = userUsername
+            binding.displayName.text = user.displayName
+            Glide.with(context)
+                .load(user.profileImg)
                 .into(binding.profilePicture)
+
+
+             //Todo I want it so that once someone are already friends and they search up users,
+            //  the button will be disabled, color is gray, and will say "Already friends" but its not working currently
+//            if(usernameList.contains(userUsername)) {
+//                binding.btnSendFriendRequest.text = "Already friends"
+//                binding.btnSendFriendRequest.isClickable = false
+//            }
+
+//            // Checking to see if user is already friends with this person or not, if so, add it to a friends list
+//            val query = firestore.collection("friends")
+//                .whereEqualTo("userId1", currUserId)
+//                .whereEqualTo("status", "accepted")
+//            query.get().addOnSuccessListener { documents ->
+//                if(documents.size() > 0) {
+//                    for (document in documents) {
+//                        val userId = document["userId2"] as String
+//                        firestore.collection("users").document(userId).get()
+//                            .addOnSuccessListener { userDocument ->
+//                                val user = document.toObject(User::class.java)
+//                                if(user != null) {
+//                                    if (!usernameList.contains(user.username)) {
+//                                        usernameList.add(user.username)
+//                                    }
+//                                }
+//                            }.addOnFailureListener {
+//                            }
+//                    }
+//                }
+//            }.addOnFailureListener {
+//            }
+
+
             binding.btnSendFriendRequest.setOnClickListener {
-                sendFriendRequest(currUserId, searchResult.userId)
+                FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERNAMES).
+                document(user.username).get().
+                addOnSuccessListener { documentSnapshot ->
+                    val user = documentSnapshot.toObject(Username::class.java)
+                    if(user != null) {
+                        val receiverId = user.uid
+                        sendFriendRequest(receiverId)
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(context, "Username could not be found, please check the spelling", Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
     }
 
-    // Send a friend request
-    private fun sendFriendRequest(userId: String, friendId: String) {
-        // Check if a friendship document already exists for these two users
-        FirebaseFirestore.getInstance().collection("friendships")
-            .whereEqualTo("userId1", userId)
-            .whereEqualTo("userId2", friendId)
+    fun sendFriendRequest(userId: String) {
+        val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
+
+        // Check if the current user has already sent a friend request to this user
+        firestore.collection("friends")
+            .whereEqualTo("userId1", currentUserId)
+            .whereEqualTo("userId2", userId)
             .get()
             .addOnSuccessListener { documents ->
                 if (documents.size() > 0) {
-                    // A friendship document already exists
-                    val friendship = documents.first()
-                    val status = friendship["status"] as String
-                    if (status == "pending") {
-                        // There is already a pending friend request
-                        if (friendship["userId1"] == userId) {
-                            // The current user is user1, so accept the request
-                            acceptFriendRequest(friendship.id, friendId)
-                        } else {
-                            // The current user is user2, so accept the request
-                            acceptFriendRequest(friendship.id, userId)
+                    // A friendship document already exists, check the status
+                    for (document in documents) {
+                        val status = document["status"] as String
+                        if (status == "pending") {
+
+                        } else if (status == "accepted"){
+
+                        } else if (status == "declined") {
+                            // The other user declined the friend request, but we are sending it again
+                            // Update the status to "pending"
+                            firestore.collection("friends")
+                                .document(document.id)
+                                .update("status", "pending")
+                                .addOnSuccessListener {
+                                    // Friend request sent
+                                    Toast.makeText(context, "Friend request sent", Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener {
+                                    // Failed to send friend request
+                                    Toast.makeText(context, "Friend request failed to send", Toast.LENGTH_SHORT).show()
+                                }
                         }
-                    } else {
-                        // The users are already friends or the request was declined
-                        Toast.makeText(context, "Friendship already exists", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    // No friendship document exists, so we can add one
-                    val friendship = mapOf(
-                        "userId1" to userId,
-                        "userId2" to friendId,
-                        "status" to "pending"
-                    )
-                    FirebaseFirestore.getInstance().collection("friendships")
-                        .add(friendship)
-                        .addOnSuccessListener {
-                            Toast.makeText(context, "Friend request sent", Toast.LENGTH_SHORT).show()
-                        }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(context, "Error sending friend request: $e", Toast.LENGTH_SHORT).show()
+                    // Check if the other user has already sent a friend request to the current user
+                    firestore.collection("friends")
+                        .whereEqualTo("userId1", userId)
+                        .whereEqualTo("userId2", currentUserId)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            if (documents.size() > 0) {
+                                // A friendship document already exists for the other user, check the status
+                                for (document in documents) {
+                                    val status = document["status"] as String
+                                    if (status == "pending") {
+                                        // The other user has already sent a friend request, update the status to "accepted"
+                                        firestore.collection("friends")
+                                            .document(document.id)
+                                            .update("status", "accepted")
+                                            .addOnSuccessListener {
+                                                // Friend request accepted
+                                                Toast.makeText(context, "Friend request accepted", Toast.LENGTH_SHORT).show()
+                                            }
+                                            .addOnFailureListener {
+                                                // Failed to accept friend request
+                                                Toast.makeText(context, "Friend request failed to accept", Toast.LENGTH_SHORT).show()
+                                            }
+
+                                        // Create a new friendship document for the current user with status "accepted"
+                                        firestore.collection("friends")
+                                            .add(mapOf("userId1" to currentUserId, "userId2" to userId, "status" to "accepted"))
+                                            .addOnSuccessListener {
+                                                // Friend request accepted
+                                            }
+                                            .addOnFailureListener {
+                                                // Failed to create friendship document for the current user
+                                                Toast.makeText(context, "Failed to create current user's friendship document", Toast.LENGTH_SHORT).show()
+                                            }
+                                    } else if (status == "declined") {
+                                    }
+                                }
+                            } else {
+                                // No friendship document exists, create a new friendship document with status "pending"
+                                firestore.collection("friends")
+                                    .add(mapOf("userId1" to currentUserId, "userId2" to userId, "status" to "pending"))
+                                    .addOnSuccessListener {
+                                        // Friend request sent
+                                        Toast.makeText(context, "Friend request sent", Toast.LENGTH_SHORT).show()
+                                    }
+                                    .addOnFailureListener {
+                                        // Failed to send friend request
+                                        Toast.makeText(context, "Friend request failed to send", Toast.LENGTH_SHORT).show()
+                                    }
+                            }
                         }
                 }
             }
-    }
-
-    // Accept a friend request
-    private fun acceptFriendRequest(friendshipId: String, userId: String) {
-        // Update the friendship document with a status of "accepted"
-        FirebaseFirestore.getInstance().collection("friendships")
-            .document(friendshipId)
-            .update("status", "accepted")
-            .addOnSuccessListener {
-                Toast.makeText(context, "Friend request accepted", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(context, "Error accepting friend request: $e", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    // Decline a friend request
-    private fun declineFriendRequest(friendshipId: String) {
-        // Update the friendship document with a status of "declined"
-        FirebaseFirestore.getInstance().collection("friendships")
-            .document(friendshipId)
-            .update("status", "declined")
-            .addOnSuccessListener {
-                Toast.makeText(context, "Friend request declined", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(context, "Error declining friend request: $e", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    // Check if two users are friends
-    fun areFriends(userId1: String, userId2: String): Boolean {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId1)
-            .whereEqualTo("userId2", userId2)
-            .whereEqualTo("status", "accepted")
-        var areFriends = false
-        query.get().addOnSuccessListener { documents ->
-            if (documents.size() > 0) {
-                areFriends = true
-            }
-        }
-        return areFriends
-    }
-
-    private fun showAcceptDeclineDialog(friendshipId: String, userId: String) {
-        val builder = AlertDialog.Builder(context)
-            .setTitle("Friend request pending")
-            .setMessage("Would you like to accept or decline the friend request?")
-            .setPositiveButton("Accept") { _, _ ->
-                // Accept the friend request
-                acceptFriendRequest(friendshipId, userId)
-            }
-            .setNegativeButton("Decline") { _, _ ->
-                // Decline the friend request
-                declineFriendRequest(friendshipId)
-            }
-        builder.show()
-    }
-
-
-
-    // Search for users
-    fun searchUsers(currentUsername: String, username: String, callback: (List<User>) -> Unit) {
-        val usersRef = firestore.collection("usernames")
-        val query = usersRef
-            .whereEqualTo("usernames", username)
-            .whereNotEqualTo("usernames", currentUsername)
-            .limit(10)
-
-        query.get().addOnSuccessListener { documents ->
-            val users = documents.map { doc ->
-                doc.toObject(User::class.java)
-            }
-            callback(users)
-        }
-    }
-
-    // Search for friends
-    fun searchFriends(currentUserId: String, username: String, callback: (List<User>) -> Unit) {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("user1", currentUserId)
-            .whereEqualTo("status", "accepted")
-            .limit(10)
-
-        query.get().addOnSuccessListener { documents ->
-            val friendIds = documents.map { doc ->
-                doc.get("user2") as String
-            }
-
-            val usersRef = firestore.collection("users")
-            val usersQuery = usersRef
-                .whereIn("id", friendIds)
-                .whereEqualTo("username", username)
-
-            usersQuery.get().addOnSuccessListener { documents ->
-                val users = documents.map { doc ->
-                    doc.toObject(User::class.java)
-                }
-                callback(users)
-            }
-        }
-    }
-
-    // Get a list of a user's friends
-    fun getFriends(userId: String): List<String> {
-        val friendsRef = firestore.collection("friends")
-        val query1 = friendsRef
-            .whereEqualTo("userId1", userId)
-            .whereEqualTo("status", "accepted")
-        val query2 = friendsRef
-            .whereEqualTo("userId2", userId)
-            .whereEqualTo("status", "accepted")
-        val friends = mutableListOf<String>()
-        query1.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val friendId = document.get("userId2") as String
-                friends.add(friendId)
-            }
-        }
-        query2.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val friendId = document.get("userId1") as String
-                friends.add(friendId)
-            }
-        }
-        return friends
-    }
-
-    // Get a list of pending friend requests for a user
-    fun getPendingFriendRequests(userId: String): List<String> {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId2", userId)
-            .whereEqualTo("status", "pending")
-        val requests = mutableListOf<String>()
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val senderId = document.get("userId1") as String
-                requests.add(senderId)
-            }
-        }
-        return requests
-    }
-
-    // Cancel a sent friend request
-    fun cancelFriendRequest(senderId: String, receiverId: String) {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", senderId)
-            .whereEqualTo("userId2", receiverId)
-            .whereEqualTo("status", "pending")
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val friendshipId = document.id
-                val friendshipRef = friendsRef.document(friendshipId)
-                friendshipRef.delete()
-            }
-        }
-    }
-
-    // Remove a friend
-    fun removeFriend(userId1: String, userId2: String) {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId1)
-            .whereEqualTo("userId2", userId2)
-            .whereEqualTo("status", "accepted")
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val friendshipId = document.id
-                val friendshipRef = friendsRef.document(friendshipId)
-                friendshipRef.delete()
-            }
-        }
-    }
-
-    // Get a list of users who have sent a friend request to a user
-    fun getFriendRequestsSent(userId: String): List<String> {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId)
-            .whereEqualTo("status", "pending")
-        val requests = mutableListOf<String>()
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val receiverId = document.get("userId2") as String
-                requests.add(receiverId)
-            }
-        }
-        return requests
-    }
-
-    // Get the status of a friend relationship between two users
-    fun getFriendshipStatus(userId1: String, userId2: String): String {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId1)
-            .whereEqualTo("userId2", userId2)
-        var status = "not_friends"
-        query.get().addOnSuccessListener { documents ->
-            if (documents.size() > 0) {
-                val document = documents.first()
-                status = document.get("status") as String
-            }
-        }
-        return status
-    }
-
-    fun getFriendshipId(userId1: String, userId2: String) {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId1)
-            .whereEqualTo("userId2", userId2)
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val friendshipId = document.id
-                // Do something with the friendship ID
-            }
-        }
-    }
-
-    // Get a list of users who have been blocked by a user
-    fun getBlockedUsers(userId: String): List<String> {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId)
-            .whereEqualTo("status", "blocked")
-        val blocked = mutableListOf<String>()
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val blockedId = document.get("userId2") as String
-                blocked.add(blockedId)
-            }
-        }
-        return blocked
-    }
-
-    // Block a user
-    fun blockUser(userId1: String, userId2: String) {
-        val friendsRef = firestore.collection("friends")
-        val friendship = hashMapOf(
-            "userId1" to userId1,
-            "userId2" to userId2,
-            "status" to "blocked"
-        )
-        friendsRef.add(friendship)
-    }
-
-    // Unblock a user
-    fun unblockUser(userId1: String, userId2: String) {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId1)
-            .whereEqualTo("userId2", userId2)
-            .whereEqualTo("status", "blocked")
-        query.get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                val friendshipId = document.id
-                val friendshipRef = friendsRef.document(friendshipId)
-                friendshipRef.delete()
-            }
-        }
     }
 }

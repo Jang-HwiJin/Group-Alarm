@@ -18,22 +18,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/search_user_bar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="@string/search_for_users"-->
+<!--        android:inputType="text"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_user_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/search_for_users"
-        android:inputType="text"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search for a username"
+        app:defaultQueryHint="Search for a username"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <Button
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
+<!--    <Button-->
+<!--        android:id="@+id/btn_search"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/submit"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fakeButtonForFriendRequestNumber"
@@ -61,15 +70,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerFriends"
         android:layout_width="match_parent"
-        android:layout_height="608dp"
+        android:layout_height="558dp"
         android:padding="20dp"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHor.80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_search"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenuNavigation"

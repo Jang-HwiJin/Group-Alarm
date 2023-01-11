@@ -3,10 +3,13 @@ package com.example.groupalarm
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import com.example.groupalarm.adapter.FriendSearchAdapter
+import com.example.groupalarm.adapter.FriendsAdapter
 import com.example.groupalarm.data.Friends
 import com.example.groupalarm.data.User
 import com.example.groupalarm.data.Username
@@ -19,6 +22,7 @@ class FriendActivity : AppCompatActivity() {
 
     val firestore = FirebaseFirestore.getInstance()
 
+    val currUserEmail = FirebaseAuth.getInstance().currentUser!!.email!!
     val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
     var currUsername = ""
 
@@ -33,6 +37,11 @@ class FriendActivity : AppCompatActivity() {
         binding = ActivityFriendBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        adapter = FriendSearchAdapter(this,
+            FirebaseAuth.getInstance().currentUser!!.uid
+        )
+        binding.recyclerFriends.adapter = adapter
+
         FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
             .document(currUserId).get().
             addOnSuccessListener { documentSnapshot ->
@@ -41,6 +50,7 @@ class FriendActivity : AppCompatActivity() {
                     currUsername = user.username
                 }
             }
+
 
         var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
         val friendsRef = firestore.collection("friends")
@@ -157,23 +167,20 @@ class FriendActivity : AppCompatActivity() {
             false
         }
 
+        searchUsernames("")
 
-
-        binding.btnSearch.setOnClickListener {
-//            search(currUsername ,binding.searchUserBar.text.toString())
-//            binding.recyclerFriends.adapter = adapter
-            FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERNAMES).
-            document(binding.searchUserBar.text.toString()).get().
-            addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject(Username::class.java)
-                if(user != null) {
-                    val receiverId = user.uid
-                    sendFriendRequest(receiverId)
-                }
-            }.addOnFailureListener {
-                Toast.makeText(this, "Username could not be found, please check the spelling", Toast.LENGTH_SHORT).show()
+        binding.searchUserBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                adapter.clearUserList()
+                searchUsernames(query)
+                return false
             }
-        }
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.clearUserList()
+                searchUsernames(newText)
+                return false
+            }
+        })
 
 
 
@@ -186,31 +193,32 @@ class FriendActivity : AppCompatActivity() {
 
     }
 
+    private fun searchUsernames(query: String) {
+        val firestore = FirebaseFirestore.getInstance()
+        val query = firestore.collection("users")
+            .orderBy("username")
+            .startAt(query)
+            .endAt(query + "\uf8ff")
+            .limit(11)
 
-    fun searchUsers(currentUsername: String, username: (Any) -> Unit) {
-        val usersRef = firestore.collection("usernames")
-        val query = usersRef
-            .whereEqualTo("usernames", username)
-            .whereNotEqualTo("usernames", currentUsername)
-            .limit(10)
-
-        query.get().addOnSuccessListener { documents ->
-            val users = documents.map { doc ->
-                doc.toObject(User::class.java)
+        query.get()
+            .addOnSuccessListener { documents ->
+            if (documents.size() > 0) {
+                for(document in documents) {
+                    val user = document.toObject(User::class.java)
+                    if (user != null && user.email != currUserEmail) {
+                        adapter.addUserToList(user, document.id)
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Error getting user search lists", Toast.LENGTH_SHORT).show()
             }
-//            callback(users)
         }
     }
 
-    fun search(currentUsername: String, queryUsername: String) {
-        searchUsers(queryUsername) { searchResults ->
-            adapter = FriendSearchAdapter(this, searchResults as List<User>)
-        }
-    }
 
     fun sendFriendRequest(userId: String) {
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
-
         // Check if the current user has already sent a friend request to this user
         firestore.collection("friends")
             .whereEqualTo("userId1", currentUserId)
@@ -268,7 +276,9 @@ class FriendActivity : AppCompatActivity() {
 
                                         // Create a new friendship document for the current user with status "accepted"
                                         firestore.collection("friends")
-                                            .add(mapOf("userId1" to currentUserId, "userId2" to userId, "status" to "accepted"))
+                                            .add(mapOf("userId1" to currentUserId,
+                                                "userId2" to userId,
+                                                "status" to "accepted"))
                                             .addOnSuccessListener {
                                                 // Friend request accepted
                                             }
@@ -282,7 +292,9 @@ class FriendActivity : AppCompatActivity() {
                             } else {
                                 // No friendship document exists, create a new friendship document with status "pending"
                                 firestore.collection("friends")
-                                    .add(mapOf("userId1" to currentUserId, "userId2" to userId, "status" to "pending"))
+                                    .add(mapOf("userId1" to currentUserId,
+                                        "userId2" to userId,
+                                        "status" to "pending"))
                                     .addOnSuccessListener {
                                         // Friend request sent
                                         Toast.makeText(this, "Friend request sent", Toast.LENGTH_SHORT).show()

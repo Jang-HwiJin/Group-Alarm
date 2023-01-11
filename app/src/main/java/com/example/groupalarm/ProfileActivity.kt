@@ -78,6 +78,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(Intent(intentDetails))
 
             // Send extra data later
+            // Idk what this means
 //            intentDetails.putExtra(
 //                "AlarmTitle", alarm.title
 //            )
