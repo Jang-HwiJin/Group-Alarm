@@ -2,6 +2,7 @@ package com.example.groupalarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -108,6 +109,7 @@ class RegisterFragment : Fragment() {
                                 getString(R.string.registrationSuccess),
                                 Toast.LENGTH_LONG
                             ).show()
+                            loginUser()
                         }.addOnFailureListener{
                             Toast.makeText(
                                 requireActivity(),
@@ -123,44 +125,6 @@ class RegisterFragment : Fragment() {
 
 
     private fun isFormValid(): Boolean {
-//        checkUsernameExists(binding.etUsername.text.toString())
-
-
-//        if (binding.etUsername.length() in 3..15) {
-//            val rootRef = FirebaseFirestore.getInstance()
-//            val allUsernamesRef = rootRef.collection(COLLECTION_USERNAMES)
-//            val userNameQuery = allUsernamesRef.whereEqualTo("usernames", binding.etUsername.text.toString())
-//            userNameQuery.get().addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    for (document in task.result) {
-//                        if (document.exists()) {
-////                            binding.etUsername.error = getString(R.string.errorNewUsername)
-//                            Toast.makeText(
-//                                requireActivity(),
-//                                "What upidsjfbi sbdifvd bijdbs8u heivniudfvu s bug ue",
-//                                Toast.LENGTH_LONG,
-//                            ).show()
-//
-////                            val userName = document.getString("username")
-//
-//                            //Do what you need to do with the userName
-//                        } else {
-//                            usernameAvailable = true
-//                        }
-//                    }
-//                } else {
-//                    Toast.makeText(
-//                        requireActivity(),
-//                        "Error getting documents: ",
-//                        Toast.LENGTH_LONG
-//                    ).show()
-//                }
-//            }
-//
-//            val usernamesCollection = FirebaseFirestore.getInstance().collection(COLLECTION_USERNAMES)
-//            usernameAvailable = usernamesCollection.equals(binding.etUsername.text.toString())
-//        }
-
         return when {
             binding.displayName.text.isEmpty() -> {
                 binding.displayName.error = getString(R.string.fieldCannotBeEmpty)
@@ -194,6 +158,23 @@ class RegisterFragment : Fragment() {
                 true
             }
 
+        }
+    }
+
+    private fun loginUser() {
+        if (isFormValid()) {
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            ).addOnSuccessListener {
+                startActivity(Intent(requireActivity(), ScrollingActivity::class.java))
+            }.addOnFailureListener{
+                Toast.makeText(
+                    requireActivity(),
+                    "Error: ${it.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 }

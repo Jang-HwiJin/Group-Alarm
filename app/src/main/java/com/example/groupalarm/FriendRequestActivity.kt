@@ -72,7 +72,7 @@ class FriendRequestActivity : AppCompatActivity() {
                         firestore.collection("users").document(senderId).get()
                             .addOnSuccessListener { snapshot ->
                                 val requester = snapshot.toObject(User::class.java)
-                                if (requester != null) {
+                                if (requester != null && !adapter.alreadyHasRequestDisplayed(document.id)) {
                                     adapter.addRequestsToList(requester, document.id)
                                 }
                                 adapter.notifyDataSetChanged()
@@ -91,26 +91,29 @@ class FriendRequestActivity : AppCompatActivity() {
                     // If new request is added
                     FirebaseFirestore.getInstance().collection("friends").document().get().addOnSuccessListener { documentSnapshot ->
                             val user = documentSnapshot.toObject(Friends::class.java)
-                            if (user != null) {
-                                if (docChange.type == DocumentChange.Type.ADDED) {
-                                    val request = docChange.document.toObject(User::class.java)
-                                    adapter.addRequestsToList(request, docChange.document.id)
-                                    adapter.notifyDataSetChanged()
-                                } else if (docChange.type == DocumentChange.Type.REMOVED) {
-                                    adapter.removeRequestByKey(docChange.document.id)
-                                    adapter.notifyDataSetChanged()
-                                } else if (docChange.type == DocumentChange.Type.MODIFIED) {
-                                    val request = docChange.document.toObject(User::class.java)
-                                    if (adapter.alreadyHasRequestDisplayed(docChange.document.id)) {
+                            if (user != null ) {
+                                if (user.userId2 == currUserId && user.status == "pending") {
+                                    if (docChange.type == DocumentChange.Type.ADDED) {
+                                        val request = docChange.document.toObject(User::class.java)
+//                                        adapter.addRequestsToList(request, docChange.document.id)
+                                        adapter.notifyDataSetChanged()
+                                        /*Todo
+                                           this probably needs to be implemented furthermore once I add a remove friend functionality */
+                                    } else if (docChange.type == DocumentChange.Type.REMOVED) {
                                         adapter.removeRequestByKey(docChange.document.id)
-                                    }
-                                    else {
-                                        adapter.addRequestsToList(request, docChange.document.id)
+                                        adapter.notifyDataSetChanged()
+                                    } else if (docChange.type == DocumentChange.Type.MODIFIED) {
+                                        val request = docChange.document.toObject(User::class.java)
+                                        if (!adapter.alreadyHasRequestDisplayed(docChange.document.id)) {
+//                                        adapter.removeRequestByKey(docChange.document.id)
+//                                            adapter.addRequestsToList(request, docChange.document.id)
 
+                                        }
+                                        adapter.notifyDataSetChanged()
                                     }
-                                    adapter.notifyDataSetChanged()
-
                                 }
+
+
                             }
                             }
                             }
