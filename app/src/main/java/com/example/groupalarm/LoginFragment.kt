@@ -41,9 +41,16 @@ class LoginFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.setSafeOnClickListener {
             loginUser()
         }
+    }
+
+    fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
+        val safeClickListener = SafeClickListener {
+            onSafeClick(it)
+        }
+        setOnClickListener(safeClickListener)
     }
 
     private fun loginUser() {

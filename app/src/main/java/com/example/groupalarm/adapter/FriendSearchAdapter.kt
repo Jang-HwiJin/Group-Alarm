@@ -2,13 +2,13 @@ package com.example.groupalarm.adapter
 
 import android.R.attr.data
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.groupalarm.RegisterFragment
-import com.example.groupalarm.ScrollingActivity
+import com.example.groupalarm.*
 import com.example.groupalarm.data.User
 import com.example.groupalarm.data.Username
 import com.example.groupalarm.databinding.FriendSearchRowBinding
@@ -141,8 +141,20 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
                         sendFriendRequest(receiverId)
                     }
                 }.addOnFailureListener {
-                    Toast.makeText(context, "Username could not be found, please check the spelling", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "User could not be found, please check the spelling", Toast.LENGTH_SHORT).show()
                 }
+            }
+
+            binding.btnViewProfile.setOnClickListener {
+                val intentDetails = Intent()
+                intentDetails.putExtra("Username", user.username)
+                intentDetails.putExtra("DisplayName", user.displayName)
+                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+
+                intentDetails.setClass(
+                    context, ProfileDetailsActivity::class.java
+                )
+                (context as FriendActivity).startActivity(Intent(intentDetails))
             }
 
         }

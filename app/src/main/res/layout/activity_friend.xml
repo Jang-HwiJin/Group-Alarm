@@ -28,11 +28,14 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_user_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="395dp"
+        android:layout_height="49dp"
         android:iconifiedByDefault="false"
         android:queryHint="Search for a username"
         app:defaultQueryHint="Search for a username"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 <!--    <Button-->
@@ -71,6 +74,7 @@
         android:id="@+id/recyclerFriends"
         android:layout_width="match_parent"
         android:layout_height="558dp"
+        android:layout_marginTop="20dp"
         android:padding="20dp"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

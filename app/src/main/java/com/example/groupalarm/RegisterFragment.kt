@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.example.groupalarm.data.Username
 import com.example.groupalarm.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.groupalarm.SafeClickListener
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,34 +57,32 @@ class RegisterFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        binding.btnRegister.setOnClickListener {
+
+        binding.btnRegister.setSafeOnClickListener()  {
             registerUser()
         }
     }
 
+    fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
+        val safeClickListener = SafeClickListener {
+            onSafeClick(it)
+        }
+        setOnClickListener(safeClickListener)
+    }
+
     private fun registerUser() {
         var usernameAlreadyExists = false
-
         val firestore = FirebaseFirestore.getInstance()
         firestore.collection("usernames").document(binding.etUsername.text.toString()).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val document = task.result
                 if (document.exists()) {
-//                    Toast.makeText(
-//                        requireActivity(), "This username already exists.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
                     binding.etUsername.error = getString(R.string.errorNewUsername)
 
                     usernameAlreadyExists = false
                 } else {
                     usernameAlreadyExists = true
 
-                    /*
-                    Need to refactor later, there was an issue with callback where before I got the
-                    value back to see if the username existed in the firebase storage, it returned false or true
-                    automatically, so everything is in his big code here.
-                     */
                     if (isFormValid()) {
                         FirebaseAuth.getInstance().createUserWithEmailAndPassword(
                             binding.etEmail.text.toString(),

@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="92dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:background="#303141"
@@ -27,10 +27,11 @@
             card_view:layout_constraintEnd_toStartOf="@+id/guideline.25"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/profilePicture"
-                android:layout_width="56dp"
-                android:layout_height="54dp"
+                android:layout_width="76dp"
+                android:layout_height="75dp"
                 android:clickable="true"
                 android:src="@drawable/profile_foreground" />
         </androidx.cardview.widget.CardView>
@@ -42,9 +43,9 @@
             android:layout_height="wrap_content"
             android:text="username"
             android:textColor="#FFFFFF"
-            android:textSize="9sp"
+            android:textSize="15sp"
             android:textStyle="bold"
-            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintBottom_toTopOf="@+id/guidelineHor.50"
             card_view:layout_constraintEnd_toStartOf="@+id/guideline.50"
             card_view:layout_constraintStart_toStartOf="@+id/guideline.25"
             card_view:layout_constraintTop_toTopOf="parent" />
@@ -56,7 +57,18 @@
             android:layout_height="wrap_content"
             android:text="displayName"
             android:textColor="#FFFFFF"
-            android:textSize="9sp"
+            android:textSize="10sp"
+            card_view:layout_constraintEnd_toStartOf="@+id/guideline.50"
+            card_view:layout_constraintStart_toStartOf="@+id/guideline.25"
+            card_view:layout_constraintTop_toTopOf="@+id/guidelineHor.50" />
+
+        <Button
+            android:id="@+id/btn_view_profile"
+            android:layout_width="80dp"
+            android:layout_height="63dp"
+            android:backgroundTint="#39B5E0"
+            android:text="View Profile"
+            android:textSize="7sp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/guideline.75"
             card_view:layout_constraintStart_toStartOf="@+id/guideline.50"
@@ -64,8 +76,8 @@
 
         <Button
             android:id="@+id/btn_send_friend_request"
-            android:layout_width="82dp"
-            android:layout_height="35dp"
+            android:layout_width="80dp"
+            android:layout_height="63dp"
             android:backgroundTint="#39B5E0"
             android:text="Request Friend"
             android:textSize="7sp"

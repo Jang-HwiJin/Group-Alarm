@@ -54,9 +54,9 @@
             android:id="@+id/displayName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="displayName"
             android:textColor="#FFFFFF"
-            android:textSize="15sp"
+            android:textSize="10sp"
             card_view:layout_constraintEnd_toStartOf="@+id/guideline.50"
             card_view:layout_constraintStart_toStartOf="@+id/guideline.25"
             card_view:layout_constraintTop_toTopOf="@+id/guidelineHor.50" />

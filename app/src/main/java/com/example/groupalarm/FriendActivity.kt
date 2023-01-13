@@ -211,7 +211,7 @@ class FriendActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                Toast.makeText(this, "Error getting user search lists", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show()
             }
         }
     }
