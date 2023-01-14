@@ -57,6 +57,9 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
     }
 
     fun alreadyHasFriendDisplayed(key: String): Boolean {
+        FirebaseAuth.AuthStateListener {
+
+        }
         return friendshipIdList.contains(key)
     }
 
@@ -77,6 +80,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 //                    Toast.LENGTH_SHORT).show()
 //            }
 //    }
+
 
     fun removeFriend(userId: String) {
 //        // Set the friendship for the current user to "declined"
@@ -146,7 +150,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
     inner class ViewHolder(val binding: FriendsRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(friend: User, friendDocId: String) {
-            binding.username.text = friend.username
+            binding.username.text = "@"+ friend.username
             binding.displayName.text = friend.displayName
             Glide.with(context)
                 .load(friend.profileImg)

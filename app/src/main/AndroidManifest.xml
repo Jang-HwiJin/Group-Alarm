@@ -20,14 +20,26 @@
         android:theme="@style/Theme.GroupAlarm"
         tools:targetApi="31">
         <activity
+            android:name=".DashboardActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GroupAlarm.NoActionBar" />
+        <activity
+            android:name=".CreateAlarmActivity"
+            android:exported="true"
+            android:theme="@style/Theme.GroupAlarm.NoActionBar"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity
             android:name=".ProfileDetailsActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
             android:name=".FriendRequestActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
             android:name=".FriendsViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="true"
@@ -61,7 +73,6 @@
         <activity
             android:name=".ScrollingActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
             android:name=".DetailsActivity"

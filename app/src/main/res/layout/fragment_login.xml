@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_gravity="center"
-    android:background="#9498A5">
+    android:background="@color/black">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

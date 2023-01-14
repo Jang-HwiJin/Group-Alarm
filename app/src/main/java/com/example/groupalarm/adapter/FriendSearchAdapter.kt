@@ -3,12 +3,15 @@ package com.example.groupalarm.adapter
 import android.R.attr.data
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.groupalarm.*
+import com.example.groupalarm.data.Friends
 import com.example.groupalarm.data.User
 import com.example.groupalarm.data.Username
 import com.example.groupalarm.databinding.FriendSearchRowBinding
@@ -23,6 +26,8 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
     var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
     private var userList = mutableListOf<User>()
     private var userIdList = mutableListOf<String>()
+
+    // Thought this would be used to check to see if users that show up are already friends, but might not need it
     private var usernameList = mutableListOf<String>()
 
     val firestore = FirebaseFirestore.getInstance()
@@ -93,42 +98,45 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
         fun bind(user: User, userDocId: String) {
             val userUsername = user.username
 
-            binding.username.text = userUsername
+            binding.username.text = "@"+ userUsername
             binding.displayName.text = user.displayName
             Glide.with(context)
                 .load(user.profileImg)
                 .into(binding.profilePicture)
 
-
-             //Todo I want it so that once someone are already friends and they search up users,
-            //  the button will be disabled, color is gray, and will say "Already friends" but its not working currently
-//            if(usernameList.contains(userUsername)) {
-//                binding.btnSendFriendRequest.text = "Already friends"
-//                binding.btnSendFriendRequest.isClickable = false
-//            }
-
-//            // Checking to see if user is already friends with this person or not, if so, add it to a friends list
-//            val query = firestore.collection("friends")
-//                .whereEqualTo("userId1", currUserId)
-//                .whereEqualTo("status", "accepted")
-//            query.get().addOnSuccessListener { documents ->
-//                if(documents.size() > 0) {
-//                    for (document in documents) {
-//                        val userId = document["userId2"] as String
-//                        firestore.collection("users").document(userId).get()
-//                            .addOnSuccessListener { userDocument ->
-//                                val user = document.toObject(User::class.java)
-//                                if(user != null) {
-//                                    if (!usernameList.contains(user.username)) {
-//                                        usernameList.add(user.username)
-//                                    }
-//                                }
-//                            }.addOnFailureListener {
-//                            }
-//                    }
-//                }
-//            }.addOnFailureListener {
-//            }
+            //TODO works now
+            // But I would like it if it would load faster, I think if a user really tried, they could press send friend request
+            // before the button changes so work on optimizing speed later, but works for now
+            firestore.collection("friends")
+                .whereEqualTo("userId1", currUserId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if(documents.size() > 0) {
+                        for (document in documents) {
+                            val userDoc = document.toObject(Friends::class.java)
+                            val friendId = userDoc.userId2
+                            val status = userDoc.status
+                            if (status == "accepted") {
+                                // Get the friend's user document
+                                firestore.collection("users").document(friendId).get()
+                                    .addOnSuccessListener { snapshot ->
+                                        val friend = snapshot.toObject(User::class.java)
+                                        if (friend != null && user.username == friend.username) {
+                                            binding.btnSendFriendRequest.text = "Already friends"
+                                            binding.btnSendFriendRequest.isClickable = false
+                                            binding.btnSendFriendRequest.setBackgroundColor(Color.DKGRAY)
+                                        }
+                                    }
+                            } else {
+                                binding.btnSendFriendRequest.text = "Request Friend"
+                                binding.btnSendFriendRequest.isClickable = true
+                                binding.btnSendFriendRequest.setBackgroundColor(
+                                    ContextCompat.getColor(context, R.color.color_standard_button)
+                                )
+                            }
+                        }
+                    }
+                }
 
 
             binding.btnSendFriendRequest.setOnClickListener {
@@ -162,7 +170,6 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
 
     fun sendFriendRequest(userId: String) {
         val currentUserId = FirebaseAuth.getInstance().currentUser!!.uid
-
         // Check if the current user has already sent a friend request to this user
         firestore.collection("friends")
             .whereEqualTo("userId1", currentUserId)
@@ -220,7 +227,9 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
 
                                         // Create a new friendship document for the current user with status "accepted"
                                         firestore.collection("friends")
-                                            .add(mapOf("userId1" to currentUserId, "userId2" to userId, "status" to "accepted"))
+                                            .add(mapOf("userId1" to currentUserId,
+                                                "userId2" to userId,
+                                                "status" to "accepted"))
                                             .addOnSuccessListener {
                                                 // Friend request accepted
                                             }
@@ -234,7 +243,9 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
                             } else {
                                 // No friendship document exists, create a new friendship document with status "pending"
                                 firestore.collection("friends")
-                                    .add(mapOf("userId1" to currentUserId, "userId2" to userId, "status" to "pending"))
+                                    .add(mapOf("userId1" to currentUserId,
+                                        "userId2" to userId,
+                                        "status" to "pending"))
                                     .addOnSuccessListener {
                                         // Friend request sent
                                         Toast.makeText(context, "Friend request sent", Toast.LENGTH_SHORT).show()

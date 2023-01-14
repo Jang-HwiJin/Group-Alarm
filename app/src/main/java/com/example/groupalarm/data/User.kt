@@ -6,4 +6,6 @@ data class User(
     var displayName: String ="",
     var profileImg: String = "",
     var isVerified: Boolean = false,
-)
+    var alarms: ArrayList<String> = ArrayList(),
+    var activeAlarms: ArrayList<String> = ArrayList(),
+    )

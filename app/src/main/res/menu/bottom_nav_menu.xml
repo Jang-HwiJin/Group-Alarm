@@ -9,11 +9,12 @@
         android:title="Home"
         android:icon="@drawable/home_foreground"/>
     <item
-        android:id="@+id/settings"
-        android:title="Settings"
-        android:icon="@drawable/setting_foreground"/>
-    <item
         android:id="@+id/friends"
         android:title="Friends"
         android:icon="@drawable/adduser_foreground"/>
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/setting_foreground"/>
+
 </menu>

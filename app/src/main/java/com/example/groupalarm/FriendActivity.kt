@@ -24,7 +24,7 @@ class FriendActivity : AppCompatActivity() {
 
     val currUserEmail = FirebaseAuth.getInstance().currentUser!!.email!!
     val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
-    var currUsername = ""
+//    var currUsername = ""
 
 
     private lateinit var adapter: FriendSearchAdapter
@@ -42,14 +42,14 @@ class FriendActivity : AppCompatActivity() {
         )
         binding.recyclerFriends.adapter = adapter
 
-        FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-            .document(currUserId).get().
-            addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject(User::class.java)
-                if (user != null) {
-                    currUsername = user.username
-                }
-            }
+//        FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
+//            .document(currUserId).get().
+//            addOnSuccessListener { documentSnapshot ->
+//                val user = documentSnapshot.toObject(User::class.java)
+//                if (user != null) {
+//                    currUsername = user.username
+//                }
+//            }
 
 
         var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
@@ -181,16 +181,6 @@ class FriendActivity : AppCompatActivity() {
                 return false
             }
         })
-
-
-
-        //IDEA
-        /*
-        Implement a recyclerview here for friends list, it'll basically be their username with their picture
-        and on the top right, there'll be a fab where you can add friends and also another button on top with all the friend requests
-
-         */
-
     }
 
     private fun searchUsernames(query: String) {
@@ -200,20 +190,19 @@ class FriendActivity : AppCompatActivity() {
             .startAt(query)
             .endAt(query + "\uf8ff")
             .limit(11)
-
         query.get()
             .addOnSuccessListener { documents ->
-            if (documents.size() > 0) {
-                for(document in documents) {
-                    val user = document.toObject(User::class.java)
-                    if (user != null && user.email != currUserEmail) {
-                        adapter.addUserToList(user, document.id)
+                if (documents.size() > 0) {
+                    for(document in documents) {
+                        val user = document.toObject(User::class.java)
+                        if (user != null && user.email != currUserEmail && !adapter.alreadyHasUserDisplayed(document.id)) {
+                            adapter.addUserToList(user, document.id)
+                        }
                     }
+                } else {
+                    Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show()
             }
-        }
     }
 
 

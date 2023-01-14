@@ -5,19 +5,29 @@
     android:layout_height="match_parent"
     android:background="#9498A5"
     android:textColor="@color/white">
+
     <EditText
         android:id="@+id/etAlarmTitle"
+        android:layout_width="346dp"
+        android:layout_height="wrap_content"
+        android:hint="Alarm title"
         android:inputType="text"
-        android:hint="Alarm Title"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_gravity="center"
+        android:textColor="@color/white" />
+
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/time_Picker"
         android:background="#9498A5"
         android:headerBackground="#303141"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:theme="@android:style/Theme.Holo.Dialog.MinWidth"
         android:numbersSelectorColor="#303141"/>
+    <DatePicker
+        android:id="@+id/date_Picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
 </LinearLayout>

@@ -21,7 +21,7 @@ import com.google.firebase.firestore.EventListener
 import java.util.*
 
 
-class ScrollingActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScrollingBinding
 
@@ -79,17 +79,17 @@ class ScrollingActivity : AppCompatActivity() {
                     false
                 }
                 R.id.profile -> {
-                    val intent = Intent(this@ScrollingActivity, ProfileActivity::class.java)
+                    val intent = Intent(this@DashboardActivity, ProfileActivity::class.java)
                     startActivity(intent)
                     true
                 }
                 R.id.settings -> {
-                    val intent = Intent(this@ScrollingActivity, SettingActivity::class.java)
+                    val intent = Intent(this@DashboardActivity, SettingActivity::class.java)
                     startActivity(intent)
                     true
                 }
                 R.id.friends -> {
-                    val intent = Intent(this@ScrollingActivity, FriendActivity::class.java)
+                    val intent = Intent(this@DashboardActivity, FriendActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -230,12 +230,12 @@ class ScrollingActivity : AppCompatActivity() {
 
         return when (item.itemId) {
             R.id.action_settings ->{
-                val intent = Intent(this@ScrollingActivity, SettingActivity::class.java)
+                val intent = Intent(this@DashboardActivity, SettingActivity::class.java)
                 startActivity(intent)
                 true
             }
             R.id.action_profile -> {
-                val intent = Intent(this@ScrollingActivity, ProfileActivity::class.java)
+                val intent = Intent(this@DashboardActivity, ProfileActivity::class.java)
                 startActivity(intent)
                 true
             }

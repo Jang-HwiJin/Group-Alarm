@@ -59,7 +59,7 @@ class ProfileActivity : AppCompatActivity() {
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 if (user != null) {
-                    binding.username.text = user.username.toString()
+                    binding.username.text = "@" + user.username
                     binding.displayName.text = user.displayName
                     if(user.profileImg != "") {
                         Glide.with(this).load(user.profileImg).into(

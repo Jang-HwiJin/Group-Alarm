@@ -80,7 +80,7 @@ class FriendRequestAdapter : RecyclerView.Adapter<FriendRequestAdapter.ViewHolde
         fun bind(requester: User, requestDocId: String) {
             val requesterUsername = requester.username
 
-            binding.username.text = requesterUsername
+            binding.username.text = "@" + requesterUsername
             binding.displayName.text = requester.displayName
             Glide.with(context)
                 .load(requester.profileImg)

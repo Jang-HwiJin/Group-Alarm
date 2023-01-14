@@ -75,12 +75,12 @@
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_send_friend_request"
+            android:id="@+id/btn_send_alarm_invite"
             android:layout_width="80dp"
             android:layout_height="63dp"
             android:backgroundTint="#39B5E0"
-            android:text="Request Friend"
-            android:textSize="9dp"
+            android:text="Send Alarm Invite"
+            android:textSize="10dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="@+id/guideline.75"

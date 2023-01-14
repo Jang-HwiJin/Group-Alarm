@@ -2,14 +2,14 @@ package com.example.groupalarm
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.groupalarm.databinding.FragmentLoginBinding
-import com.example.groupalarm.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,11 +36,23 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(
             inflater, container, false)
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            // User is signed in
+            val i = Intent(context, DashboardActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(i)
+        } else {
+            // User is signed out
+        }
+
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
+
         binding.btnLogin.setSafeOnClickListener {
             loginUser()
         }
@@ -64,7 +76,7 @@ class LoginFragment : Fragment() {
                     getString(R.string.loginSuccess),
                     Toast.LENGTH_LONG
                 ).show()
-                startActivity(Intent(requireActivity(), ScrollingActivity::class.java))
+                startActivity(Intent(requireActivity(), DashboardActivity::class.java))
             }.addOnFailureListener{
                 Toast.makeText(
                     requireActivity(),

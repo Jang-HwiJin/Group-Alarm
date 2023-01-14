@@ -26,7 +26,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
         val userDisplayName = intent.getStringExtra("DisplayName")
         val userProfileImgUrl = intent.getStringExtra("ProfileImgUrl")
 
-        binding.username.text = userUsername
+        binding.username.text = "@" + userUsername
         binding.displayName.text = userDisplayName
         Glide.with(this)
             .load(userProfileImgUrl)

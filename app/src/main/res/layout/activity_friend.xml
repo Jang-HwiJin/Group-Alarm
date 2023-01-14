@@ -83,18 +83,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomMenuNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/teal_700"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHor.80"
@@ -115,6 +103,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Friends"
+        android:backgroundTint="@color/cardview_dark_background"
         app:layout_constraintBottom_toTopOf="@+id/bottomMenuNavigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline.50"
@@ -125,9 +114,25 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Friend Requests"
+        android:backgroundTint="@color/cardview_dark_background"
         app:layout_constraintBottom_toTopOf="@+id/bottomMenuNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline.50"
         app:layout_constraintTop_toTopOf="@+id/guidelineHor.80" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomMenuNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:fitsSystemWindows="true"
+        app:itemBackground="@color/black"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
