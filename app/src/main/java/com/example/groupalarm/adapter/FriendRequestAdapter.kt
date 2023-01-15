@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.groupalarm.ScrollingActivity
+import com.example.groupalarm.DashboardActivity
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.FriendRequestsRowBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -18,9 +18,9 @@ class FriendRequestAdapter : RecyclerView.Adapter<FriendRequestAdapter.ViewHolde
     var currentUid: String
     private var requestList = mutableListOf<User>()
     private var requestIdList = mutableListOf<String>()
-    
+
     val firestore = FirebaseFirestore.getInstance()
-    
+
     constructor(context: Context, uid: String) : super() {
         this.context = context
         this.currentUid = uid
@@ -56,10 +56,11 @@ class FriendRequestAdapter : RecyclerView.Adapter<FriendRequestAdapter.ViewHolde
     }
 
     private fun removeRequest(index: Int) {
-        FirebaseFirestore.getInstance().collection(
-            ScrollingActivity.COLLECTION_ALARMS).document(
-            requestIdList[index]
-        ).delete()
+        // This is used to straight up just destroy a document, and its set for alarm rn
+//        FirebaseFirestore.getInstance().collection(
+//            DashboardActivity.COLLECTION_ALARMS).document(
+//            requestIdList[index]
+//        ).delete()
 
         requestList.removeAt(index)
         requestIdList.removeAt(index)

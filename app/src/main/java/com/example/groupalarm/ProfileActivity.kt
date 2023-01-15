@@ -28,7 +28,7 @@ class ProfileActivity : AppCompatActivity() {
                     false
                 }
                 R.id.home -> {
-                    val intent = Intent(this@ProfileActivity, ScrollingActivity::class.java)
+                    val intent = Intent(this@ProfileActivity, DashboardActivity::class.java)
                     startActivity(intent)
                     true
                 }

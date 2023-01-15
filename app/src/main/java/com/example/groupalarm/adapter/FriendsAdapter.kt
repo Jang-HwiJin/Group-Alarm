@@ -105,6 +105,7 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 //        notifyItemRemoved(index)
     }
 
+    // Used to remove a friend by changing the status of both friend documents to declined
     fun removeFriendByKey(key: String) {
         val index = friendshipIdList.indexOf(key)
 

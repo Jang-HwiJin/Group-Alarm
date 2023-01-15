@@ -10,7 +10,7 @@ import android.os.*
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.groupalarm.ScrollingActivity.Companion.ALARM_REQUEST_CODE
+import com.example.groupalarm.DashboardActivity.Companion.ALARM_REQUEST_CODE
 import com.example.groupalarm.ScrollingActivity.Companion.alarmIntents
 import com.example.groupalarm.databinding.ActivityStopAlarmBinding
 
@@ -52,7 +52,7 @@ class StopAlarmActivity : AppCompatActivity() {
 
         // Bring user back to app
         binding.btnBackToApp.setOnClickListener {
-            startActivity(Intent(this, ScrollingActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
             val alarmRequestCode = intent.getIntExtra(ALARM_REQUEST_CODE, 0)
             val newIntent = Intent(applicationContext, AlarmReceiver::class.java)
             val pendingIntent = PendingIntent.getBroadcast(applicationContext, alarmRequestCode, newIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)

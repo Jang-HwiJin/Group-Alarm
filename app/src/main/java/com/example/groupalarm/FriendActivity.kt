@@ -51,8 +51,6 @@ class FriendActivity : AppCompatActivity() {
 //                }
 //            }
 
-
-        var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
         val friendsRef = firestore.collection("friends")
         friendsDb = FirebaseFirestore.getInstance().collection("friends")
         // Find friend documents where current user is the requested, userId2, and status is "pending" in live time
@@ -154,7 +152,7 @@ class FriendActivity : AppCompatActivity() {
                     true
                 }
                 R.id.home -> {
-                    val intent = Intent(this@FriendActivity, ScrollingActivity::class.java)
+                    val intent = Intent(this@FriendActivity, DashboardActivity::class.java)
                     startActivity(intent)
                     true
                 }
@@ -296,21 +294,6 @@ class FriendActivity : AppCompatActivity() {
                         }
                 }
             }
-    }
-
-    fun getfriendstatus(userId1: String, userId2: String): String {
-        val friendsRef = firestore.collection("friends")
-        val query = friendsRef
-            .whereEqualTo("userId1", userId1)
-            .whereEqualTo("userId2", userId2)
-        var status = "not_friends"
-        query.get().addOnSuccessListener { documents ->
-            if (documents.size() > 0) {
-                val document = documents.first()
-                status = document.get("status") as String
-            }
-        }
-        return status
     }
 
     // Using this to get the number of pending friend requests

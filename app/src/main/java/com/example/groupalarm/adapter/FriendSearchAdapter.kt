@@ -75,7 +75,7 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
 
     fun removeUser(index: Int) {
         FirebaseFirestore.getInstance().collection(
-            ScrollingActivity.COLLECTION_ALARMS).document(
+            DashboardActivity.COLLECTION_ALARMS).document(
             userIdList[index]
         ).delete()
 

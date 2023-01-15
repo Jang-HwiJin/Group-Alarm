@@ -103,14 +103,14 @@ class CreateAlarmActivity : AppCompatActivity() {
 
         binding.monday.setOnClickListener {
             if(mondayToggle) {
-                daysofWeekList.remove("Mon")
+                daysofWeekList.remove("M")
                 binding.monday.setTypeface(null, Typeface.NORMAL)
 //                binding.monday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.monday.setBackgroundResource(android.R.color.transparent)
                 mondayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Mon")
+                daysofWeekList.add("M")
                 binding.monday.setTypeface(null, Typeface.BOLD)
 //                binding.monday.setTextColor(Color.parseColor ("#13005A"))
                 binding.monday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -120,14 +120,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
         binding.tuesday.setOnClickListener {
             if(tuesdayToggle) {
-                daysofWeekList.remove("Tue")
+                daysofWeekList.remove("T")
                 binding.tuesday.setTypeface(null, Typeface.NORMAL)
 //                binding.tuesday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.tuesday.setBackgroundResource(android.R.color.transparent)
                 tuesdayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Tue")
+                daysofWeekList.add("T")
                 binding.tuesday.setTypeface(null, Typeface.BOLD)
 //                binding.tuesday.setTextColor(Color.parseColor ("#13005A"))
                 binding.tuesday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -137,14 +137,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
         binding.wednesday.setOnClickListener {
             if(wednesdayToggle) {
-                daysofWeekList.remove("Wed")
+                daysofWeekList.remove("W")
                 binding.wednesday.setTypeface(null, Typeface.NORMAL)
 //                binding.wednesday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.wednesday.setBackgroundResource(android.R.color.transparent)
                 wednesdayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Wed")
+                daysofWeekList.add("W")
                 binding.wednesday.setTypeface(null, Typeface.BOLD)
 //                binding.wednesday.setTextColor(Color.parseColor ("#13005A"))
                 binding.wednesday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -154,14 +154,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
         binding.thursday.setOnClickListener {
             if(thursdayToggle) {
-                daysofWeekList.remove("Thu")
+                daysofWeekList.remove("Th")
                 binding.thursday.setTypeface(null, Typeface.NORMAL)
 //                binding.thursday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.thursday.setBackgroundResource(android.R.color.transparent)
                 thursdayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Thu")
+                daysofWeekList.add("Th")
                 binding.thursday.setTypeface(null, Typeface.BOLD)
 //                binding.thursday.setTextColor(Color.parseColor ("#13005A"))
                 binding.thursday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -171,14 +171,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
         binding.friday.setOnClickListener {
             if(fridayToggle) {
-                daysofWeekList.remove("Fri")
+                daysofWeekList.remove("F")
                 binding.friday.setTypeface(null, Typeface.NORMAL)
 //                binding.friday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.friday.setBackgroundResource(android.R.color.transparent)
                 fridayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Fri")
+                daysofWeekList.add("F")
                 binding.friday.setTypeface(null, Typeface.BOLD)
 //                binding.friday.setTextColor(Color.parseColor ("#13005A"))
                 binding.friday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -189,14 +189,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
         binding.saturday.setOnClickListener {
             if(saturdayToggle) {
-                daysofWeekList.remove("Sat")
+                daysofWeekList.remove("Sa")
                 binding.saturday.setTypeface(null, Typeface.NORMAL)
 //                binding.saturday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.saturday.setBackgroundResource(android.R.color.transparent)
                 saturdayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Sat")
+                daysofWeekList.add("Sa")
                 binding.saturday.setTypeface(null, Typeface.BOLD)
 //                binding.saturday.setTextColor(Color.parseColor ("#13005A"))
                 binding.saturday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -206,14 +206,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         }
         binding.sunday.setOnClickListener {
             if(sundayToggle) {
-                daysofWeekList.remove("Sun")
+                daysofWeekList.remove("Su")
                 binding.sunday.setTypeface(null, Typeface.NORMAL)
 //                binding.sunday.setTextColor(Color.parseColor ("#FFFFFF"))
                 binding.sunday.setBackgroundResource(android.R.color.transparent)
                 sundayToggle = false
                 updateRepeatedDaysSummary()
             } else {
-                daysofWeekList.add("Sun")
+                daysofWeekList.add("Su")
                 binding.sunday.setTypeface(null, Typeface.BOLD)
 //                binding.sunday.setTextColor(Color.parseColor ("#13005A"))
                 binding.sunday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
@@ -284,15 +284,22 @@ class CreateAlarmActivity : AppCompatActivity() {
             }
 
 
-            // If any of the recurrences are active, then only the recurring days will be added, no the specific date the alarm will be on
-            // This if occurs when the recurring is active
-            if(mondayToggle || tuesdayToggle || wednesdayToggle || thursdayToggle || fridayToggle || saturdayToggle || sundayToggle) {
-                sendAlarmInvitation(alarmTitle, alarmOwner, alarmTime, alarmDate,
-                    alarmInvitedUsers, alarmAcceptedUsers, true, true, summaryDaysofWeekList, "")
+
+            // Make sure that the alarm title is not empty and at least 3 characters long
+            if(binding.etAlarmTitle.text.isNotEmpty() && binding.etAlarmTitle.length() in 3..15) {
+                // If any of the recurrences are active, then only the recurring days will be added, no the specific date the alarm will be on
+                // This if occurs when the recurring is active
+                if(mondayToggle || tuesdayToggle || wednesdayToggle || thursdayToggle || fridayToggle || saturdayToggle || sundayToggle) {
+                    sendAlarmInvitation(alarmTitle, alarmOwner, alarmTime, alarmDate,
+                        alarmInvitedUsers, alarmAcceptedUsers, true, true, summaryDaysofWeekList, "")
+                } else {
+                    sendAlarmInvitation(alarmTitle, alarmOwner, alarmTime, alarmDate,
+                        alarmInvitedUsers, alarmAcceptedUsers, true, false, summaryDaysofWeekList, "")
+                }
             } else {
-                sendAlarmInvitation(alarmTitle, alarmOwner, alarmTime, alarmDate,
-                    alarmInvitedUsers, alarmAcceptedUsers, true, false, summaryDaysofWeekList, "")
+                binding.etAlarmTitle.error = "Enter an alarm title between 3 and 15 characters"
             }
+
 
         }
 
@@ -342,9 +349,19 @@ class CreateAlarmActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun updateRepeatedDaysSummary() {
         if(mondayToggle && tuesdayToggle && wednesdayToggle && thursdayToggle && fridayToggle && saturdayToggle && sundayToggle) {
+            summaryDaysofWeekList.clear()
+            for (i in 0 until daysofWeekList.size) {
+                var day = daysofWeekList.get(i)
+                summaryDaysofWeekList.add(day)
+            }
             binding.repeatDaySummary.text = "Repeat every day"
         }
         else if(mondayToggle && tuesdayToggle && wednesdayToggle && thursdayToggle && fridayToggle && !saturdayToggle && !sundayToggle) {
+            summaryDaysofWeekList.clear()
+            for (i in 0 until daysofWeekList.size) {
+                var day = daysofWeekList.get(i)
+                summaryDaysofWeekList.add(day)
+            }
             binding.repeatDaySummary.text = "Repeat every weekday"
         }
         else if(mondayToggle || tuesdayToggle || wednesdayToggle || thursdayToggle || fridayToggle || saturdayToggle || sundayToggle) {
@@ -421,10 +438,15 @@ class CreateAlarmActivity : AppCompatActivity() {
 
         val alarmId = newAlarmRef.id
         acceptedUsers.add(currUserId)
-        alarmInvitedUsers.add(currUserId)
 
         // New Alarm object to be created and added
-        // TODO for some reason the alarmInvitedUsers isnt being carried on over to the db, only my id for some reason
+        // TODO
+        //  Most recent: Its not working again//
+        //  ---------------------
+        //  Seems to be working for now actually, dont know why but Ill keep this here just in case it goes wrong and
+        //  alarmInvitedUsers doesn't update properly again
+        //  -------------------------------------
+        //  for some reason the alarmInvitedUsers isnt being carried on over to the db, only my id for some reason
         //  Im working around it currently by updating it manually below right after I make the chats document
         val newAlarm = Alarm (
             alarmTitle,
@@ -439,23 +461,32 @@ class CreateAlarmActivity : AppCompatActivity() {
             chatId,
                 )
         newAlarmRef.set(newAlarm)
+        // Todo another todo below this, but we do it again here and one more time belwo for safety,
+        //  I need to find out why this is happening
+        newAlarmRef.update("invitedUsers", alarmInvitedUsers)
+
             .addOnSuccessListener {
                 // Updating the current user's (owner) alarms field
                 val userRef = usersRef.document(currUserId)
-                userRef.update("alarms", FieldValue.arrayUnion(alarmId))
+                userRef.update("acceptedAlarms", FieldValue.arrayUnion(alarmId))
                 userRef.update("activeAlarms", FieldValue.arrayUnion(alarmId))
 
                 //inviting users to the alarm
                 alarmInvitedUsers.forEach {
                     val user = usersRef.document(it)
-                    user.update("alarms",FieldValue.arrayUnion(alarmId))
+                    user.update("invitedAlarms", FieldValue.arrayUnion(newAlarm))
                 }
+
+                // Only adding the current user id (owner) so that only people who accept the alarm
+                // get access to the group chat
+                var initialUser: ArrayList<String> = ArrayList()
+                initialUser.add(currUserId)
 
                 // Creating a new document in the chats collection
                 val newChatRef = chatsRef.document()
                 val chatId = newChatRef.id
                 val chat = Chats(
-                    alarmInvitedUsers,
+                    initialUser,
                     ArrayList(),
                     Timestamp(Calendar.getInstance().getTime()),
                     alarmId,
@@ -465,6 +496,8 @@ class CreateAlarmActivity : AppCompatActivity() {
                 newAlarmRef.update("chatId", chatId)
 
                 //Todo this is where I am talking about above
+                // Seems to be working now actually
+                // Isnt working now for some reason, not sure why
                 newAlarmRef.update("invitedUsers", alarmInvitedUsers)
 
                 finish()

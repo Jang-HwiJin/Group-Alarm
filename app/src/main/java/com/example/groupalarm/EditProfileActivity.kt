@@ -51,7 +51,7 @@ class EditProfileActivity : AppCompatActivity() {
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 if (user != null) {
-                    binding.editNewDisplayName.hint = user.displayName
+                    binding.editNewDisplayName.setText(user.displayName)
                     if(user.profileImg != "") {
                         Glide.with(this).load(user.profileImg).into(
                             binding.profilePicture)
@@ -118,22 +118,22 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
 
-        fun isFormValid(): Boolean {
-            return when {
-                binding.displayName.text.isEmpty() -> {
-                    binding.displayName.error = getString(R.string.fieldCannotBeEmpty)
-                    false
-                }
-                binding.displayName.length() !in 2..15 -> {
-                    binding.displayName.error = getString(R.string.errorDisplayNameLength)
-                    false
-                }
-                else ->{
-                    true
-                }
-
-            }
-        }
+//        fun isFormValid(): Boolean {
+//            return when {
+//                binding.editNewDisplayName.text.isEmpty() -> {
+//                    binding.displayName.error = getString(R.string.fieldCannotBeEmpty)
+//                    false
+//                }
+//                binding.editNewDisplayName.length() !in 2..15 -> {
+//                    binding.displayName.error = getString(R.string.errorDisplayNameLength)
+//                    false
+//                }
+//                else ->{
+//                    true
+//                }
+//
+//            }
+//        }
 
         fun saveProfileChange(imgUrl: String = "") {
             var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
@@ -142,7 +142,7 @@ class EditProfileActivity : AppCompatActivity() {
                 .document(currUserId)
 
             // Checking if new display name and image is proper, then updating in DB
-            if(isFormValid() && imgUrl.isNotEmpty()) {
+            if(imgUrl.isNotEmpty()) {
                 docToUpdate.update(
                     "displayName", binding.editNewDisplayName.text.toString(),
                     "profileImg", imgUrl
@@ -159,7 +159,7 @@ class EditProfileActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT).show()
                     }
             }
-            else if(isFormValid()) {
+            else {
                 docToUpdate.update(
                     "displayName", binding.editNewDisplayName.text.toString()
                 )

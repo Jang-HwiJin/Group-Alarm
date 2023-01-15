@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
-import com.example.groupalarm.ScrollingActivity.Companion.ALARM_REQUEST_CODE
+import com.example.groupalarm.DashboardActivity.Companion.ALARM_REQUEST_CODE
 
 
 class AlarmReceiver: BroadcastReceiver() {

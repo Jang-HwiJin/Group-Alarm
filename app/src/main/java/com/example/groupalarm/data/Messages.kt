@@ -7,6 +7,6 @@ import kotlin.collections.ArrayList
 data class Messages(
     var sender: String = "",
     var text: String = "",
-    var timestamp: Timestamp,
+    var timestamp: Timestamp = Timestamp.now(),
     var type: String = ""
 )
