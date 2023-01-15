@@ -15,6 +15,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AlarmInviteAdapter : RecyclerView.Adapter<AlarmInviteAdapter.ViewHolder> {
 
@@ -87,13 +90,34 @@ class AlarmInviteAdapter : RecyclerView.Adapter<AlarmInviteAdapter.ViewHolder> {
                 .get().addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject(User::class.java)
                     if(user != null) {
-                        binding.alarmOwner.text = user.username
+                        binding.alarmOwner.text = "Owner: " + user.username
                     }
                 }
             val alarmTime = alarm.time
             val alarmTitle = alarm.title
             binding.alarmTitle.text = alarmTitle
-            binding.alarmTime.text = alarmTime.toString()
+            binding.alarmTime.text = convertTimeForDisplay(alarmTime.toDate())
+
+            if(alarm.isRecurring) {
+                if(alarm.recurringDays.size == 7) {
+                    binding.alarmDays.text = "Repeat everyday"
+                }
+                else if(alarm.recurringDays.size == 5 && !alarm.recurringDays.contains("Su") && !alarm.recurringDays.contains("Sa")) {
+                    binding.alarmDays.text = "Repeat every weekday"
+                }
+                else {
+                    var recurringDays = mutableListOf<String>()
+                    for (i in 0 until alarm.recurringDays.size) {
+                        var days = alarm.recurringDays.get(i)
+                        recurringDays.add(days)
+                    }
+                    binding.alarmDays.text = "Repeat every " + recurringDays.toString().replace("[","").replace("]","")
+                }
+            }
+            // If the alarm is for single day, display the date
+            else {
+                binding.alarmDays.text = convertDateForDisplay(alarmTime.toDate())
+            }
 
 
             binding.btnAccept.setOnClickListener {
@@ -159,6 +183,16 @@ class AlarmInviteAdapter : RecyclerView.Adapter<AlarmInviteAdapter.ViewHolder> {
                     "Failed to decline alarm", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun convertTimeForDisplay(time: Date): String {
+        val format = SimpleDateFormat("hh:mm a")
+        return format.format(time)
+    }
+
+    private fun convertDateForDisplay(time: Date): String {
+        val format = SimpleDateFormat("EEE, MMM d")
+        return format.format(time)
     }
 
 

@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="alarm owner"
             android:textColor="#FFFFFF"
-            android:textSize="9sp"
+            android:textSize="13dp"
             card_view:layout_constraintStart_toStartOf="@+id/alarm_time"
             card_view:layout_constraintTop_toBottomOf="@+id/alarm_time" />
 
@@ -61,7 +61,7 @@
             android:layout_marginEnd="3dp"
             android:text="Alarm Recurrence/days"
             android:textColor="#FFFFFF"
-            android:textSize="9sp"
+            android:textSize="10dp"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/toggleAlarm"

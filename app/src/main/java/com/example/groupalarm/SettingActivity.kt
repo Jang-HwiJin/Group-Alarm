@@ -47,8 +47,7 @@ class SettingActivity : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this@SettingActivity, MainActivity::class.java)
             startActivity(intent)
-
-
+            finish()
         }
     }
 }

@@ -49,9 +49,20 @@
             android:layout_height="wrap_content"
             android:text="alarm owner"
             android:textColor="#FFFFFF"
-            android:textSize="9sp"
-            card_view:layout_constraintStart_toStartOf="@+id/alarm_title"
+            android:textSize="13dp"
+            card_view:layout_constraintStart_toStartOf="@+id/alarm_time"
             card_view:layout_constraintTop_toBottomOf="@+id/alarm_time" />
+
+        <TextView
+            android:id="@+id/alarm_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alarm Recurrence/days"
+            android:textColor="#FFFFFF"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toStartOf="@+id/alarm_time"
+            card_view:layout_constraintTop_toBottomOf="@+id/alarm_owner" />
 
         <Button
             android:id="@+id/btn_accept"

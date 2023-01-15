@@ -151,7 +151,7 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                 .get().addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject(User::class.java)
                     if(user != null) {
-                        binding.alarmOwner.text = user.username
+                        binding.alarmOwner.text = "Owner: " + user.username
                     }
                 }
             val alarmTime = alarm.time
@@ -176,7 +176,6 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                     }
                     binding.alarmDays.text = "Repeat every " + recurringDays.toString().replace("[","").replace("]","")
                 }
-
             }
             // If the alarm is for single day, display the date
             else {
