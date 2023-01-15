@@ -52,6 +52,11 @@ class DashboardActivity : AppCompatActivity() {
         )
         binding.recyclerAlarms.adapter = adapter
 
+        //TODO Very naive solution to the toggles resetting when scrolling fast, need to work on it again more later
+        // Source: https://stackoverflow.com/questions/50328655/recyclerview-items-values-reset-when-scrolling-down
+        // This is also in CreateAlarmActivity
+        binding.recyclerAlarms.setItemViewCacheSize(100)
+
 
         binding.addAlarmFab.setOnClickListener {
             val intentDetails = Intent()

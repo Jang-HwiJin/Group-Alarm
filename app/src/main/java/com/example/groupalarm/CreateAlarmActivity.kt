@@ -76,7 +76,14 @@ class CreateAlarmActivity : AppCompatActivity() {
         adapter = FriendAlarmInviteAdapter(this,
             FirebaseAuth.getInstance().currentUser!!.uid
         )
+
         binding.recyclerFriends.adapter = adapter
+
+        //TODO Very naive solution to the toggles resetting when scrolling fast, need to work on it again more later
+        // Source: https://stackoverflow.com/questions/50328655/recyclerview-items-values-reset-when-scrolling-down
+        // This is also in DashboardActivity
+        binding.recyclerFriends.setItemViewCacheSize(100)
+
 
         // create an OnDateSetListener
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {

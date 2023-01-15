@@ -8,13 +8,10 @@ import com.example.groupalarm.ScrollingActivity
 import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.AlarmRowBinding
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneId
 import java.util.*
 
 class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
@@ -55,7 +52,13 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
 
     //TODO trying to fix the recycler view keep recycling the toggles on and off
     // It worked somehow, no idea, keep an eye on this
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     //TODO it is up to here
 
 
@@ -187,6 +190,10 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                 } else {
                     toggleOnOffAlarm(false, alarmInviteDocId)
                 }
+            }
+
+            binding.cardView.setOnClickListener {
+                
             }
 
         }
