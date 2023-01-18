@@ -8,5 +8,6 @@ data class Messages(
     var sender: String = "",
     var text: String = "",
     var timestamp: Timestamp = Timestamp.now(),
-    var type: String = ""
+    var type: String = "",
+    var chatId: String = "",
 )

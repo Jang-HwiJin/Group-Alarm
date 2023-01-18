@@ -18,8 +18,11 @@ import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityEditProfileBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
@@ -35,7 +38,7 @@ class EditProfileActivity : AppCompatActivity() {
         const val REQUEST_CAMERA_PERMISSION = 1001
     }
 
-    val userId = FirebaseAuth.getInstance().currentUser!!.uid
+    val currUserId = FirebaseAuth.getInstance().currentUser!!.uid
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +50,7 @@ class EditProfileActivity : AppCompatActivity() {
 
 
         FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-            .document(userId).get().
+            .document(currUserId).get().
             addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject(User::class.java)
                 if (user != null) {
@@ -193,7 +196,7 @@ class EditProfileActivity : AppCompatActivity() {
 
             // Delete the old image from user profile img url
             FirebaseFirestore.getInstance().collection(RegisterFragment.COLLECTION_USERS)
-                .document(userId).get().
+                .document(currUserId).get().
                 addOnSuccessListener { documentSnapshot ->
                     val user = documentSnapshot.toObject(User::class.java)
                     if (user != null && user.profileImg != "") {
@@ -252,6 +255,16 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
 
+        // When the user closes the app
+        val presenceUserRef = Firebase.database.getReference("users").child(currUserId).child("activityStatus")
+        presenceUserRef.onDisconnect().setValue(Timestamp(Calendar.getInstance().time))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val database = Firebase.database
+        val usersRef = database.getReference("users").child(currUserId)
+        usersRef.child("activityStatus").setValue(true)
     }
 
 

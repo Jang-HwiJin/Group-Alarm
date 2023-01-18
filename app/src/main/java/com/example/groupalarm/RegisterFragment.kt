@@ -17,6 +17,9 @@ import com.example.groupalarm.databinding.FragmentRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.groupalarm.SafeClickListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.ktx.Firebase
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -109,6 +112,17 @@ class RegisterFragment : Fragment() {
                                 getString(R.string.registrationSuccess),
                                 Toast.LENGTH_LONG
                             ).show()
+                            val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
+                            val userRef = FirebaseFirestore.getInstance().collection("users").document(currUserId)
+                            val updates = mapOf("activityStatus" to true)
+                            userRef.update(updates)
+
+                            // Letting user become online
+                            val database = Firebase.database
+                            val usersRef = database.getReference("users")
+                            usersRef.child(currUserId).child("activityStatus").setValue(true)
+
                             loginUser()
                         }.addOnFailureListener{
                             Toast.makeText(

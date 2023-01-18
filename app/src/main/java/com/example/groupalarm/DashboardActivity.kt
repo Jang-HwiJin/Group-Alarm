@@ -12,9 +12,12 @@ import com.example.groupalarm.adapter.AlarmAdapter
 import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityDashboardBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
@@ -107,7 +110,16 @@ class DashboardActivity : AppCompatActivity() {
             false
         }
 
+        // When the user closes the app
+        val presenceUserRef = Firebase.database.getReference("users").child(currUserId).child("activityStatus")
+        presenceUserRef.onDisconnect().setValue(Timestamp(Calendar.getInstance().time))
+    }
 
+    override fun onResume() {
+        super.onResume()
+        val database = Firebase.database
+        val usersRef = database.getReference("users").child(currUserId)
+        usersRef.child("activityStatus").setValue(true)
     }
 
     private fun getNumberOfPendingAlarmInvites()

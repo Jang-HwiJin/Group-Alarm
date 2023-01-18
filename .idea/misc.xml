@@ -28,6 +28,7 @@
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.1" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.1" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_add_friend.xml" value="0.20863616930312098" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_alarm_chats.xml" value="0.264" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_alarm_invites.xml" value="0.17956391620350576" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_create_alarm.xml" value="0.2" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_dashboard.xml" value="0.176" />
@@ -45,13 +46,22 @@
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_setting.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_splash.xml" value="0.19581017528858485" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/activity_stop_alarm.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_chat_details.xml" value="0.19495510902094912" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_chat_header.xml" value="0.264" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_details_header.xml" value="0.19581017528858485" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_dialog.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_invite_row.xml" value="0.6" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_permission_dialog.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/alarm_row.xml" value="0.6" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/app_bar.xml" value="0.19495510902094912" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/app_bar_alarm_chat.xml" value="0.19495510902094912" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/app_bar_example.xml" value="0.19410004275331338" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/content_alarm_chat.xml" value="0.19495510902094912" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/content_example.xml" value="0.19410004275331338" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/content_scrolling.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/custom_title.xml" value="0.182129115006413" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_blank.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_gallery.xml" value="0.19495510902094912" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_login.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_profile.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/fragment_register.xml" value="0.20863616930312098" />
@@ -61,8 +71,14 @@
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/friend_requests_row.xml" value="0.4" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/friend_search_row.xml" value="0.4" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/friends_row.xml" value="0.264" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/messages_row.xml" value="0.8800000000000001" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/nav_header_alarm_chat.xml" value="0.19495510902094912" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/layout/post_row.xml" value="0.4" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/activity_alarm_chat_drawer.xml" value="0.19410004275331338" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/activity_main_drawer.xml" value="0.19495510902094912" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/alarm_chat.xml" value="0.19495510902094912" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/bottom_nav_menu.xml" value="0.253125" />
+        <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/example.xml" value="0.19410004275331338" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/menu/menu_scrolling.xml" value="0.264" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/mipmap-anydpi-v26/addUser.xml" value="0.2265" />
         <entry key="..\:/Users/jangh/Downloads/groupalarm/app/src/main/res/mipmap-anydpi-v26/home.xml" value="0.2285" />

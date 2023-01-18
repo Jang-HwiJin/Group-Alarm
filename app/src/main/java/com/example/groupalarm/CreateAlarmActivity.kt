@@ -22,8 +22,10 @@ import com.example.groupalarm.data.*
 import com.example.groupalarm.databinding.ActivityCreateAlarmBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,7 +83,7 @@ class CreateAlarmActivity : AppCompatActivity() {
 
         //TODO Very naive solution to the toggles resetting when scrolling fast, need to work on it again more later
         // Source: https://stackoverflow.com/questions/50328655/recyclerview-items-values-reset-when-scrolling-down
-        // This is also in DashboardActivity
+        // This is also in DashboardActivity, AlarmChatsActivity
         binding.recyclerFriends.setItemViewCacheSize(100)
 
 
@@ -320,6 +322,16 @@ class CreateAlarmActivity : AppCompatActivity() {
 
         searchUsernames("")
 
+        // When the user closes the app
+        val presenceUserRef = Firebase.database.getReference("users").child(currUserId).child("activityStatus")
+        presenceUserRef.onDisconnect().setValue(Timestamp(Calendar.getInstance().time))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val database = Firebase.database
+        val usersRef = database.getReference("users").child(currUserId)
+        usersRef.child("activityStatus").setValue(true)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

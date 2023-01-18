@@ -1,10 +1,12 @@
 package com.example.groupalarm.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.groupalarm.ScrollingActivity
+import com.example.groupalarm.*
 import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.AlarmRowBinding
@@ -192,7 +194,19 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
             }
 
             binding.cardView.setOnClickListener {
-                
+                val intentDetails = Intent()
+                intentDetails.setClass(
+                    context, AlarmChatsActivity::class.java
+                )
+                intentDetails.putExtra(
+                    "AlarmId", alarmInviteDocId
+                )
+                (context as DashboardActivity).startActivity(Intent(intentDetails))
+
+
+                // Send extra data later
+                // Idk what this means
+
             }
 
         }

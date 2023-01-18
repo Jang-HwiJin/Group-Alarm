@@ -9,4 +9,5 @@ data class User(
     var invitedAlarms: ArrayList<Alarm> = ArrayList(),
     var acceptedAlarms: ArrayList<String> = ArrayList(),
     var activeAlarms: ArrayList<String> = ArrayList(),
+    var activityStatus: Boolean = false
     )

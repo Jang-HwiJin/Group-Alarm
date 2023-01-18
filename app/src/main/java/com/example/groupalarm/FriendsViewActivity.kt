@@ -6,12 +6,19 @@ import com.example.groupalarm.adapter.FriendsAdapter
 import com.example.groupalarm.data.Friends
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityFriendsViewBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
+import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class FriendsViewActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityFriendsViewBinding
+
+    val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
 
     private lateinit var adapter: FriendsAdapter
 
@@ -31,6 +38,16 @@ class FriendsViewActivity : AppCompatActivity() {
 
         // Get the current user's friends
         getAllUserFriends()
+        // When the user closes the app
+        val presenceUserRef = Firebase.database.getReference("users").child(currUserId).child("activityStatus")
+        presenceUserRef.onDisconnect().setValue(Timestamp(Calendar.getInstance().time))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val database = Firebase.database
+        val usersRef = database.getReference("users").child(currUserId)
+        usersRef.child("activityStatus").setValue(true)
     }
 
     private fun getAllUserFriends() {

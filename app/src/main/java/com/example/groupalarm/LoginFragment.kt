@@ -9,6 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.groupalarm.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +43,18 @@ class LoginFragment : Fragment() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
+            val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
+            // Once user signs, update the lastActive to show that the user signed in
+            val userRef = FirebaseFirestore.getInstance().collection("users").document(currUserId)
+            val updates = mapOf("activityStatus" to true)
+            userRef.update(updates)
+
+            // Letting user become online
+            val database = Firebase.database
+            val usersRef = database.getReference("users").child(currUserId)
+            usersRef.child("activityStatus").setValue(true)
+
             // User is signed in
             val i = Intent(context, DashboardActivity::class.java)
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -76,6 +92,16 @@ class LoginFragment : Fragment() {
                     getString(R.string.loginSuccess),
                     Toast.LENGTH_LONG
                 ).show()
+                val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+                val userRef = FirebaseFirestore.getInstance().collection("users").document(currUserId)
+                val updates = mapOf("activityStatus" to true)
+                userRef.update(updates)
+
+                // Letting user become online
+                val database = Firebase.database
+                val usersRef = database.getReference("users").child(currUserId)
+                usersRef.child("activityStatus").setValue(true)
+
                 startActivity(Intent(requireActivity(), DashboardActivity::class.java))
             }.addOnFailureListener{
                 Toast.makeText(
