@@ -22,6 +22,7 @@ As college students, we have so many things to do, a lot of which are actually s
 + Frontend: RecyclerView, Fragments, DialogueFragment, ConstraintLayout, LinearLayout
 + Backend:
 	+ Firebase Firestore: persistent data storage & real-time updates
+	+ Firebase RealTime: real-time updates & user presence management
 	+ Firebase Cloud Storage: file storage
 	+ Firebase Authentication: authentication & authorization
 	+ Pending Intent, BroadcastReceiver, AlarmManager: alarm scheduling & firing
