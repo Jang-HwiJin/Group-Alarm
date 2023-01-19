@@ -145,11 +145,10 @@ class AlarmInviteAdapter : RecyclerView.Adapter<AlarmInviteAdapter.ViewHolder> {
 
         val user = firestore.collection("users").document(currUserId)
         user.get().addOnSuccessListener {
-            val invitedAlarms = it.get("invitedAlarms") as ArrayList<Alarm>
-            invitedAlarms.remove(alarm)
-            user.update("invitedAlarms", invitedAlarms)
+            userDocToUpdate.document(currUserId).update(
+                "invitedAlarms", FieldValue.arrayRemove(alarmInviteDocId)
+            )
         }
-
         userDocToUpdate.document(currUserId).update(
             "acceptedAlarms", FieldValue.arrayUnion(alarmInviteDocId),
             "activeAlarms", FieldValue.arrayUnion(alarmInviteDocId)

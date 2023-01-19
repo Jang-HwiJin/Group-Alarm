@@ -1,5 +1,6 @@
 package com.example.groupalarm
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.example.groupalarm.adapter.AlarmInviteAdapter
 import com.example.groupalarm.adapter.ChatsAdapter
+import com.example.groupalarm.adapter.MoreAlarmInviteAdapter
 import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.Chats
 import com.example.groupalarm.data.Messages
@@ -248,9 +250,16 @@ class AlarmChatsActivity : AppCompatActivity() {
                 }
             }
 
-//        inviteUsers.setOnClickListener {
-//
-//        }
+        inviteUsers.setOnClickListener {
+            val intentDetails = Intent()
+            intentDetails.setClass(
+                this, MoreAlarmInviteActivity::class.java
+            )
+            intentDetails.putExtra(
+                "AlarmId", alarmId
+            )
+            startActivity(Intent(intentDetails))
+        }
 
         leaveAlarm.setOnClickListener {
             val leaveAlarmDialog = LeaveAlarmDialog(alarmId)

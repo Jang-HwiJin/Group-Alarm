@@ -59,6 +59,12 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
 
 
         // Remove all alarm related stuff from the user
+        /*
+        TODO
+            there is still quite a bit of use cases I have to check
+            For instance, I know one that I have to think of is that once the owner leaves and the users are still in the alarm,
+            then I will have to remove the alarmIds from the all the users who have the alarm for the acceptedAlarms and the activeAlarms fields
+         */
         positiveButton.setOnClickListener {
             // I need to get the alarmId out of the user's activealarms and alarms field in the users collection
             // I need to get the userId out of the chat's users field in the chats collection
@@ -79,7 +85,7 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
                     val alarm = alarmDoc.toObject(Alarm::class.java)
                     if (alarm!= null) {
                         // If the user is the owner of the alarm
-                        // Then delete the chat, the messages, and then the alarm in that order
+                        // Then delete the chat, the messages, the alarm's from the users alarm lists, and then the alarm in that order
                         if (alarm.owner == currUserId) {
                             // Delete the chat document
                             chatsRef.document(alarm.chatId).delete()
@@ -91,6 +97,14 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
                                         document.reference.delete()
                                     }
                                 }
+                            // Remove the alarm's id from the users' invited, accepted, and active lists
+                            for(userId in alarm.acceptedUsers!!) {
+                                usersRef.document(userId).update("acceptedAlarms", FieldValue.arrayRemove(alarmId))
+                                usersRef.document(userId).update("activeAlarms", FieldValue.arrayRemove(alarmId))
+                            }
+                            for(userId in alarm.invitedUsers!!) {
+                                usersRef.document(userId).update("invitedAlarms", FieldValue.arrayRemove(alarmId))
+                            }
                             // Finally, delete the alarm
                             alarmsRef.document(alarmDoc.id).delete()
                         } else {

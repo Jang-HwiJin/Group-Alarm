@@ -20,6 +20,9 @@
         android:theme="@style/Theme.GroupAlarm"
         tools:targetApi="31">
         <activity
+            android:name=".MoreAlarmInviteActivity"
+            android:exported="false" />
+        <activity
             android:name=".AlarmChatsActivity"
             android:exported="true" />
         <activity
@@ -80,7 +83,7 @@
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ScrollingActivity"
             android:exported="true"

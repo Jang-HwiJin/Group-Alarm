@@ -487,6 +487,7 @@ class CreateAlarmActivity : AppCompatActivity() {
             chatId,
                 )
         newAlarmRef.set(newAlarm)
+
         // Todo another todo below this, but we do it again here and one more time belwo for safety,
         //  I need to find out why this is happening
         newAlarmRef.update("invitedUsers", alarmInvitedUsers)
@@ -500,7 +501,7 @@ class CreateAlarmActivity : AppCompatActivity() {
                 //inviting users to the alarm
                 alarmInvitedUsers.forEach {
                     val user = usersRef.document(it)
-                    user.update("invitedAlarms", FieldValue.arrayUnion(newAlarm))
+                    user.update("invitedAlarms", FieldValue.arrayUnion(alarmId))
                 }
 
                 // Only adding the current user id (owner) so that only people who accept the alarm
