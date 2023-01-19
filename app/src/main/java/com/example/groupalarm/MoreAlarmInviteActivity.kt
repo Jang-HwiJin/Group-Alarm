@@ -155,7 +155,7 @@ class MoreAlarmInviteActivity : AppCompatActivity() {
                 if (alarm!= null) {
                     alarmInvitedUsers.forEach {
                         val user = usersRef.document(it)
-                        user.update("invitedAlarms", FieldValue.arrayUnion(alarm))
+                        user.update("invitedAlarms", FieldValue.arrayUnion(alarmDoc.id))
                         alarmRef.update("invitedUsers", FieldValue.arrayUnion(it))
                     }
                 }
