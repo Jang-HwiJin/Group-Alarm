@@ -199,6 +199,7 @@ class FriendActivity : AppCompatActivity() {
 
     private fun searchUsernames(query: String) {
         val firestore = FirebaseFirestore.getInstance()
+        val friendsRef = firestore.collection("friends")
         val query = firestore.collection("users")
             .orderBy("username")
             .startAt(query)
@@ -209,8 +210,20 @@ class FriendActivity : AppCompatActivity() {
                 if (documents.size() > 0) {
                     for(document in documents) {
                         val user = document.toObject(User::class.java)
+                        // Check to see if it is the user themself or if they are already displayed
                         if (user != null && user.email != currUserEmail && !adapter.alreadyHasUserDisplayed(document.id)) {
-                            adapter.addUserToList(user, document.id)
+                            // Only show non-friends
+                            friendsRef
+                                .whereEqualTo("userId1", currUserId)
+                                .whereEqualTo("userId2", document.id)
+                                .whereEqualTo("status", "accepted")
+                                .get().addOnSuccessListener { querySnapshot ->
+                                    // If it is == 0, that means the users are not friends, so display
+                                    if(querySnapshot.size() == 0) {
+                                        adapter.addUserToList(user, document.id)
+
+                                    }
+                                }
                         }
                     }
                 } else {
