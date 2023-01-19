@@ -19,6 +19,7 @@
 <!--    </LinearLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -63,9 +64,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.cardview.widget.CardView>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -76,12 +74,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/alarm_chat_header" />
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        app:headerLayout="@layout/alarm_details_header" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

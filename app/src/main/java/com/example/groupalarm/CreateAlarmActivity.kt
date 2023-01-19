@@ -259,7 +259,7 @@ class CreateAlarmActivity : AppCompatActivity() {
             }
         })
 
-        binding.btnSave.setOnClickListener {
+        binding.btnSave.setSafeOnClickListener() {
             inviteUsersList.clear()
             for (i in 0 until adapter.getAddedUsersList().size) {
                 var users = adapter.getAddedUsersList().get(i)
@@ -332,6 +332,13 @@ class CreateAlarmActivity : AppCompatActivity() {
         val database = Firebase.database
         val usersRef = database.getReference("users").child(currUserId)
         usersRef.child("activityStatus").setValue(true)
+    }
+
+    fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
+        val safeClickListener = SafeClickListener {
+            onSafeClick(it)
+        }
+        setOnClickListener(safeClickListener)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

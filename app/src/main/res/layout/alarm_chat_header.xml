@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alarm_chat_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -13,17 +15,26 @@
         android:layout_gravity="center"
         android:textSize="30dp" />
 
-    <ImageView
-        android:id="@+id/profile_picture"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profilePicCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="150dp">
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:clickable="true"
+            android:src="@drawable/profile_foreground" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User name"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textStyle="bold"
         android:layout_marginTop="8dp"
@@ -33,10 +44,23 @@
         android:id="@+id/display_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Display name"
+        android:text=""
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#000000"
         android:layout_marginTop="4dp"
+        />
+
+    <Button
+        android:id="@+id/invite_users"
+        android:text="Invite Users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:id="@+id/leave_alarm"
+        android:text="Leave Alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         />
 
 </LinearLayout>

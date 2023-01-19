@@ -120,6 +120,12 @@ class DashboardActivity : AppCompatActivity() {
         val database = Firebase.database
         val usersRef = database.getReference("users").child(currUserId)
         usersRef.child("activityStatus").setValue(true)
+
+        // Displays the number of pending alarm invites if there is at least 1
+        getNumberOfPendingAlarmInvites()
+
+        // Sends the alarms the user is part of to the adapter
+        getAllUserAlarms()
     }
 
     private fun getNumberOfPendingAlarmInvites()
@@ -194,7 +200,6 @@ class DashboardActivity : AppCompatActivity() {
         val usersRef = firestore.collection("users")
         alarmsDb = firestore.collection("friends")
 
-
         val eventListener = object : EventListener<QuerySnapshot> {
             override fun onEvent(querySnapshot: QuerySnapshot?,
                                  e: FirebaseFirestoreException?) {
@@ -225,9 +230,9 @@ class DashboardActivity : AppCompatActivity() {
                     FirebaseFirestore.getInstance().collection("alarms").document().get().addOnSuccessListener { documentSnapshot ->
                         val alarm = documentSnapshot.toObject(Alarm::class.java)
                         if (alarm != null ) {
-                            if (alarm.acceptedUsers?.contains(currUserId) == true && !adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
-                                if (docChange.type == DocumentChange.Type.ADDED) {
-//                                        adapter.addRequestsToList(request, docChange.document.id)
+                            if (alarm.acceptedUsers!!.contains(currUserId) == true) {
+                                if (docChange.type == DocumentChange.Type.ADDED && !adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
+                                    adapter.addAlarmToList(alarm, docChange.document.id)
                                     adapter.notifyDataSetChanged()
 //                                    /*Todo
 //                                       this probably needs to be implemented furthermore once I add a remove friend functionality */
@@ -237,7 +242,7 @@ class DashboardActivity : AppCompatActivity() {
                                 } else if (docChange.type == DocumentChange.Type.MODIFIED) {
                                     if (!adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
 //                                        adapter.removeRequestByKey(docChange.document.id)
-//                                            adapter.addAlarmToList(alarm, docChange.document.id)
+//                                        adapter.addAlarmToList(alarm, docChange.document.id)
                                     }
                                     adapter.notifyDataSetChanged()
 

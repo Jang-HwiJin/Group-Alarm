@@ -202,11 +202,6 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                     "AlarmId", alarmInviteDocId
                 )
                 (context as DashboardActivity).startActivity(Intent(intentDetails))
-
-
-                // Send extra data later
-                // Idk what this means
-
             }
 
         }

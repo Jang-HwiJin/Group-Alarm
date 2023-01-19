@@ -138,6 +138,8 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_example">ExampleActivity</string>
+    <string name="leave_alarm_confirmation">Are you sure you want to leave the alarm?</string>
+
     <style name="Theme.LayoutDemo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.LayoutDemo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
