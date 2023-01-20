@@ -73,12 +73,16 @@ class MoreAlarmInviteActivity : AppCompatActivity() {
         binding.searchUserBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 adapter.clearUserList()
-                searchUsernames(query)
+                if (alarmId != null) {
+                    searchUsernames(query, alarmId)
+                }
                 return false
             }
             override fun onQueryTextChange(newText: String): Boolean {
                 adapter.clearUserList()
-                searchUsernames(newText)
+                if (alarmId != null) {
+                    searchUsernames(newText, alarmId)
+                }
 
 
                 /* TODO
@@ -128,7 +132,9 @@ class MoreAlarmInviteActivity : AppCompatActivity() {
             finish()
         }
 
-        searchUsernames("")
+        if (alarmId != null) {
+            searchUsernames("", alarmId)
+        }
 
         // When the user closes the app
         val presenceUserRef = Firebase.database.getReference("users").child(currUserId).child("activityStatus")
@@ -155,8 +161,10 @@ class MoreAlarmInviteActivity : AppCompatActivity() {
                 if (alarm!= null) {
                     alarmInvitedUsers.forEach {
                         val user = usersRef.document(it)
-                        user.update("invitedAlarms", FieldValue.arrayUnion(alarmDoc.id))
-                        alarmRef.update("invitedUsers", FieldValue.arrayUnion(it))
+                        if(alarm.acceptedUsers?.contains(it) == false) {
+                            user.update("invitedAlarms", FieldValue.arrayUnion(alarmDoc.id))
+                            alarmRef.update("invitedUsers", FieldValue.arrayUnion(it))
+                        }
                     }
                 }
             }
@@ -170,7 +178,7 @@ class MoreAlarmInviteActivity : AppCompatActivity() {
         setOnClickListener(safeClickListener)
     }
 
-    private fun searchUsernames(query: String) {
+    private fun searchUsernames(query: String, alarmId: String) {
         val firestore = FirebaseFirestore.getInstance()
         val query = firestore.collection("users")
             .orderBy("username")
@@ -186,18 +194,28 @@ class MoreAlarmInviteActivity : AppCompatActivity() {
                             firestore.collection("friends")
                                 .whereEqualTo("userId1", currUserId)
                                 .get()
-                                .addOnSuccessListener { documents ->
-                                    for (document in documents) {
-                                        val friendId = document["userId2"] as String
-                                        val status = document["status"] as String
+                                .addOnSuccessListener { friendDocuments ->
+                                    for (friendDocument in friendDocuments) {
+                                        val friendId = friendDocument["userId2"] as String
+                                        val status = friendDocument["status"] as String
                                         if (status == "accepted") {
                                             // Get the friend's user document
                                             firestore.collection("users").document(friendId).get()
                                                 .addOnSuccessListener { snapshot ->
                                                     val friend = snapshot.toObject(User::class.java)
                                                     if (friend != null && user.username == friend.username && !adapter.alreadyHasUserDisplayed(document.id)) {
-                                                        adapter.addUserToList(user, document.id)
+                                                        // Only allow to show friends who are not in the alarm already
+                                                        firestore.collection("alarms").document(alarmId)
+                                                            .get().addOnSuccessListener { alarmDoc ->
+                                                                val alarm = alarmDoc.toObject(Alarm::class.java)
+                                                                if(alarm != null) {
+                                                                    if(!alarm.acceptedUsers?.contains(document.id)!!) {
+                                                                        adapter.addUserToList(user, document.id)
+                                                                    }
 
+                                                                }
+
+                                                            }
                                                     }
                                                 }
                                         }

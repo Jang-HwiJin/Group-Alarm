@@ -2,7 +2,9 @@ package com.example.groupalarm
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.app.PendingIntent.*
+import android.app.PendingIntent.FLAG_IMMUTABLE
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -60,6 +62,9 @@ class DashboardActivity : AppCompatActivity() {
         // This is also in CreateAlarmActivity
         binding.recyclerAlarms.setItemViewCacheSize(100)
 
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmIntent = Intent(this, AlarmReceiver::class.java)
+
 
         binding.addAlarmFab.setOnClickListener {
             val intentDetails = Intent()
@@ -76,8 +81,6 @@ class DashboardActivity : AppCompatActivity() {
             )
             startActivity(Intent(intentDetails))
         }
-
-        alarmManager = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
 
         // Displays the number of pending alarm invites if there is at least 1
         getNumberOfPendingAlarmInvites()
@@ -230,21 +233,96 @@ class DashboardActivity : AppCompatActivity() {
                     FirebaseFirestore.getInstance().collection("alarms").document().get().addOnSuccessListener { documentSnapshot ->
                         val alarm = documentSnapshot.toObject(Alarm::class.java)
                         if (alarm != null ) {
-                            if (alarm.acceptedUsers!!.contains(currUserId) == true) {
+                            if (alarm.acceptedUsers!!.contains(currUserId)) {
                                 if (docChange.type == DocumentChange.Type.ADDED && !adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
                                     adapter.addAlarmToList(alarm, docChange.document.id)
                                     adapter.notifyDataSetChanged()
-//                                    /*Todo
-//                                       this probably needs to be implemented furthermore once I add a remove friend functionality */
+
+
+                                    // TODO
+                                    //  Much much left to do, solve alarm problem
+//                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+//                                    intent.putExtra(ALARM_REQUEST_CODE, docChange.document.id)
+//                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, docChange.document.id.hashCode(), intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+//                                    alarmIntents.put(docChange.document.id, pendingIntent)
+//                                    var calendar = Calendar.getInstance()
+////                                    calendar.timeInMillis = System.currentTimeMillis()
+//
+//                                    var time = alarm.time.seconds * 1000
+//
+//                                    if (Calendar.AM_PM == 0)
+//                                        time += (1000 * 60 * 60 * 12);
+//                                    else
+//                                        time += (1000 * 60 * 60 * 24);
+//
+//                                    calendar.timeInMillis = alarm.time.seconds * 1000
+//
+////                                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+////                                    val minute = calendar.get(Calendar.MINUTE)
+//////                                    val second = calendar.get(Calendar.SECOND)
+////
+////                                    calendar.set(Calendar.HOUR_OF_DAY, hour)
+////                                    calendar.set(Calendar.MINUTE, minute)
+//////                                    calendar.set(Calendar.SECOND, second)
+//
+//                                    // If alarm is not recurring, set exact date
+//                                    if(!alarm.isRecurring) {
+//
+////                                        val month = calendar.get(Calendar.MONTH)
+////                                        val day = calendar.get(Calendar.DAY_OF_MONTH)
+////                                        val year = calendar.get(Calendar.YEAR)
+////
+////
+////                                        calendar.set(Calendar.MONTH, month)
+////                                        calendar.set(Calendar.DATE, day)
+////                                        calendar.set(Calendar.YEAR, year)
+//
+//                                        Toast.makeText(
+//                                            this@DashboardActivity, "Alarm is not recurring",
+//                                            Toast.LENGTH_LONG
+//                                        ).show()
+//                                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+//
+//                                    } else {
+//                                        // Set the alarm to repeat on certain days if recurring
+//                                        val recurringDays = alarm.recurringDays.toIntArray()
+//                                        if (recurringDays.isNotEmpty()) {
+//                                            alarmManager.setRepeating(
+//                                                AlarmManager.RTC_WAKEUP,
+//                                                calendar.timeInMillis,
+//                                                AlarmManager.INTERVAL_DAY * 7,
+//                                                pendingIntent
+//                                            )
+//                                        }
+//                                    }
+
+                                    //TODO something about updating once remove friend is available, might be already fixed idk yet
                                 } else if (docChange.type == DocumentChange.Type.REMOVED) {
                                     adapter.removeAlarmByKey(docChange.document.id)
                                     adapter.notifyDataSetChanged()
+
+                                    var pendingIntentToBeRemoved = alarmIntents.get(docChange.document.id)
+                                    if (pendingIntentToBeRemoved != null) {
+                                        alarmManager.cancel(pendingIntentToBeRemoved)
+                                    }
                                 } else if (docChange.type == DocumentChange.Type.MODIFIED) {
                                     if (!adapter.alreadyHasAlarmDisplayed(docChange.document.id)) {
 //                                        adapter.removeRequestByKey(docChange.document.id)
 //                                        adapter.addAlarmToList(alarm, docChange.document.id)
                                     }
                                     adapter.notifyDataSetChanged()
+
+                                    //TODO still need to work on this
+//                                    var pendingIntent = alarmIntents.getOrPut(docChange.document.id) {
+//                                        val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+//                                        intent.putExtra(ALARM_REQUEST_CODE, docChange.document.id)
+//                                        PendingIntent.getBroadcast(
+//                                            applicationContext,
+//                                            alarm.time.toInt(),
+//                                            intent,
+//                                            FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT
+//                                        )
+//                                    }
 
                                 }
                             }
@@ -257,9 +335,16 @@ class DashboardActivity : AppCompatActivity() {
 
     }
 
+    fun List<String>.toIntArray(): IntArray {
+        val dayMapping = mapOf("M" to Calendar.MONDAY, "Tu" to Calendar.TUESDAY, "W" to Calendar.WEDNESDAY,
+            "Th" to Calendar.THURSDAY, "F" to Calendar.FRIDAY, "Sa" to Calendar.SATURDAY, "Su" to Calendar.SUNDAY)
+        return map { dayMapping[it] }.filterNotNull().toIntArray()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         listener.remove()
     }
+
 
 }

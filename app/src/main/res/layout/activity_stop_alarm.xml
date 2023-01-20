@@ -9,28 +9,27 @@
     android:background="#303141"
     >
 
-    <Button
-        android:id="@+id/btnStopAlarm"
-        android:layout_width="150dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="248dp"
-        android:backgroundTint="#50577A"
-        android:text="Stop Alarm"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/btnStopAlarm"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="88dp"-->
+<!--        android:layout_marginTop="248dp"-->
+<!--        android:backgroundTint="#50577A"-->
+<!--        android:text="Stop Alarm"-->
+<!--        android:textSize="15sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/btnBackToApp"
         android:layout_width="150dp"
         android:layout_height="88dp"
         android:backgroundTint="#50577A"
-        android:text="Back to App"
+        android:text="Stop Alarm"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStopAlarm"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
