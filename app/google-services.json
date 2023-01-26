@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "18196823918",
+    "firebase_url": "https://group-alarm-573ec-default-rtdb.firebaseio.com",
     "project_id": "group-alarm-573ec",
     "storage_bucket": "group-alarm-573ec.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:18196823918:android:0fe6e171d7d02c22688b7f",
+        "mobilesdk_app_id": "1:18196823918:android:351b558b267c757b688b7f",
         "android_client_info": {
-          "package_name": "com.example.groupalarm"
+          "package_name": "group.alarm.groupalarm"
         }
       },
       "oauth_client": [

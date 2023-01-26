@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.groupalarm">
+    package="group.alarm.groupalarm">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -25,14 +25,14 @@
         android:theme="@style/Theme.GroupAlarm"
         tools:targetApi="31">
         <activity
-            android:name=".MoreAlarmInviteActivity"
+            android:name="group.alarm.groupalarm.MoreAlarmInviteActivity"
             android:exported="false"
             android:theme="@style/Theme.GroupAlarm.NoActionBar"/>
         <activity
-            android:name=".AlarmChatsActivity"
+            android:name="group.alarm.groupalarm.AlarmChatsActivity"
             android:exported="true"/>
         <activity
-            android:name=".SplashActivity"
+            android:name="group.alarm.groupalarm.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar">
             <intent-filter>
@@ -42,66 +42,66 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AlarmInvitesActivity"
+            android:name="group.alarm.groupalarm.AlarmInvitesActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".DashboardActivity"
+            android:name="group.alarm.groupalarm.DashboardActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".CreateAlarmActivity"
+            android:name="group.alarm.groupalarm.CreateAlarmActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".ProfileDetailsActivity"
+            android:name="group.alarm.groupalarm.ProfileDetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".FriendRequestActivity"
+            android:name="group.alarm.groupalarm.FriendRequestActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".FriendsViewActivity"
+            android:name="group.alarm.groupalarm.FriendsViewActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name="group.alarm.groupalarm.EditProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".FriendActivity"
+            android:name="group.alarm.groupalarm.FriendActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
-            android:name=".SettingActivity"
+            android:name="group.alarm.groupalarm.SettingActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="group.alarm.groupalarm.ProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".StopAlarmActivity"
+            android:name="group.alarm.groupalarm.StopAlarmActivity"
             android:exported="false"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name="group.alarm.groupalarm.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar"/>
         <activity
-            android:name=".ScrollingActivity"
+            android:name="group.alarm.groupalarm.ScrollingActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar" />
         <activity
-            android:name=".DetailsActivity"
+            android:name="group.alarm.groupalarm.DetailsActivity"
             android:exported="true"
             android:theme="@style/Theme.GroupAlarm.NoActionBar"/>
 
         <receiver
-            android:name=".AlarmReceiver"
+            android:name="group.alarm.groupalarm.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

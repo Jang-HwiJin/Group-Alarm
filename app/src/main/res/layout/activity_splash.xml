@@ -40,7 +40,7 @@
         android:id="@+id/authorSignature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="from\n Jang Studios"
+        android:text="from\n Jangit Studio"
         android:textStyle="italic"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
