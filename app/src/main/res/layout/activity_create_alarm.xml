@@ -36,17 +36,17 @@
 
     <EditText
         android:id="@+id/etAlarmTitle"
-        android:layout_width="346dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_gravity="center"
-        android:hint="Alarm title"
+        android:hint="Enter alarm title"
         android:inputType="text"
         android:paddingTop="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysOfWeekLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_date" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_user_bar"
@@ -54,34 +54,34 @@
         android:layout_height="49dp"
         android:iconifiedByDefault="false"
         android:queryHint="Search for a username"
+        android:theme="@style/Theme.AppCompat"
         app:defaultQueryHint="Search for a username"
         app:iconifiedByDefault="false"
-        android:theme="@style/Theme.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAlarmTitle" />
 
-    <TextView
-        android:id="@+id/added_users_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Added Users:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
+<!--    <TextView-->
+<!--        android:id="@+id/added_users_list"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:text="Added Users:"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />-->
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerFriends"
-        android:layout_width="412dp"
-        android:layout_height="305dp"
+        android:layout_width="409dp"
+        android:layout_height="342dp"
         android:padding="20dp"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/added_users_list" />
+        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
 
     <Button
         android:id="@+id/btn_save"
@@ -108,188 +108,190 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
-    <View
-        android:id="@+id/seperate1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/repeatDaySummary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+<!--    <View-->
+<!--        android:id="@+id/seperate1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#144272"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/repeatDaySummary"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/time_picker" />-->
 
     <View
         android:id="@+id/seperate2"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/daysOfWeekLayout"
+        android:layout_height="1dp"
+        android:background="#144272"
+        app:layout_constraintBottom_toTopOf="@+id/etAlarmTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daysOfWeekLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_date" />
 
     <View
         android:id="@+id/seperate3"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/white"
+        android:layout_height="1dp"
+        android:background="#144272"
         app:layout_constraintBottom_toTopOf="@+id/search_user_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/search_user_bar" />
+
 
     <TextView
         android:id="@+id/repeatDaySummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Summary of the selected days"
+        android:text="Tomorrow"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/etAlarmTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/daysOfWeekLayout"
-        android:layout_width="389dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/repeatDaySummary">
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/daysOfWeekLayout"-->
+<!--        android:layout_width="389dp"-->
+<!--        android:layout_height="51dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/repeatDaySummary">-->
 
-        <TextView
-            android:id="@+id/sunday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="S"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/sunday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="S"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/monday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="M"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline5"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/monday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="M"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline5"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/tuesday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="T"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/tuesday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="T"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline6"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline5"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/wednesday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="W"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/wednesday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="W"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline7"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline6"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/thursday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="T"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/thursday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="T"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/friday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="F"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline9"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/friday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="F"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline9"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline8"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/saturday"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="S"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/saturday"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:gravity="center"-->
+<!--            android:text="S"-->
+<!--            android:textColor="#FFFFFF"-->
+<!--            android:textSize="20dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/guideline9"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.14111923" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent="0.14111923" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".28" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline5"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent=".28" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".42" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline6"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent=".42" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".56" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline7"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent=".56" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".70" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline8"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent=".70" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".85" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline9"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent=".85" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 <!--    <TimePicker-->
 <!--        android:id="@+id/time_Picker"-->
 <!--        android:background="#9498A5"-->

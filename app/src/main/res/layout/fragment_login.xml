@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="132dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/logonoback" />
+            app:srcCompat="@drawable/officiallogo" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -34,8 +34,8 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:text="david@gmail.com"
-                android:hint="email" />
+                android:text=""
+                android:hint="Email" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -51,7 +51,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
-                android:text="123456"
+                android:text=""
                 android:hint="Password"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button

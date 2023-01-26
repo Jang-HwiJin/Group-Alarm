@@ -323,7 +323,7 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
             }
 
 //            userToggleAlarms(alarmInviteDocId)
-            if(Calendar.getInstance().time >= alarm.time.toDate()) {
+            if(Calendar.getInstance().time >= alarm.time.toDate() && !alarm.isRecurring) {
                 binding.toggleAlarm.isClickable = false
                 binding.toggleAlarm.isChecked = false
             }

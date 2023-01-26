@@ -9,7 +9,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.groupalarm.adapter.AlarmAdapter
 import com.example.groupalarm.data.Alarm
@@ -21,7 +20,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.ktx.Firebase
-import java.time.DayOfWeek
 import java.util.*
 
 
@@ -137,20 +135,78 @@ class DashboardActivity : AppCompatActivity() {
         val usersRef = database.getReference("users").child(currUserId)
         usersRef.child("activityStatus").setValue(true)
 
+        binding = ActivityDashboardBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val stopAlarmId = intent.getStringExtra("alarmId")
+        if(stopAlarmId != null) {
+            var pendingIntentToBeRemoved = alarmIntents.get(stopAlarmId)
+            if (pendingIntentToBeRemoved != null) {
+                alarmManager.cancel(pendingIntentToBeRemoved)
+            }
+        }
+
+
+
+        adapter = AlarmAdapter(this,
+            FirebaseAuth.getInstance().currentUser!!.uid
+        )
+        binding.recyclerAlarms.adapter = adapter
+
+        //TODO Very naive solution to the toggles resetting when scrolling fast, need to work on it again more later
+        // Source: https://stackoverflow.com/questions/50328655/recyclerview-items-values-reset-when-scrolling-down
+        // This is also in CreateAlarmActivity
+        binding.recyclerAlarms.setItemViewCacheSize(500)
+
+        binding.addAlarmFab.setOnClickListener {
+            val intentDetails = Intent()
+            intentDetails.setClass(
+                this, CreateAlarmActivity::class.java
+            )
+            startActivity(Intent(intentDetails))
+        }
+
+        binding.alarmInviteFab.setOnClickListener {
+            val intentDetails = Intent()
+            intentDetails.setClass(
+                this, AlarmInvitesActivity::class.java
+            )
+            startActivity(Intent(intentDetails))
+        }
+
         // Displays the number of pending alarm invites if there is at least 1
         getNumberOfPendingAlarmInvites()
 
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         // Sends the alarms the user is part of to the adapter
         getAllUserAlarms()
 
-        // Turn/Leave alarm off/on
-//        userChanges()
-    }
 
-//    override fun onStop() {
-//        super.onStop()
-//        finish()
-//    }
+        binding.bottomMenuNavigation.setSelectedItemId(R.id.home)
+        binding.bottomMenuNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    false
+                }
+                R.id.profile -> {
+                    val intent = Intent(this@DashboardActivity, ProfileActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.settings -> {
+                    val intent = Intent(this@DashboardActivity, SettingActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.friends -> {
+                    val intent = Intent(this@DashboardActivity, FriendActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+            }
+            false
+        }
+    }
 
         private fun getNumberOfPendingAlarmInvites()
     {
@@ -255,11 +311,6 @@ class DashboardActivity : AppCompatActivity() {
 
                                             val alarmTime = alarm.time.toDate()
                                             val calendar = Calendar.getInstance().apply { time = alarmTime }
-                                            val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
-                                            intent.putExtra("alarmId", docChange.document.id)
-                                            val requestCode = docChange.document.id.hashCode() // Use the alarm's ID as the request code
-                                            val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
-                                            alarmIntents.put(docChange.document.id, pendingIntent)
 
                                             val dayOfWeekMap = mapOf(
                                                 "M" to Calendar.MONDAY,
@@ -272,89 +323,131 @@ class DashboardActivity : AppCompatActivity() {
                                             )
 
                                             if (!alarm.isRecurring) {
-                                                if(alarm.time.toDate() >= Calendar.getInstance().time) {
-                                                    calendar.set(Calendar.SECOND, 0)
-                                                    calendar.set(Calendar.MILLISECOND, 0)
+                                                val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                intent.putExtra("alarmId", docChange.document.id)
+                                                val requestCode = docChange.document.id.hashCode() // Use the alarm's ID as the request code
+                                                val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                alarmIntents.put(docChange.document.id, pendingIntent)
 
+                                                if(alarm.time.toDate() >= Calendar.getInstance().time) {
                                                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
                                                 }
                                             }
-//                                            else {
-//                                                val recurringCalendar = Calendar.getInstance()
-//                                                recurringCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
-//                                                recurringCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
-//                                                recurringCalendar.set(Calendar.SECOND, 0)
-//                                                recurringCalendar.set(Calendar.MILLISECOND, 0);
-//
-//
-//                                                if(alarm.recurringDays.contains("M")) {
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                                if(alarm.recurringDays.contains("T")) {
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                                if(alarm.recurringDays.contains("W")) {
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                                if(alarm.recurringDays.contains("Th")) {
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                                if(alarm.recurringDays.contains("F")) {
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                                if(alarm.recurringDays.contains("Sa")) {
-//                                                    Toast.makeText(this@DashboardActivity,
-//                                                        "We set the recurring for unday" + Date(recurringCalendar.timeInMillis), Toast.LENGTH_SHORT).show()
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                                if(alarm.recurringDays.contains("Su")) {
-//                                                    Toast.makeText(this@DashboardActivity,
-//                                                        "We set the recurring for unday" + Date(recurringCalendar.timeInMillis), Toast.LENGTH_SHORT).show()
-//                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
-//                                                    alarmManager.setInexactRepeating(
-//                                                        AlarmManager.RTC_WAKEUP,
-//                                                        recurringCalendar.timeInMillis,
-//                                                        AlarmManager.INTERVAL_DAY * 7,
-//                                                        pendingIntent
-//                                                    )
-//                                                }
-//                                            }
+                                            else {
+                                                val recurringCalendar = Calendar.getInstance()
+                                                recurringCalendar.time = Date()
+                                                recurringCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY))
+                                                recurringCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE))
+                                                recurringCalendar.set(Calendar.SECOND, 0)
+
+                                                if(alarm.recurringDays.contains("M")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+1 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                                if(alarm.recurringDays.contains("T")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+2 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY)
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                                if(alarm.recurringDays.contains("W")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+3 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY)
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                                if(alarm.recurringDays.contains("Th")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+4 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
+
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                                if(alarm.recurringDays.contains("F")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+5 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY)
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                                if(alarm.recurringDays.contains("Sa")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+6 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                                if(alarm.recurringDays.contains("Su")) {
+                                                    val intent = Intent(this@DashboardActivity, AlarmReceiver::class.java)
+                                                    intent.putExtra("alarmId", docChange.document.id)
+                                                    val requestCode = docChange.document.id.hashCode()+7 // Use the alarm's ID as the request code
+                                                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, requestCode, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
+                                                    alarmIntents.put(docChange.document.id, pendingIntent)
+
+                                                    recurringCalendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+                                                    alarmManager.setRepeating(
+                                                        AlarmManager.RTC_WAKEUP,
+                                                        recurringCalendar.timeInMillis,
+                                                        604800000,
+                                                        pendingIntent
+                                                    )
+                                                }
+                                            }
 
                                         }
 
@@ -376,10 +469,6 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
         listener = alarmsDb.addSnapshotListener(eventListener)
-    }
-
-    fun userChanges() {
-
     }
 
     fun List<String>.toIntArray(): IntArray {

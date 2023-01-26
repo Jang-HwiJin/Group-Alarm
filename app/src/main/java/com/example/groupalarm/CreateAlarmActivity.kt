@@ -104,126 +104,126 @@ class CreateAlarmActivity : AppCompatActivity() {
 
         })
 
-        binding.monday.setOnClickListener {
-            if(mondayToggle) {
-                daysofWeekList.remove("M")
-                binding.monday.setTypeface(null, Typeface.NORMAL)
-//                binding.monday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.monday.setBackgroundResource(android.R.color.transparent)
-                mondayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("M")
-                binding.monday.setTypeface(null, Typeface.BOLD)
-//                binding.monday.setTextColor(Color.parseColor ("#13005A"))
-                binding.monday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                mondayToggle = true
-                updateRepeatedDaysSummary()
-            }
-        }
-        binding.tuesday.setOnClickListener {
-            if(tuesdayToggle) {
-                daysofWeekList.remove("T")
-                binding.tuesday.setTypeface(null, Typeface.NORMAL)
-//                binding.tuesday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.tuesday.setBackgroundResource(android.R.color.transparent)
-                tuesdayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("T")
-                binding.tuesday.setTypeface(null, Typeface.BOLD)
-//                binding.tuesday.setTextColor(Color.parseColor ("#13005A"))
-                binding.tuesday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                tuesdayToggle = true
-                updateRepeatedDaysSummary()
-            }
-        }
-        binding.wednesday.setOnClickListener {
-            if(wednesdayToggle) {
-                daysofWeekList.remove("W")
-                binding.wednesday.setTypeface(null, Typeface.NORMAL)
-//                binding.wednesday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.wednesday.setBackgroundResource(android.R.color.transparent)
-                wednesdayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("W")
-                binding.wednesday.setTypeface(null, Typeface.BOLD)
-//                binding.wednesday.setTextColor(Color.parseColor ("#13005A"))
-                binding.wednesday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                wednesdayToggle = true
-                updateRepeatedDaysSummary()
-            }
-        }
-        binding.thursday.setOnClickListener {
-            if(thursdayToggle) {
-                daysofWeekList.remove("Th")
-                binding.thursday.setTypeface(null, Typeface.NORMAL)
-//                binding.thursday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.thursday.setBackgroundResource(android.R.color.transparent)
-                thursdayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("Th")
-                binding.thursday.setTypeface(null, Typeface.BOLD)
-//                binding.thursday.setTextColor(Color.parseColor ("#13005A"))
-                binding.thursday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                thursdayToggle = true
-                updateRepeatedDaysSummary()
-            }
-        }
-        binding.friday.setOnClickListener {
-            if(fridayToggle) {
-                daysofWeekList.remove("F")
-                binding.friday.setTypeface(null, Typeface.NORMAL)
-//                binding.friday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.friday.setBackgroundResource(android.R.color.transparent)
-                fridayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("F")
-                binding.friday.setTypeface(null, Typeface.BOLD)
-//                binding.friday.setTextColor(Color.parseColor ("#13005A"))
-                binding.friday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                fridayToggle = true
-                updateRepeatedDaysSummary()
-
-            }
-        }
-        binding.saturday.setOnClickListener {
-            if(saturdayToggle) {
-                daysofWeekList.remove("Sa")
-                binding.saturday.setTypeface(null, Typeface.NORMAL)
-//                binding.saturday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.saturday.setBackgroundResource(android.R.color.transparent)
-                saturdayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("Sa")
-                binding.saturday.setTypeface(null, Typeface.BOLD)
-//                binding.saturday.setTextColor(Color.parseColor ("#13005A"))
-                binding.saturday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                saturdayToggle = true
-                updateRepeatedDaysSummary()
-            }
-        }
-        binding.sunday.setOnClickListener {
-            if(sundayToggle) {
-                daysofWeekList.remove("Su")
-                binding.sunday.setTypeface(null, Typeface.NORMAL)
-//                binding.sunday.setTextColor(Color.parseColor ("#FFFFFF"))
-                binding.sunday.setBackgroundResource(android.R.color.transparent)
-                sundayToggle = false
-                updateRepeatedDaysSummary()
-            } else {
-                daysofWeekList.add("Su")
-                binding.sunday.setTypeface(null, Typeface.BOLD)
-//                binding.sunday.setTextColor(Color.parseColor ("#13005A"))
-                binding.sunday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
-                sundayToggle = true
-                updateRepeatedDaysSummary()
-            }
-        }
+//        binding.monday.setOnClickListener {
+//            if(mondayToggle) {
+//                daysofWeekList.remove("M")
+//                binding.monday.setTypeface(null, Typeface.NORMAL)
+////                binding.monday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.monday.setBackgroundResource(android.R.color.transparent)
+//                mondayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("M")
+//                binding.monday.setTypeface(null, Typeface.BOLD)
+////                binding.monday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.monday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                mondayToggle = true
+//                updateRepeatedDaysSummary()
+//            }
+//        }
+//        binding.tuesday.setOnClickListener {
+//            if(tuesdayToggle) {
+//                daysofWeekList.remove("T")
+//                binding.tuesday.setTypeface(null, Typeface.NORMAL)
+////                binding.tuesday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.tuesday.setBackgroundResource(android.R.color.transparent)
+//                tuesdayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("T")
+//                binding.tuesday.setTypeface(null, Typeface.BOLD)
+////                binding.tuesday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.tuesday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                tuesdayToggle = true
+//                updateRepeatedDaysSummary()
+//            }
+//        }
+//        binding.wednesday.setOnClickListener {
+//            if(wednesdayToggle) {
+//                daysofWeekList.remove("W")
+//                binding.wednesday.setTypeface(null, Typeface.NORMAL)
+////                binding.wednesday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.wednesday.setBackgroundResource(android.R.color.transparent)
+//                wednesdayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("W")
+//                binding.wednesday.setTypeface(null, Typeface.BOLD)
+////                binding.wednesday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.wednesday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                wednesdayToggle = true
+//                updateRepeatedDaysSummary()
+//            }
+//        }
+//        binding.thursday.setOnClickListener {
+//            if(thursdayToggle) {
+//                daysofWeekList.remove("Th")
+//                binding.thursday.setTypeface(null, Typeface.NORMAL)
+////                binding.thursday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.thursday.setBackgroundResource(android.R.color.transparent)
+//                thursdayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("Th")
+//                binding.thursday.setTypeface(null, Typeface.BOLD)
+////                binding.thursday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.thursday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                thursdayToggle = true
+//                updateRepeatedDaysSummary()
+//            }
+//        }
+//        binding.friday.setOnClickListener {
+//            if(fridayToggle) {
+//                daysofWeekList.remove("F")
+//                binding.friday.setTypeface(null, Typeface.NORMAL)
+////                binding.friday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.friday.setBackgroundResource(android.R.color.transparent)
+//                fridayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("F")
+//                binding.friday.setTypeface(null, Typeface.BOLD)
+////                binding.friday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.friday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                fridayToggle = true
+//                updateRepeatedDaysSummary()
+//
+//            }
+//        }
+//        binding.saturday.setOnClickListener {
+//            if(saturdayToggle) {
+//                daysofWeekList.remove("Sa")
+//                binding.saturday.setTypeface(null, Typeface.NORMAL)
+////                binding.saturday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.saturday.setBackgroundResource(android.R.color.transparent)
+//                saturdayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("Sa")
+//                binding.saturday.setTypeface(null, Typeface.BOLD)
+////                binding.saturday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.saturday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                saturdayToggle = true
+//                updateRepeatedDaysSummary()
+//            }
+//        }
+//        binding.sunday.setOnClickListener {
+//            if(sundayToggle) {
+//                daysofWeekList.remove("Su")
+//                binding.sunday.setTypeface(null, Typeface.NORMAL)
+////                binding.sunday.setTextColor(Color.parseColor ("#FFFFFF"))
+//                binding.sunday.setBackgroundResource(android.R.color.transparent)
+//                sundayToggle = false
+//                updateRepeatedDaysSummary()
+//            } else {
+//                daysofWeekList.add("Su")
+//                binding.sunday.setTypeface(null, Typeface.BOLD)
+////                binding.sunday.setTextColor(Color.parseColor ("#13005A"))
+//                binding.sunday.setBackgroundResource(com.example.groupalarm.R.drawable.circle_shape)
+//                sundayToggle = true
+//                updateRepeatedDaysSummary()
+//            }
+//        }
 
         binding.searchUserBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -247,7 +247,7 @@ class CreateAlarmActivity : AppCompatActivity() {
                     var users = "@" + adapter.getAddedUsersList().get(i)
                     addedUsernamesList.add(users)
                 }
-                binding.addedUsersList.text = "Added users:" + addedUsernamesList.toString().replace("[","").replace("]","")
+//                binding.addedUsersList.text = "Added users:" + addedUsernamesList.toString().replace("[","").replace("]","")
 
                 return false
             }
@@ -374,20 +374,20 @@ class CreateAlarmActivity : AppCompatActivity() {
         fridayToggle = false
         saturdayToggle= false
         sundayToggle = false
-        binding.monday.setBackgroundResource(android.R.color.transparent)
-        binding.tuesday.setBackgroundResource(android.R.color.transparent)
-        binding.wednesday.setBackgroundResource(android.R.color.transparent)
-        binding.thursday.setBackgroundResource(android.R.color.transparent)
-        binding.friday.setBackgroundResource(android.R.color.transparent)
-        binding.saturday.setBackgroundResource(android.R.color.transparent)
-        binding.sunday.setBackgroundResource(android.R.color.transparent)
-        binding.monday.setTypeface(null, Typeface.NORMAL)
-        binding.tuesday.setTypeface(null, Typeface.NORMAL)
-        binding.wednesday.setTypeface(null, Typeface.NORMAL)
-        binding.thursday.setTypeface(null, Typeface.NORMAL)
-        binding.friday.setTypeface(null, Typeface.NORMAL)
-        binding.saturday.setTypeface(null, Typeface.NORMAL)
-        binding.sunday.setTypeface(null, Typeface.NORMAL)
+//        binding.monday.setBackgroundResource(android.R.color.transparent)
+//        binding.tuesday.setBackgroundResource(android.R.color.transparent)
+//        binding.wednesday.setBackgroundResource(android.R.color.transparent)
+//        binding.thursday.setBackgroundResource(android.R.color.transparent)
+//        binding.friday.setBackgroundResource(android.R.color.transparent)
+//        binding.saturday.setBackgroundResource(android.R.color.transparent)
+//        binding.sunday.setBackgroundResource(android.R.color.transparent)
+//        binding.monday.setTypeface(null, Typeface.NORMAL)
+//        binding.tuesday.setTypeface(null, Typeface.NORMAL)
+//        binding.wednesday.setTypeface(null, Typeface.NORMAL)
+//        binding.thursday.setTypeface(null, Typeface.NORMAL)
+//        binding.friday.setTypeface(null, Typeface.NORMAL)
+//        binding.saturday.setTypeface(null, Typeface.NORMAL)
+//        binding.sunday.setTypeface(null, Typeface.NORMAL)
         daysofWeekList.clear()
         updateRepeatedDaysSummary()
 
@@ -545,13 +545,12 @@ class CreateAlarmActivity : AppCompatActivity() {
                 newAlarmRef.update(
                     "chatId", chatId,
                     "invitedUsers", alarmInvitedUsers)
-//                finish()
                 val intentDetails = Intent()
                 intentDetails.setClass(
                     this, DashboardActivity::class.java
                 )
                 startActivity(Intent(intentDetails))
-
+                finish()
             }
             .addOnFailureListener {
                 // Handle failed updates
