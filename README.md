@@ -27,13 +27,7 @@ As college students, we have so many things to do, a lot of which are actually s
 	+ Firebase Authentication: authentication & authorization
 	+ Pending Intent, BroadcastReceiver, AlarmManager: alarm scheduling & firing
 
-
-## Technical Difficulties:
-1. How to access the system alarm to set an alarm directly from our application
-2. Create groups & send/accept/decline invitations
-
 ## What’s next?
-+ Customizable Invitation Group: Users can customize the invitation list for a newly created alarm
-+ Group Messaging: Users in the same group can chat and send media/files
++ Recurring alarms
 =======
 # Group-Alarm
