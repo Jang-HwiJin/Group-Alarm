@@ -40,10 +40,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Alarm title"
-        android:textColorHint="@color/white"
         android:inputType="text"
         android:paddingTop="10dp"
         android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/daysOfWeekLayout" />
 
@@ -55,6 +56,7 @@
         android:queryHint="Search for a username"
         app:defaultQueryHint="Search for a username"
         app:iconifiedByDefault="false"
+        android:theme="@style/Theme.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAlarmTitle" />
@@ -106,12 +108,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 
+    <View
+        android:id="@+id/seperate1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/repeatDaySummary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
+    <View
+        android:id="@+id/seperate2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/daysOfWeekLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/daysOfWeekLayout" />
+
+    <View
+        android:id="@+id/seperate3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/search_user_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/search_user_bar" />
+
     <TextView
         android:id="@+id/repeatDaySummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_marginStart="10dp"
         android:text="Summary of the selected days"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_picker" />
 

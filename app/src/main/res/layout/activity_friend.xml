@@ -36,6 +36,7 @@
         android:queryHint="Search for a username"
         app:defaultQueryHint="Search for a username"
         app:iconifiedByDefault="false"
+        android:theme="@style/Theme.AppCompat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
