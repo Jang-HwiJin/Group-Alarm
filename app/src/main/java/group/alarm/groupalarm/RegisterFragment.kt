@@ -71,67 +71,70 @@ class RegisterFragment : Fragment() {
     }
 
     private fun registerUser() {
-        var usernameAlreadyExists = false
-        val firestore = FirebaseFirestore.getInstance()
-        firestore.collection("usernames").document(binding.etUsername.text.toString()).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val document = task.result
-                if (document.exists()) {
-                    binding.etUsername.error = getString(R.string.errorNewUsername)
+        if (isFormValid()) {
+            var usernameAlreadyExists = false
+            val firestore = FirebaseFirestore.getInstance()
+            firestore.collection("usernames").document(binding.etUsername.text.toString()).get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document = task.result
+                    if (document.exists()) {
+                        binding.etUsername.error = getString(R.string.errorNewUsername)
 
-                    usernameAlreadyExists = false
-                } else {
-                    usernameAlreadyExists = true
+                        usernameAlreadyExists = false
+                    } else {
+                        usernameAlreadyExists = true
 
-                    if (isFormValid()) {
-                        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                            binding.etEmail.text.toString(),
-                            binding.etPassword.text.toString()
-                        ).addOnSuccessListener {
-                            // add new user to database
-                            val usersCollection = FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
-                            val newUser = User(
-                                binding.etUsername.text.toString(),
-                                FirebaseAuth.getInstance().currentUser!!.email!!,
-                                binding.displayName.text.toString(),
-                            )
-                            usersCollection.document(FirebaseAuth.getInstance().currentUser!!.uid!!).set(newUser)
+                        if (isFormValid()) {
+                            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
+                                binding.etEmail.text.toString(),
+                                binding.etPassword.text.toString()
+                            ).addOnSuccessListener {
+                                // add new user to database
+                                val usersCollection = FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
+                                val newUser = User(
+                                    binding.etUsername.text.toString(),
+                                    FirebaseAuth.getInstance().currentUser!!.email!!,
+                                    binding.displayName.text.toString(),
+                                )
+                                usersCollection.document(FirebaseAuth.getInstance().currentUser!!.uid!!).set(newUser)
 
-                            // add usernames to the user database
-                            val usernamesCollection = FirebaseFirestore.getInstance().collection(COLLECTION_USERNAMES)
-                            val newUsername = Username(
-                                FirebaseAuth.getInstance().currentUser!!.uid!!,
-                            )
-                            usernamesCollection.document(binding.etUsername.text.toString()).set(newUsername)
+                                // add usernames to the user database
+                                val usernamesCollection = FirebaseFirestore.getInstance().collection(COLLECTION_USERNAMES)
+                                val newUsername = Username(
+                                    FirebaseAuth.getInstance().currentUser!!.uid!!,
+                                )
+                                usernamesCollection.document(binding.etUsername.text.toString()).set(newUsername)
 
-                            Toast.makeText(
-                                requireActivity(),
-                                getString(R.string.registrationSuccess),
-                                Toast.LENGTH_LONG
-                            ).show()
-                            val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+                                Toast.makeText(
+                                    requireActivity(),
+                                    getString(R.string.registrationSuccess),
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
 
-                            val userRef = FirebaseFirestore.getInstance().collection("users").document(currUserId)
-                            val updates = mapOf("activityStatus" to true)
-                            userRef.update(updates)
+                                val userRef = FirebaseFirestore.getInstance().collection("users").document(currUserId)
+                                val updates = mapOf("activityStatus" to true)
+                                userRef.update(updates)
 
-                            // Letting user become online
-                            val database = Firebase.database
-                            val usersRef = database.getReference("users")
-                            usersRef.child(currUserId).child("activityStatus").setValue(true)
+                                // Letting user become online
+                                val database = Firebase.database
+                                val usersRef = database.getReference("users")
+                                usersRef.child(currUserId).child("activityStatus").setValue(true)
 
-                            loginUser()
-                        }.addOnFailureListener{
-                            Toast.makeText(
-                                requireActivity(),
-                                "Error: ${it.message}",
-                                Toast.LENGTH_LONG
-                            ).show()
+                                loginUser()
+                            }.addOnFailureListener{
+                                Toast.makeText(
+                                    requireActivity(),
+                                    "Error: ${it.message}",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     }
                 }
             }
         }
+
     }
 
 
