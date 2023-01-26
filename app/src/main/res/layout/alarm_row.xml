@@ -16,7 +16,7 @@
         android:layout_height="116dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:background="#303141"
+        android:background="#144272"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -59,9 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
-            android:text="Alarm Recurrence/days"
+            android:text=""
             android:textColor="#FFFFFF"
-            android:textSize="10dp"
+            android:textSize="15dp"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/toggleAlarm"
@@ -76,10 +76,10 @@
             android:textOff="Off"
             android:textOn="On"
             android:thumb="@drawable/switch_thumb"
+            android:textColorHint="@color/white"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:showText="true"
             card_view:track="@drawable/switch_track" />
 
         <androidx.constraintlayout.widget.Guideline

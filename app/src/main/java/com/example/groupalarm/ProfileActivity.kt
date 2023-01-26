@@ -67,9 +67,9 @@ class ProfileActivity : AppCompatActivity() {
                     binding.username.text = "@" + user.username
                     binding.displayName.text = user.displayName
                     if(user.profileImg != "") {
-                        Glide.with(this).load(user.profileImg).into(
-                            binding.profilePicture
-                        )
+                        Glide.with(this)
+                            .load(user.profileImg)
+                            .into(binding.profilePicture)
                     }
                 }
             }
@@ -81,12 +81,6 @@ class ProfileActivity : AppCompatActivity() {
                 this, EditProfileActivity::class.java
             )
             startActivity(Intent(intentDetails))
-
-            // Send extra data later
-            // Idk what this means
-//            intentDetails.putExtra(
-//                "AlarmTitle", alarm.title
-//            )
         }
 
 

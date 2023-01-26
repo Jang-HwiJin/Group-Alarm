@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.ActivityEditProfileBinding
 import com.google.android.gms.tasks.OnCompleteListener
@@ -26,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
+import java.io.IOException
 import java.net.URLEncoder
 import java.util.*
 
@@ -38,7 +40,13 @@ class EditProfileActivity : AppCompatActivity() {
         const val REQUEST_CAMERA_PERMISSION = 1001
     }
 
+    private val PICK_IMAGE_REQUEST = 71
+    private var filePath: Uri? = null
+
     val currUserId = FirebaseAuth.getInstance().currentUser!!.uid
+
+    var uploadBitmap: Bitmap? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +64,11 @@ class EditProfileActivity : AppCompatActivity() {
                 if (user != null) {
                     binding.editNewDisplayName.setText(user.displayName)
                     if(user.profileImg != "") {
-                        Glide.with(this).load(user.profileImg).into(
-                            binding.profilePicture)
+                        Glide.with(this)
+                            .load(user.profileImg)
+                            .apply(RequestOptions().override(600, 200))
+                            .into(binding.profilePicture)
+
                     } else {
                         // It will just use the default picture
                     }
@@ -73,7 +84,6 @@ class EditProfileActivity : AppCompatActivity() {
 //        binding.btnChooseImage.setOnClickListener {
 //            getImage.launch("image/*")
 //        }
-        var uploadBitmap: Bitmap? = null
 
         var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 result ->
@@ -120,23 +130,6 @@ class EditProfileActivity : AppCompatActivity() {
                 }
             }
         }
-
-//        fun isFormValid(): Boolean {
-//            return when {
-//                binding.editNewDisplayName.text.isEmpty() -> {
-//                    binding.displayName.error = getString(R.string.fieldCannotBeEmpty)
-//                    false
-//                }
-//                binding.editNewDisplayName.length() !in 2..15 -> {
-//                    binding.displayName.error = getString(R.string.errorDisplayNameLength)
-//                    false
-//                }
-//                else ->{
-//                    true
-//                }
-//
-//            }
-//        }
 
         fun saveProfileChange(imgUrl: String = "") {
             var currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
@@ -233,6 +226,17 @@ class EditProfileActivity : AppCompatActivity() {
                 }
         }
 
+        fun launchGallery() {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
+        }
+
+        binding.btnChooseImage.setOnClickListener {
+            launchGallery()
+        }
+
         binding.btnTakePicture.setOnClickListener {
             requestNeededPermission()
             openCamera()
@@ -265,6 +269,23 @@ class EditProfileActivity : AppCompatActivity() {
         val database = Firebase.database
         val usersRef = database.getReference("users").child(currUserId)
         usersRef.child("activityStatus").setValue(true)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if(data == null || data.data == null){
+                return
+            }
+            filePath = data.data
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                uploadBitmap = bitmap
+                binding.profilePicture.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
     }
 
 

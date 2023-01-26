@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0A2647"
     tools:context=".EditProfileActivity">
 
     <TextView
@@ -12,8 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Edit Profile"
-        android:textSize="50sp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +26,6 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="150dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">
 
@@ -32,10 +33,9 @@
             android:id="@+id/profilePicture"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:clickable="true"
+            android:adjustViewBounds="true"
             android:src="@drawable/profile_foreground"
             app:layout_constraintEnd_toEndOf="@+id/btn_take_picture"
-            app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="@+id/btn_choose_image"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
     </androidx.cardview.widget.CardView>
@@ -63,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:text="Display Name"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +73,8 @@
         android:id="@+id/editNewDisplayName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/displayName" />

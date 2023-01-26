@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context=".StopAlarmActivity"
-    android:background="#303141"
+    android:background="#0A2647"
     >
 
 <!--    <Button-->
@@ -20,6 +20,15 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <TextView
+        android:id="@+id/alarm_title"
+        android:textSize="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/btnBackToApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnBackToApp"

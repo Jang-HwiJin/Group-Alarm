@@ -2,12 +2,11 @@ package com.example.groupalarm.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.example.groupalarm.AlarmChatsActivity
-import com.example.groupalarm.R
-import com.example.groupalarm.RegisterFragment
-import com.example.groupalarm.ScrollingActivity
+import com.example.groupalarm.*
+import com.example.groupalarm.adapter.AlarmAdapter
 import com.example.groupalarm.data.Alarm
 import com.example.groupalarm.data.User
 import com.example.groupalarm.databinding.AlarmPermissionDialogBinding
@@ -22,6 +21,7 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
 
     val firestore = FirebaseFirestore.getInstance()
     val currUserId = FirebaseAuth.getInstance().currentUser!!.uid!!
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialogBuilder = AlertDialog.Builder(requireContext())
@@ -66,6 +66,9 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
             then I will have to remove the alarmIds from the all the users who have the alarm for the acceptedAlarms and the activeAlarms fields
          */
         positiveButton.setOnClickListener {
+            // I also need to remove it from the AlarmAdapter recyclerview list
+
+
             // I need to get the alarmId out of the user's activealarms and alarms field in the users collection
             // I need to get the userId out of the chat's users field in the chats collection
             // I need to get the userId out of the alarm's acceptedUsers field in the alarms collection
@@ -116,6 +119,11 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
                     }
                 }
             dialog.dismiss()
+            val intentDetails = Intent()
+            intentDetails.setClass(
+                context as AlarmChatsActivity, DashboardActivity::class.java
+            )
+            startActivity(Intent(intentDetails))
             (context as AlarmChatsActivity).finish()
         }
     }

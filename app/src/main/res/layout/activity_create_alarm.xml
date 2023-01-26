@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#9498A5"
+    android:background="#0A2647"
     android:textColor="@color/white"
     tools:context=".CreateAlarmActivity">
 
@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Create Alarm"
-        android:textSize="50sp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +27,6 @@
         android:layout_width="311dp"
         android:layout_height="209dp"
         android:layout_gravity="center"
-        android:background="#9498A5"
         android:headerBackground="#303141"
         android:numbersSelectorColor="#303141"
         android:theme="@android:style/Theme.Holo.Dialog.MinWidth"
@@ -40,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Alarm title"
+        android:textColorHint="@color/white"
         android:inputType="text"
         android:paddingTop="10dp"
         android:textColor="@color/white"
@@ -62,6 +63,7 @@
         android:id="@+id/added_users_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Added Users:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
@@ -108,6 +110,7 @@
         android:id="@+id/repeatDaySummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Summary of the selected days"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_picker" />

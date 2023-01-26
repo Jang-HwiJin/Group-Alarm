@@ -61,6 +61,10 @@ class AlarmChatsActivity : AppCompatActivity() {
         binding = ActivityAlarmChatsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        title = ""
+
+
+
         adapter = ChatsAdapter(this,
             FirebaseAuth.getInstance().currentUser!!.uid
         )

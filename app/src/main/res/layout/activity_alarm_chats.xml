@@ -5,18 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
+    android:background="#0A2647"
     tools:context=".AlarmChatsActivity">
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical">-->
-<!--        &lt;!&ndash; Let's add fragment &ndash;&gt;-->
-<!--        <FrameLayout-->
-<!--            android:id="@+id/frame_layout_container"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-<!--    </LinearLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
@@ -40,21 +30,13 @@
             android:id="@+id/messageBox"
             android:layout_width="309dp"
             android:layout_height="47dp"
-            android:paddingLeft="10dp"
-            android:layout_marginEnd="10dp"
             android:hint="Type a text"
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/white"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cardView"
+            app:layout_constraintEnd_toStartOf="@+id/btn_send_message"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="1500dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
 
             <Button
                 android:id="@+id/btn_send_message"
@@ -63,7 +45,6 @@
                 android:text="Send"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -73,6 +54,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#0A2647"
+        app:subheaderColor="@color/white"
+        app:itemTextColor="@color/white"
         app:headerLayout="@layout/alarm_chat_header" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

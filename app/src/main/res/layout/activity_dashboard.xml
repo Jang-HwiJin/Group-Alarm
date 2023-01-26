@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#0A2647"
     tools:context=".DashboardActivity">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alarm Dashboard"
-        android:textSize="50sp"
+        android:text="Dashboard"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,12 +23,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAlarms"
-        android:layout_width="408dp"
-        android:layout_height="706dp"
+        android:layout_width="397dp"
+        android:layout_height="680dp"
         android:padding="20dp"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/add_alarm_fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarm_invite_fab" />
@@ -38,6 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
         app:fabSize="auto"
+        android:background="#2C74B3"
         app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -70,6 +74,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomMenuNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:fabSize="auto"
+        android:background="#2C74B3"
         app:srcCompat="@drawable/add_alarm" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
