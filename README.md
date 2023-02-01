@@ -1,5 +1,7 @@
 # GroupAlarm
 
+Google Play Store:
+https://play.google.com/store/apps/details?id=group.alarm.groupalarm
 
 ## Inspiration:
 As college students, we have so many things to do, a lot of which are actually shared activities with our friends/roommates/colleagues/etc. We never want to be late, but as part of human nature, it’s so easy to forget setting an alarm and end up being late or left behind (we all know how embarrassing it is!). Group Alarm is the solution for this long-standing problem. With Group Alarm, you can make synchronized alarms with your friends, thereby minimizing the risk of being late. You can sleep through your own alarm, but it’s almost impossible for everyone in your group to miss the alarm, and you will be waken up in one way or another. With GroupAlarm, you’ll no longer be late, or left behind.
