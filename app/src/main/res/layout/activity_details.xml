@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9498A5">
+    android:background="@color/black"
+    >
 
 
     <TextView
@@ -79,7 +80,7 @@
         android:id="@+id/backBtn"
         android:layout_width="124dp"
         android:layout_height="65dp"
-        android:backgroundTint="#50577A"
+        android:backgroundTint="@color/btn_color_std_bg"
         android:text="Go Back"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"

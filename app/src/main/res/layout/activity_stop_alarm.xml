@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context=".StopAlarmActivity"
-    android:background="#0A2647"
+    android:background="@color/black"
     >
 
 <!--    <Button-->
@@ -34,7 +34,7 @@
         android:id="@+id/btnBackToApp"
         android:layout_width="150dp"
         android:layout_height="88dp"
-        android:backgroundTint="#50577A"
+        android:backgroundTint="@color/btn_color_std_bg"
         android:text="Stop Alarm"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"

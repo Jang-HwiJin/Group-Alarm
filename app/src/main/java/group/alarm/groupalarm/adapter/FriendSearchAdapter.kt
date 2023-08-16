@@ -74,7 +74,7 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
 
     fun removeUser(index: Int) {
         FirebaseFirestore.getInstance().collection(
-            DashboardActivity.COLLECTION_ALARMS).document(
+            DashboardFragment.COLLECTION_ALARMS).document(
             userIdList[index]
         ).delete()
 
@@ -121,17 +121,36 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
                                     .addOnSuccessListener { snapshot ->
                                         val friend = snapshot.toObject(User::class.java)
                                         if (friend != null && user.username == friend.username) {
-                                            binding.btnSendFriendRequest.text = "Already friends"
+                                            binding.btnSendFriendRequest.text = "Friends"
                                             binding.btnSendFriendRequest.isClickable = false
                                             binding.btnSendFriendRequest.setBackgroundColor(Color.DKGRAY)
                                         }
                                     }
+                            } else if (status == "pending") {
+                                // Get the friend's user document
+                                firestore.collection("users").document(friendId).get()
+                                    .addOnSuccessListener { snapshot ->
+                                        val friend = snapshot.toObject(User::class.java)
+                                        if (friend != null && user.username == friend.username) {
+                                            binding.btnSendFriendRequest.text = "Requested"
+                                            binding.btnSendFriendRequest.isClickable = false
+                                            binding.btnSendFriendRequest.setBackgroundColor(Color.DKGRAY)
+                                        }
+                                    }
+                            }
+                            else if (status == "declined") {
+                                // Get the friend's user document
+                                firestore.collection("users").document(friendId).get()
+                                    .addOnSuccessListener { snapshot ->
+                                        val friend = snapshot.toObject(User::class.java)
+                                        if (friend != null && user.username == friend.username) {
+                                            binding.btnSendFriendRequest.text = "Request"
+                                            binding.btnSendFriendRequest.isClickable = true
+                                        }
+                                    }
                             } else {
-                                binding.btnSendFriendRequest.text = "Request Friend"
+                                binding.btnSendFriendRequest.text = "Request"
                                 binding.btnSendFriendRequest.isClickable = true
-                                binding.btnSendFriendRequest.setBackgroundColor(
-                                    ContextCompat.getColor(context, R.color.color_standard_button)
-                                )
                             }
                         }
                     }
@@ -146,23 +165,26 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
                     if(user != null) {
                         val receiverId = user.uid
                         sendFriendRequest(receiverId)
+                        binding.btnSendFriendRequest.text = "Requested"
+                        binding.btnSendFriendRequest.isClickable = false
+                        binding.btnSendFriendRequest.setBackgroundColor(Color.DKGRAY)
                     }
                 }.addOnFailureListener {
                     Toast.makeText(context, "User could not be found, please check the spelling", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            binding.btnViewProfile.setOnClickListener {
-                val intentDetails = Intent()
-                intentDetails.putExtra("Username", user.username)
-                intentDetails.putExtra("DisplayName", user.displayName)
-                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
-
-                intentDetails.setClass(
-                    context, ProfileDetailsActivity::class.java
-                )
-                (context as FriendActivity).startActivity(Intent(intentDetails))
-            }
+//            binding.btnViewProfile.setOnClickListener {
+//                val intentDetails = Intent()
+//                intentDetails.putExtra("Username", user.username)
+//                intentDetails.putExtra("DisplayName", user.displayName)
+//                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+//
+//                intentDetails.setClass(
+//                    context, ProfileDetailsActivity::class.java
+//                )
+//                (context as DashActivity).startActivity(Intent(intentDetails))
+//            }
 
         }
     }

@@ -149,12 +149,12 @@ class StopAlarmActivity : AppCompatActivity() {
                                 vibrator.cancel()
                                 ringtone.stop()
 
-                                var pendingIntentToBeRemoved = DashboardActivity.alarmIntents[alarmId]
+                                var pendingIntentToBeRemoved = DashboardFragment.alarmIntents[alarmId]
                                 if (pendingIntentToBeRemoved != null) {
                                     alarmManager.cancel(pendingIntentToBeRemoved)
                                 }
 
-                                val intent = Intent(this, DashboardActivity::class.java)
+                                val intent = Intent(this, DashboardFragment::class.java)
 //                                newIntent.putExtra("alarmId", alarmId)
                                 startActivity(Intent(intent))
 
@@ -167,12 +167,12 @@ class StopAlarmActivity : AppCompatActivity() {
                                 vibrator.cancel()
                                 ringtone.stop()
 
-                                var pendingIntentToBeRemoved = DashboardActivity.alarmIntents[alarmId]
+                                var pendingIntentToBeRemoved = DashboardFragment.alarmIntents[alarmId]
                                 if (pendingIntentToBeRemoved != null) {
                                     alarmManager.cancel(pendingIntentToBeRemoved)
                                 }
 
-                                val intent = Intent(this, DashboardActivity::class.java)
+                                val intent = Intent(this, DashboardFragment::class.java)
 //                                newIntent.putExtra("alarmId", alarmId)
                                 startActivity(Intent(intent))
                             }

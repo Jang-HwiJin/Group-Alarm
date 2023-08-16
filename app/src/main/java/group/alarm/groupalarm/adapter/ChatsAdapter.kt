@@ -69,7 +69,7 @@ class ChatsAdapter : RecyclerView.Adapter<ChatsAdapter.ViewHolder> {
 
     fun removeMessage(index: Int) {
         FirebaseFirestore.getInstance().collection(
-            DashboardActivity.COLLECTION_ALARMS).document(
+            DashboardFragment.COLLECTION_ALARMS).document(
             messageIdList[index]
         ).delete()
 

@@ -326,7 +326,7 @@ class CreateAlarmActivity : AppCompatActivity() {
         binding.btnCancel.setOnClickListener {
             val intentDetails = Intent()
             intentDetails.setClass(
-                this, DashboardActivity::class.java
+                this, DashActivity::class.java
             )
             startActivity(Intent(intentDetails))
             finish()
@@ -546,7 +546,7 @@ class CreateAlarmActivity : AppCompatActivity() {
                     "invitedUsers", alarmInvitedUsers)
                 val intentDetails = Intent()
                 intentDetails.setClass(
-                    this, DashboardActivity::class.java
+                    this, DashActivity::class.java
                 )
                 startActivity(Intent(intentDetails))
                 finish()

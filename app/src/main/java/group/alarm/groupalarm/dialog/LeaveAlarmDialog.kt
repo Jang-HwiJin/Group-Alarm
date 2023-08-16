@@ -118,7 +118,7 @@ class LeaveAlarmDialog(val alarmId: String): DialogFragment() {
             dialog.dismiss()
             val intentDetails = Intent()
             intentDetails.setClass(
-                context as group.alarm.groupalarm.AlarmChatsActivity, DashboardActivity::class.java
+                context as group.alarm.groupalarm.AlarmChatsActivity, DashActivity::class.java
             )
             startActivity(Intent(intentDetails))
             (context as group.alarm.groupalarm.AlarmChatsActivity).finish()

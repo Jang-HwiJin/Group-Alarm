@@ -31,7 +31,7 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
 
 
 
-    constructor(context: DashboardActivity, uid: String) : super() {
+    constructor(context: DashActivity, uid: String) : super() {
         this.context = context
         this.currentUid = uid
     }
@@ -215,7 +215,7 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                     intent.putExtra("alarmId", alarmInviteDocId)
                     val requestCode = alarmInviteDocId.hashCode() // Use the alarm's ID as the request code
                     val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-                    DashboardActivity.alarmIntents.put(alarmInviteDocId, pendingIntent)
+                    DashboardFragment.alarmIntents.put(alarmInviteDocId, pendingIntent)
 
                     val dayOfWeekMap = mapOf(
                         "M" to Calendar.MONDAY,
@@ -240,7 +240,7 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                     toggleOnOffAlarm(false, alarmInviteDocId)
 
                     val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    var pendingIntentToBeRemoved = DashboardActivity.alarmIntents.get(alarmInviteDocId)
+                    var pendingIntentToBeRemoved = DashboardFragment.alarmIntents.get(alarmInviteDocId)
                     if (pendingIntentToBeRemoved != null) {
                         alarmManager.cancel(pendingIntentToBeRemoved)
                     }
@@ -314,7 +314,7 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                 intentDetails.putExtra(
                     "AlarmId", alarmInviteDocId
                 )
-                (context as DashboardActivity).startActivity(Intent(intentDetails))
+                (context as DashActivity).startActivity(Intent(intentDetails))
             }
 
 //            userToggleAlarms(alarmInviteDocId)

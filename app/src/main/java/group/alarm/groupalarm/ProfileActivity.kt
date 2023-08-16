@@ -26,30 +26,30 @@ class ProfileActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.bottomMenuNavigation.setSelectedItemId(R.id.profile)
-        binding.bottomMenuNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.profile -> {
-                    false
-                }
-                R.id.home -> {
-                    val intent = Intent(this@ProfileActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.settings -> {
-                    val intent = Intent(this@ProfileActivity, SettingActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.friends -> {
-                    val intent = Intent(this@ProfileActivity, FriendActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-            }
-            false
-        }
+//        binding.bottomMenuNavigation.setSelectedItemId(R.id.profile)
+//        binding.bottomMenuNavigation.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.profile -> {
+//                    false
+//                }
+//                R.id.home -> {
+//                    val intent = Intent(this@ProfileActivity, DashboardActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//                R.id.settings -> {
+//                    val intent = Intent(this@ProfileActivity, SettingActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//                R.id.friends -> {
+//                    val intent = Intent(this@ProfileActivity, FriendActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//            }
+//            false
+//        }
 
         // Displaying the user's profile
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
