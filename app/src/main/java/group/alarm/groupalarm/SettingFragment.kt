@@ -68,7 +68,9 @@ class SettingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
+        val database = Firebase.database
+        val usersRef = database.getReference("users").child(currUserId)
+        usersRef.child("activityStatus").setValue(true)
     }
 
     fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {

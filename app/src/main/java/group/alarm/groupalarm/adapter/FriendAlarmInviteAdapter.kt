@@ -155,6 +155,18 @@ class FriendAlarmInviteAdapter : RecyclerView.Adapter<FriendAlarmInviteAdapter.V
 //                (context as CreateAlarmActivity).startActivity(Intent(intentDetails))
 //            }
 
+            binding.cardView.setOnClickListener {
+                val intentDetails = Intent()
+                intentDetails.putExtra("Username", user.username)
+                intentDetails.putExtra("DisplayName", user.displayName)
+                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+
+                intentDetails.setClass(
+                    context, ProfileDetailsActivity::class.java
+                )
+                (context as CreateAlarmActivity).startActivity(Intent(intentDetails))
+            }
+
         }
     }
 

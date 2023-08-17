@@ -148,6 +148,18 @@ class MoreAlarmInviteAdapter : RecyclerView.Adapter<MoreAlarmInviteAdapter.ViewH
 //                (context as CreateAlarmActivity).startActivity(Intent(intentDetails))
 //            }
 
+            binding.cardView.setOnClickListener {
+                val intentDetails = Intent()
+                intentDetails.putExtra("Username", user.username)
+                intentDetails.putExtra("DisplayName", user.displayName)
+                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+
+                intentDetails.setClass(
+                    context, ProfileDetailsActivity::class.java
+                )
+                (context as MoreAlarmInviteActivity).startActivity(Intent(intentDetails))
+            }
+
         }
     }
 

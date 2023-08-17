@@ -64,17 +64,17 @@
             card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.25"
             card_view:layout_constraintTop_toTopOf="@+id/guidelineHor.50" />
 
-        <Button
-            android:id="@+id/btn_view_profile"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:backgroundTint="@color/btn_color_std_bg"
-            android:text="View"
-            android:textSize="8sp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.73"
-            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.52"
-            card_view:layout_constraintTop_toTopOf="parent" />
+<!--        <Button-->
+<!--            android:id="@+id/btn_view_profile"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:backgroundTint="@color/btn_color_std_bg"-->
+<!--            android:text="View"-->
+<!--            android:textSize="8sp"-->
+<!--            card_view:layout_constraintBottom_toBottomOf="parent"-->
+<!--            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.73"-->
+<!--            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.52"-->
+<!--            card_view:layout_constraintTop_toTopOf="parent" />-->
         <Button
             android:id="@+id/btn_remove_friend"
             android:layout_width="0dp"

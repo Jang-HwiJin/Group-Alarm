@@ -99,6 +99,10 @@ class ProfileFragment : Fragment() {
                     }
                 }
             }
+
+        val database = Firebase.database
+        val usersRef = database.getReference("users").child(currUserId)
+        usersRef.child("activityStatus").setValue(true)
     }
 
     fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {

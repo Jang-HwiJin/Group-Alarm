@@ -186,6 +186,18 @@ class FriendSearchAdapter : RecyclerView.Adapter<FriendSearchAdapter.ViewHolder>
 //                (context as DashActivity).startActivity(Intent(intentDetails))
 //            }
 
+            binding.cardView.setOnClickListener {
+                val intentDetails = Intent()
+                intentDetails.putExtra("Username", user.username)
+                intentDetails.putExtra("DisplayName", user.displayName)
+                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+
+                intentDetails.setClass(
+                    context, ProfileDetailsActivity::class.java
+                )
+                (context as DashActivity).startActivity(Intent(intentDetails))
+            }
+
         }
     }
 

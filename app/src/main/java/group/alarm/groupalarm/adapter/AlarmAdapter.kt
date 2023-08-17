@@ -158,12 +158,12 @@ class AlarmAdapter : RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
                     val user = document.toObject(User::class.java)
                     if (user != null) {
                         val activeAlarmList = user.activeAlarms
-                            if (activeAlarmList.contains(alarmInviteDocId)) {
-                                // The alarm is in the user's activeAlarmList
-                                binding.toggleAlarm.isChecked = true
-                            } else {
-                                binding.toggleAlarm.isChecked = false
-                            }
+                        if (activeAlarmList.contains(alarmInviteDocId)) {
+                            // The alarm is in the user's activeAlarmList
+                            binding.toggleAlarm.isChecked = true
+                        } else {
+                            binding.toggleAlarm.isChecked = false
+                        }
                     }
                 }
 

@@ -1,6 +1,7 @@
 package group.alarm.groupalarm.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +11,9 @@ import group.alarm.groupalarm.data.User
 import group.alarm.groupalarm.databinding.FriendRequestsRowBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import group.alarm.groupalarm.FriendRequestActivity
+import group.alarm.groupalarm.FriendsViewActivity
+import group.alarm.groupalarm.ProfileDetailsActivity
 
 class FriendRequestAdapter : RecyclerView.Adapter<FriendRequestAdapter.ViewHolder> {
 
@@ -107,6 +111,18 @@ class FriendRequestAdapter : RecyclerView.Adapter<FriendRequestAdapter.ViewHolde
                     }
                 removeRequest(adapterPosition)
 
+            }
+
+            binding.cardView.setOnClickListener {
+                val intentDetails = Intent()
+                intentDetails.putExtra("Username", requester.username)
+                intentDetails.putExtra("DisplayName", requester.displayName)
+                intentDetails.putExtra("ProfileImgUrl", requester.profileImg)
+
+                intentDetails.setClass(
+                    context, ProfileDetailsActivity::class.java
+                )
+                (context as FriendRequestActivity).startActivity(Intent(intentDetails))
             }
         }
     }
