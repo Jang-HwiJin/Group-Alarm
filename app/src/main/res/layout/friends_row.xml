@@ -48,8 +48,8 @@
             android:textSize="15sp"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toTopOf="@+id/guidelineHor.50"
-            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.50"
-            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.25"
+            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.75"
+            card_view:layout_constraintStart_toEndOf="@+id/profilePicCard"
             card_view:layout_constraintTop_toTopOf="parent" />
 
 
@@ -60,8 +60,8 @@
             android:text="displayName"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
-            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.50"
-            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.25"
+            card_view:layout_constraintEnd_toStartOf="@+id/btn_remove_friend"
+            card_view:layout_constraintStart_toEndOf="@+id/profilePicCard"
             card_view:layout_constraintTop_toTopOf="@+id/guidelineHor.50" />
 
 <!--        <Button-->
@@ -77,11 +77,11 @@
 <!--            card_view:layout_constraintTop_toTopOf="parent" />-->
         <Button
             android:id="@+id/btn_remove_friend"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="#FF0032"
-            android:text="@string/remove"
-            android:textSize="8sp"
+            android:text="Delete"
+            android:textSize="7sp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.98"
             card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.77"
