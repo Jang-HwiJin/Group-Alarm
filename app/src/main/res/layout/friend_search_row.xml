@@ -48,8 +48,8 @@
             android:textSize="15sp"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toTopOf="@+id/guidelineHor.50"
-            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.50"
-            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.25"
+            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.73"
+            card_view:layout_constraintStart_toEndOf="@+id/profilePicCard"
             card_view:layout_constraintTop_toTopOf="parent" />
 
 
@@ -60,8 +60,8 @@
             android:text="displayName"
             android:textColor="#FFFFFF"
             android:textSize="10sp"
-            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.50"
-            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.25"
+            card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.73"
+            card_view:layout_constraintStart_toEndOf="@+id/profilePicCard"
             card_view:layout_constraintTop_toTopOf="@+id/guidelineHor.50" />
 
 <!--        <Button-->
@@ -78,14 +78,14 @@
 
         <Button
             android:id="@+id/btn_send_friend_request"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/btn_color_std_bg"
             android:text="Request"
-            android:textSize="8sp"
+            android:textSize="8dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/guidelineVer.98"
-            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.77"
+            card_view:layout_constraintStart_toStartOf="@+id/guidelineVer.75"
             card_view:layout_constraintTop_toTopOf="parent" />
 
 
