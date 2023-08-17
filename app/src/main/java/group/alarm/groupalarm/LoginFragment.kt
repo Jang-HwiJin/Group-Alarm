@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
             usersRef.child("activityStatus").setValue(true)
 
             // User is signed in
-            val i = Intent(context, DashboardActivity::class.java)
+            val i = Intent(context, DashActivity::class.java)
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(i)
         } else {
@@ -101,7 +101,7 @@ class LoginFragment : Fragment() {
                 val usersRef = database.getReference("users").child(currUserId)
                 usersRef.child("activityStatus").setValue(true)
 
-                startActivity(Intent(requireActivity(), DashboardActivity::class.java))
+                startActivity(Intent(requireActivity(), DashActivity::class.java))
             }.addOnFailureListener{
                 Toast.makeText(
                     requireActivity(),

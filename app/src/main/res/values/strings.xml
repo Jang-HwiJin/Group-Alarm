@@ -93,6 +93,12 @@
         <item>Login</item>
         <item>Register</item>
     </string-array>
+    <string-array name="dash_tab_names">
+        <item>Alarms</item>
+        <item>Friends</item>
+        <item>Profile</item>
+        <item>Settings</item>
+    </string-array>
     <string name="action_settings">Settings</string>
     <string name="cancel_btn">Cancel</string>
     <string name="confirm_btn">Confirm</string>

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    android:background="#0A2647"
+    android:background="@color/black"
+    android:backgroundTint="@color/black"
     tools:context=".AlarmChatsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,21 +29,24 @@
 
         <EditText
             android:id="@+id/messageBox"
-            android:layout_width="309dp"
-            android:layout_height="47dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:hint="Type a text"
             android:paddingLeft="10dp"
-            android:textColorHint="@color/white"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_send_message"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_send_message" />
 
             <Button
                 android:id="@+id/btn_send_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/btn_color_std_bg"
                 android:text="Send"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -54,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#0A2647"
+        android:backgroundTint="@color/row_color_std_bg"
         app:subheaderColor="@color/white"
         app:itemTextColor="@color/white"
         app:headerLayout="@layout/alarm_chat_header" />

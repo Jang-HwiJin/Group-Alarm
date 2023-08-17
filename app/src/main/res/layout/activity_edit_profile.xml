@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A2647"
-    tools:context=".EditProfileActivity">
+    android:background="@color/black"
+    tools:context=".EditProfileActivity"
+    >
 
     <TextView
         android:id="@+id/textView3"
@@ -46,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose image"
+        android:backgroundTint="@color/btn_color_std_bg"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/profilePicCard" />
 
@@ -54,6 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take picture"
+        android:backgroundTint="@color/btn_color_std_bg"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/profilePicCard" />
 
@@ -111,6 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
+        android:backgroundTint="@color/btn_color_std_bg"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/editNewDisplayName" />
 
@@ -119,6 +123,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel"
+        android:backgroundTint="@color/btn_color_std_bg"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/editNewDisplayName" />
 

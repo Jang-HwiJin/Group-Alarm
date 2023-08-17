@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".DashActivity">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Friend Search"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVer.05"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHor.03" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/search_user_bar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="@string/search_for_users"-->
+    <!--        android:inputType="text"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_user_bar"
+        android:layout_width="395dp"
+        android:layout_height="49dp"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search for a username"
+        android:theme="@style/Theme.AppCompat"
+        app:defaultQueryHint="Search for a username"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <!--    <Button-->
+    <!--        android:id="@+id/btn_search"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/submit"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fakeButtonForFriendRequestNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF597B"
+        android:clickable="false"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/search_user_bar"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHor.80" />
+
+    <TextView
+        android:id="@+id/numPendingRequestsNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/fakeButtonForFriendRequestNumber"
+        app:layout_constraintEnd_toEndOf="@+id/fakeButtonForFriendRequestNumber"
+        app:layout_constraintStart_toStartOf="@+id/fakeButtonForFriendRequestNumber"
+        app:layout_constraintTop_toTopOf="@+id/fakeButtonForFriendRequestNumber" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerFriends"
+        android:layout_width="match_parent"
+        android:layout_height="558dp"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/btn_friends_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_user_bar" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHor.80"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline.50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5" />
+
+    <Button
+        android:id="@+id/btn_friends_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/btn_color_std_bg"
+        android:text="Friends"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVer.45"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVer.05"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHor.80" />
+
+    <Button
+        android:id="@+id/btn_friends_request"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/btn_color_std_bg"
+        android:text="Friend Requests"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVer.95"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVer.55"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHor.80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVer.05"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVer.95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHor.03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVer.45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVer.55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".55" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_gravity="center"
-    android:background="#0A2647">
+    android:background="@color/black"
+    >
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -25,7 +26,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxBackgroundColor="#1C82AD"
+            app:boxBackgroundColor="@color/row_color_std_bg"
+            android:textColorHint="@color/white"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/displayName"
@@ -50,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:boxBackgroundColor="#1C82AD">
+            app:boxBackgroundColor="@color/row_color_std_bg"
+            android:textColorHint="@color/white">
             <EditText android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +62,7 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:text=""
-                android:hint="Username, only accepts lowercase, '.', and '_'" />
+                android:hint="Username (lowercase)" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -67,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:boxBackgroundColor="#1C82AD">
+            app:boxBackgroundColor="@color/row_color_std_bg"
+            android:textColorHint="@color/white">
             <EditText android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +88,8 @@
             app:passwordToggleEnabled="true"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:boxBackgroundColor="#1C82AD">
+            app:boxBackgroundColor="@color/row_color_std_bg"
+            android:textColorHint="@color/white">
             <EditText android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,7 +106,8 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:text="Register"
-            android:backgroundTint="#2C74B3"/>
+            android:backgroundTint="@color/btn_color_std_bg"
+            />
 
     </LinearLayout>
 </ScrollView>

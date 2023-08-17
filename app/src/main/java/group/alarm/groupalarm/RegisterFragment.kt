@@ -181,7 +181,7 @@ class RegisterFragment : Fragment() {
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString()
             ).addOnSuccessListener {
-                startActivity(Intent(requireActivity(), DashboardActivity::class.java))
+                startActivity(Intent(requireActivity(), DashActivity::class.java))
             }.addOnFailureListener{
                 Toast.makeText(
                     requireActivity(),

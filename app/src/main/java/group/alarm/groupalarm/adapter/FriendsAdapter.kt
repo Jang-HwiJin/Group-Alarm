@@ -128,8 +128,8 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
                             for (document in otherDocumentSnapshot) {
                                 if (document != null) {
                                     val otherUserDocId = document.id
-                                        FirebaseFirestore.getInstance().collection("friends").document(otherUserDocId)
-                                            .update("status", "declined")
+                                    FirebaseFirestore.getInstance().collection("friends").document(otherUserDocId)
+                                        .update("status", "declined")
                                 }
                             }
                         }.addOnFailureListener {
@@ -156,7 +156,23 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
 
 
 
-            binding.btnViewProfile.setOnClickListener {
+//            binding.btnViewProfile.setOnClickListener {
+//                val intentDetails = Intent()
+//                intentDetails.putExtra("Username", friend.username)
+//                intentDetails.putExtra("DisplayName", friend.displayName)
+//                intentDetails.putExtra("ProfileImgUrl", friend.profileImg)
+//
+//                intentDetails.setClass(
+//                    context, ProfileDetailsActivity::class.java
+//                )
+//                (context as FriendsViewActivity).startActivity(Intent(intentDetails))
+//            }
+
+            binding.btnRemoveFriend.setOnClickListener {
+                removeFriendByKey(friendDocId)
+            }
+
+            binding.cardView.setOnClickListener {
                 val intentDetails = Intent()
                 intentDetails.putExtra("Username", friend.username)
                 intentDetails.putExtra("DisplayName", friend.displayName)
@@ -166,10 +182,6 @@ class FriendsAdapter : RecyclerView.Adapter<FriendsAdapter.ViewHolder> {
                     context, ProfileDetailsActivity::class.java
                 )
                 (context as FriendsViewActivity).startActivity(Intent(intentDetails))
-            }
-
-            binding.btnRemoveFriend.setOnClickListener {
-                removeFriendByKey(friendDocId)
             }
 
             }

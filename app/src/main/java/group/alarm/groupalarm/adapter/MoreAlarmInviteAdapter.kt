@@ -72,7 +72,7 @@ class MoreAlarmInviteAdapter : RecyclerView.Adapter<MoreAlarmInviteAdapter.ViewH
 
     fun removeUser(index: Int) {
         FirebaseFirestore.getInstance().collection(
-            DashboardActivity.COLLECTION_ALARMS).document(
+            DashboardFragment.COLLECTION_ALARMS).document(
             userIdList[index]
         ).delete()
 
@@ -102,20 +102,14 @@ class MoreAlarmInviteAdapter : RecyclerView.Adapter<MoreAlarmInviteAdapter.ViewH
                 .into(binding.profilePicture)
 
             if(invitedUsersList.contains(user.username)) {
-                binding.btnSendAlarmInvite.text = "Already Added"
+                binding.btnSendAlarmInvite.text = "Added"
                 binding.btnSendAlarmInvite.setTextColor(
                     ContextCompat.getColor(context, R.color.white)
                 )
                 binding.btnSendAlarmInvite.setBackgroundColor(Color.DKGRAY)
             }
             else {
-                binding.btnSendAlarmInvite.text = "Send Alarm Invite"
-                binding.btnSendAlarmInvite.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.color_standard_button)
-                )
-                binding.btnSendAlarmInvite.setTextColor(
-                    ContextCompat.getColor(context, R.color.black)
-                )
+
             }
 
 
@@ -123,19 +117,18 @@ class MoreAlarmInviteAdapter : RecyclerView.Adapter<MoreAlarmInviteAdapter.ViewH
             binding.btnSendAlarmInvite.setOnClickListener {
                 if(invitedUsersList.contains(user.username)) {
                     removeUsersFromInviteList(user.username)
-
-                    binding.btnSendAlarmInvite.text = "Send Alarm Invite"
+                    binding.btnSendAlarmInvite.text = "Invite"
                     binding.btnSendAlarmInvite.setBackgroundColor(
-                        ContextCompat.getColor(context, R.color.color_standard_button)
+                        ContextCompat.getColor(context, R.color.btn_color_std_bg)
                     )
                     binding.btnSendAlarmInvite.setTextColor(
-                        ContextCompat.getColor(context, R.color.black)
+                        ContextCompat.getColor(context, R.color.white)
                     )
                 }
                 else {
                     addUsersToInviteList(user.username)
 
-                    binding.btnSendAlarmInvite.text = "Already Added"
+                    binding.btnSendAlarmInvite.text = "Added"
                     binding.btnSendAlarmInvite.setTextColor(
                         ContextCompat.getColor(context, R.color.white)
                     )
@@ -143,7 +136,19 @@ class MoreAlarmInviteAdapter : RecyclerView.Adapter<MoreAlarmInviteAdapter.ViewH
                 }
             }
 
-            binding.btnViewProfile.setOnClickListener {
+//            binding.btnViewProfile.setOnClickListener {
+//                val intentDetails = Intent()
+//                intentDetails.putExtra("Username", user.username)
+//                intentDetails.putExtra("DisplayName", user.displayName)
+//                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+//
+//                intentDetails.setClass(
+//                    context, ProfileDetailsActivity::class.java
+//                )
+//                (context as CreateAlarmActivity).startActivity(Intent(intentDetails))
+//            }
+
+            binding.cardView.setOnClickListener {
                 val intentDetails = Intent()
                 intentDetails.putExtra("Username", user.username)
                 intentDetails.putExtra("DisplayName", user.displayName)
@@ -152,7 +157,7 @@ class MoreAlarmInviteAdapter : RecyclerView.Adapter<MoreAlarmInviteAdapter.ViewH
                 intentDetails.setClass(
                     context, ProfileDetailsActivity::class.java
                 )
-                (context as CreateAlarmActivity).startActivity(Intent(intentDetails))
+                (context as MoreAlarmInviteActivity).startActivity(Intent(intentDetails))
             }
 
         }

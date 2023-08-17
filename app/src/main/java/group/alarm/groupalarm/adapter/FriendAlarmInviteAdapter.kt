@@ -72,7 +72,7 @@ class FriendAlarmInviteAdapter : RecyclerView.Adapter<FriendAlarmInviteAdapter.V
 
     fun removeUser(index: Int) {
         FirebaseFirestore.getInstance().collection(
-            DashboardActivity.COLLECTION_ALARMS).document(
+            DashboardFragment.COLLECTION_ALARMS).document(
             userIdList[index]
         ).delete()
 
@@ -102,19 +102,19 @@ class FriendAlarmInviteAdapter : RecyclerView.Adapter<FriendAlarmInviteAdapter.V
                 .into(binding.profilePicture)
 
             if(invitedUsersList.contains(user.username)) {
-                binding.btnSendAlarmInvite.text = "Already Added"
+                binding.btnSendAlarmInvite.text = "Added"
                 binding.btnSendAlarmInvite.setTextColor(
                     ContextCompat.getColor(context, R.color.white)
                 )
                 binding.btnSendAlarmInvite.setBackgroundColor(Color.DKGRAY)
             }
             else {
-                binding.btnSendAlarmInvite.text = "Send Alarm Invite"
+                binding.btnSendAlarmInvite.text = "Invite"
                 binding.btnSendAlarmInvite.setBackgroundColor(
-                    ContextCompat.getColor(context, R.color.color_standard_button)
+                    ContextCompat.getColor(context, R.color.btn_color_std_bg)
                 )
                 binding.btnSendAlarmInvite.setTextColor(
-                    ContextCompat.getColor(context, R.color.black)
+                    ContextCompat.getColor(context, R.color.white)
                 )
             }
 
@@ -124,12 +124,12 @@ class FriendAlarmInviteAdapter : RecyclerView.Adapter<FriendAlarmInviteAdapter.V
                 if(invitedUsersList.contains(user.username)) {
                     removeUsersFromInviteList(user.username)
 
-                    binding.btnSendAlarmInvite.text = "Send Alarm Invite"
+                    binding.btnSendAlarmInvite.text = " Invite"
                     binding.btnSendAlarmInvite.setBackgroundColor(
-                        ContextCompat.getColor(context, R.color.color_standard_button)
+                        ContextCompat.getColor(context, R.color.btn_color_std_bg)
                     )
                     binding.btnSendAlarmInvite.setTextColor(
-                        ContextCompat.getColor(context, R.color.black)
+                        ContextCompat.getColor(context, R.color.white)
                     )
                 }
                 else {
@@ -143,7 +143,19 @@ class FriendAlarmInviteAdapter : RecyclerView.Adapter<FriendAlarmInviteAdapter.V
                 }
             }
 
-            binding.btnViewProfile.setOnClickListener {
+//            binding.btnViewProfile.setOnClickListener {
+//                val intentDetails = Intent()
+//                intentDetails.putExtra("Username", user.username)
+//                intentDetails.putExtra("DisplayName", user.displayName)
+//                intentDetails.putExtra("ProfileImgUrl", user.profileImg)
+//
+//                intentDetails.setClass(
+//                    context, ProfileDetailsActivity::class.java
+//                )
+//                (context as CreateAlarmActivity).startActivity(Intent(intentDetails))
+//            }
+
+            binding.cardView.setOnClickListener {
                 val intentDetails = Intent()
                 intentDetails.putExtra("Username", user.username)
                 intentDetails.putExtra("DisplayName", user.displayName)

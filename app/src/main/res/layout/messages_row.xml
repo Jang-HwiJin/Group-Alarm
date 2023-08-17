@@ -7,13 +7,14 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="10dp"
-    card_view:cardCornerRadius="15dp">
+    card_view:cardCornerRadius="15dp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:gravity="center_vertical"
-        android:background="#0A2647"
+        android:background="@color/black"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -24,6 +25,7 @@
             android:layout_marginTop="1dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="1dp"
+            android:elevation="0dp"
             card_view:cardCornerRadius="150dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -53,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text=""
-            android:textColor="@color/white"
+            android:textColor="@color/text_color_secondary"
             card_view:layout_constraintStart_toEndOf="@+id/display_name"
             card_view:layout_constraintTop_toTopOf="parent" />
 
